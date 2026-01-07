@@ -77,25 +77,6 @@ function renderApp() {
     heroVideo.setAttribute("muted", "");
     heroVideo.setAttribute("playsinline", "");
     heroVideo.setAttribute("webkit-playsinline", "");
-    heroVideo.load();
-    const tryPlay = () => {
-      heroVideo.play().catch(() => {});
-    };
-    heroVideo.addEventListener("loadedmetadata", tryPlay, { once: true });
-    heroVideo.addEventListener("canplay", tryPlay, { once: true });
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-        tryPlay();
-      }
-    });
-    document.addEventListener(
-      "touchstart",
-      () => {
-        tryPlay();
-      },
-      { once: true, passive: true }
-    );
-    tryPlay();
   }
 }
 
