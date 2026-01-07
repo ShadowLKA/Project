@@ -67,6 +67,14 @@ function renderApp() {
   if (currentPage === "news") {
     initNewsPage();
   }
+
+  const heroVideo = document.querySelector(".hero-visual-photo video");
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.setAttribute("muted", "");
+    heroVideo.setAttribute("playsinline", "");
+    heroVideo.play().catch(() => {});
+  }
 }
 
 renderApp();
