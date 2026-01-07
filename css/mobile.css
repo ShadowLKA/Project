@@ -134,10 +134,6 @@
   }
 }
 @media (prefers-color-scheme: dark) and (max-width: 720px) {
-  #siteHeader {
-    background: rgba(12, 14, 20, 0.95);
-  }
-
   #siteHeader .mobile-menu-btn {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.35);
