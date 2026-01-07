@@ -1,0 +1,126 @@
+﻿/* Cards and profile blocks */
+.service-card {
+  background: var(--card);
+  border-radius: 22px;
+  padding: 22px;
+  border: 1px solid rgba(12, 27, 42, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.service-card .icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(30, 99, 255, 0.18), rgba(123, 176, 255, 0.18));
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--brand);
+}
+
+.doctor-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 26px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.doctor-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #e6f0ff, #d6ecff);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.doctor-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  color: var(--ink-soft);
+  display: grid;
+  gap: 8px;
+}
+
+.advisor-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 24px;
+  border: 1px solid rgba(176, 179, 184, 0.6);
+  box-shadow: 0 20px 40px rgba(14, 19, 36, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.advisor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 52px rgba(14, 19, 36, 0.14);
+}
+
+.advisor-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, rgba(226, 62, 87, 0.85), rgba(226, 62, 87, 0.2));
+}
+
+.advisor-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.advisor-card .avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: rgba(226, 62, 87, 0.12);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.advisor-card strong {
+  font-size: 16px;
+}
+
+.advisor-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  color: var(--ink-soft);
+  display: grid;
+  gap: 8px;
+}
+
+.advisor-card ul li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.advisor-card ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #E23E57;
+}
