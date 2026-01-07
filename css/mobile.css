@@ -145,7 +145,7 @@
   }
 
   #siteHeader .mobile-menu-btn span {
-    background: var(--ink);
+    background: #121212;
     height: 3px;
     box-shadow: none;
   }
