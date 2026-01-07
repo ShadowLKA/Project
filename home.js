@@ -47,7 +47,6 @@ export function renderHome(hero) {
               <div class="hero-visual-frame">
                 <div class="hero-visual-photo">
                   <video
-                    src="videos/main-page.mp4"
                     autoplay
                     muted
                     loop
@@ -55,7 +54,10 @@ export function renderHome(hero) {
                     webkit-playsinline
                     preload="auto"
                     aria-label="Virtual consultation video"
-                  ></video>
+                  >
+                    <source src="videos/main-page.mp4" type="video/mp4">
+                    <source src="videos/main-page.webm" type="video/webm">
+                  </video>
                 </div>
               </div>
               <span class="hero-visual-pill">Live</span>
