@@ -139,13 +139,13 @@
   }
 
   #siteHeader .mobile-menu-btn {
-    background: rgba(14, 19, 36, 0.08);
-    border: 1px solid rgba(14, 19, 36, 0.25);
-    box-shadow: 0 8px 18px rgba(14, 19, 36, 0.18);
+    background: #ffffff;
+    border: 2px solid rgba(14, 19, 36, 0.35);
+    box-shadow: 0 10px 20px rgba(14, 19, 36, 0.25);
   }
 
   #siteHeader .mobile-menu-btn span {
-    background: #121212;
+    background: #0e1324;
     height: 3px;
     box-shadow: none;
   }
