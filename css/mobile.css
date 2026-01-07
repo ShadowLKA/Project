@@ -135,12 +135,14 @@
 }
 @media (prefers-color-scheme: dark) and (max-width: 720px) {
   #siteHeader .mobile-menu-btn {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+    background: rgba(255, 255, 255, 0.28);
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
   }
 
   #siteHeader .mobile-menu-btn span {
     background: #ffffff;
+    height: 3px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.65);
   }
 }
