@@ -298,6 +298,13 @@
   object-fit: cover;
 }
 
+.hero-visual-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 .hero-visual-photo video::-webkit-media-controls,
 .hero-visual-photo video::-webkit-media-controls-start-playback-button,
 .hero-visual-photo video::-webkit-media-controls-panel,

@@ -49,7 +49,6 @@ export function renderHome(hero) {
                   <img src="videos/main-page.gif" alt="Virtual consultation video">
                 </div>
               </div>
-              <span class="hero-visual-pill">Live</span>
             </div>
             <div class="hero-visual-bottom">
               <div class="hero-visual-stat">
