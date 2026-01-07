@@ -52,6 +52,9 @@ export function renderHome(hero) {
                     loop
                     playsinline
                     webkit-playsinline
+                    controlslist="nodownload noplaybackrate noremoteplayback"
+                    disablepictureinpicture
+                    disableremoteplayback
                     preload="auto"
                     aria-label="Virtual consultation video"
                   >

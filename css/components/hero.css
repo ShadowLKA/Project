@@ -298,6 +298,14 @@
   object-fit: cover;
 }
 
+.hero-visual-photo video::-webkit-media-controls,
+.hero-visual-photo video::-webkit-media-controls-start-playback-button,
+.hero-visual-photo video::-webkit-media-controls-panel,
+.hero-visual-photo video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 
 .hero-visual-name {
   font-weight: 600;
