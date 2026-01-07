@@ -31,8 +31,19 @@ footer {
     padding-bottom: 120px;
   }
 
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 20px;
+  }
+
   .footer-contact {
     margin-top: 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 }
 

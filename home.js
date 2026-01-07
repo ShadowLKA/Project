@@ -52,6 +52,7 @@ export function renderHome(hero) {
                     muted
                     loop
                     playsinline
+                    controls
                     preload="auto"
                     aria-label="Virtual consultation video"
                   ></video>

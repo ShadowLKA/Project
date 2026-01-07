@@ -72,10 +72,16 @@ export function bindHeader(headerEl) {
     return;
   }
 
+  const setScrollLock = (locked) => {
+    document.body.classList.toggle("no-scroll", locked);
+    document.documentElement.classList.toggle("no-scroll", locked);
+    document.body.style.overflow = locked ? "hidden" : "";
+  };
+
   const closeMobileMenu = () => {
     mobileMenu.classList.remove("active");
     headerEl.classList.remove("nav-open");
-    document.body.style.overflow = "";
+    setScrollLock(false);
   };
 
   closeMobileMenu();
@@ -101,8 +107,9 @@ export function bindHeader(headerEl) {
 
   mobileMenuBtn.addEventListener("click", () => {
     mobileMenu.classList.toggle("active");
-    headerEl.classList.toggle("nav-open", mobileMenu.classList.contains("active"));
-    document.body.style.overflow = mobileMenu.classList.contains("active") ? "hidden" : "";
+    const isOpen = mobileMenu.classList.contains("active");
+    headerEl.classList.toggle("nav-open", isOpen);
+    setScrollLock(isOpen);
   });
 
   mobileMenu.querySelectorAll("a").forEach((link) => {
@@ -169,4 +176,3 @@ export function bindHeader(headerEl) {
     });
   });
 }
-

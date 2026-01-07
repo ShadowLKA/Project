@@ -416,6 +416,10 @@
   .hero-visual-photo {
     height: 200px;
   }
+
+  .hero-visual-photo video {
+    pointer-events: auto;
+  }
 }
 
 @media (max-width: 520px) {
