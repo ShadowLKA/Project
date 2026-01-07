@@ -101,6 +101,10 @@
     border-radius: 999px;
   }
 
+  .mobile-menu .nav-item:nth-child(-n + 4) a {
+    margin-left: 40px;
+  }
+
   .mobile-menu .nav-item a:hover {
     background: rgba(226, 62, 87, 0.12);
   }
@@ -142,7 +146,7 @@
   #siteHeader .mobile-menu-btn {
     background: #3a3a3a;
     border: 2px solid rgba(255, 255, 255, 0.45);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    box-shadow: none;
   }
 
   #siteHeader .mobile-menu-btn span {
