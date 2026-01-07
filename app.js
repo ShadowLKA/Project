@@ -78,6 +78,14 @@ function renderApp() {
     heroVideo.setAttribute("playsinline", "");
     heroVideo.setAttribute("webkit-playsinline", "");
   }
+
+  const updateHeroMediaMode = () => {
+    const isMobile = window.matchMedia("(max-width: 720px)").matches;
+    document.body.classList.toggle("is-mobile-media", isMobile);
+    document.body.classList.toggle("is-desktop-media", !isMobile);
+  };
+  updateHeroMediaMode();
+  window.addEventListener("resize", updateHeroMediaMode);
 }
 
 renderApp();

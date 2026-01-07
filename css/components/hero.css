@@ -309,6 +309,14 @@
   display: none;
 }
 
+body.is-mobile-media .hero-visual-video {
+  display: none;
+}
+
+body.is-mobile-media .hero-visual-gif {
+  display: block;
+}
+
 .hero-visual-photo video::-webkit-media-controls,
 .hero-visual-photo video::-webkit-media-controls-start-playback-button,
 .hero-visual-photo video::-webkit-media-controls-panel,
@@ -436,14 +444,6 @@
 
   .hero-visual-photo {
     height: 200px;
-  }
-
-  .hero-visual-video {
-    display: none;
-  }
-
-  .hero-visual-gif {
-    display: block;
   }
 
 }
