@@ -140,6 +140,8 @@
 
   #siteHeader .mobile-menu-btn {
     background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
   }
 
   #siteHeader .mobile-menu-btn span {
