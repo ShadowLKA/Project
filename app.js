@@ -69,7 +69,6 @@ function renderApp() {
   }
 
   const heroVideo = document.querySelector(".hero-visual-photo video");
-  const heroVideoPlay = document.querySelector(".hero-video-play");
   if (heroVideo) {
     heroVideo.muted = true;
     heroVideo.loop = true;
@@ -78,23 +77,6 @@ function renderApp() {
     heroVideo.setAttribute("muted", "");
     heroVideo.setAttribute("playsinline", "");
     heroVideo.setAttribute("webkit-playsinline", "");
-  }
-  if (heroVideo && heroVideoPlay) {
-    const hidePlay = () => heroVideoPlay.classList.add("is-hidden");
-    const showPlay = () => heroVideoPlay.classList.remove("is-hidden");
-    heroVideo.addEventListener("play", hidePlay);
-    heroVideo.addEventListener("pause", showPlay);
-    heroVideo.addEventListener("ended", showPlay);
-    heroVideoPlay.addEventListener("click", () => {
-      heroVideo.play().catch(() => {});
-    });
-    setTimeout(() => {
-      if (heroVideo.paused) {
-        showPlay();
-      } else {
-        hidePlay();
-      }
-    }, 600);
   }
 }
 
