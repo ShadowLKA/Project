@@ -298,6 +298,35 @@
   object-fit: cover;
 }
 
+.hero-video-play {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(14, 19, 36, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.hero-video-play span {
+  width: 0;
+  height: 0;
+  border-left: 12px solid #ffffff;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  margin-left: 2px;
+}
+
+.hero-video-play.is-hidden {
+  display: none;
+}
+
 .hero-visual-name {
   font-weight: 600;
   font-size: 15px;
@@ -415,6 +444,10 @@
 
   .hero-visual-photo {
     height: 200px;
+  }
+
+  .hero-video-play {
+    display: inline-flex;
   }
 
 }

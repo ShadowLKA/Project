@@ -58,6 +58,9 @@ export function renderHome(hero) {
                     <source src="videos/main-page.mp4" type="video/mp4">
                     <source src="videos/main-page.webm" type="video/webm">
                   </video>
+                  <button class="hero-video-play" type="button" aria-label="Play background video">
+                    <span></span>
+                  </button>
                 </div>
               </div>
               <span class="hero-visual-pill">Live</span>
