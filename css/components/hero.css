@@ -305,6 +305,10 @@
   object-fit: cover;
 }
 
+.hero-visual-gif {
+  display: none;
+}
+
 .hero-visual-photo video::-webkit-media-controls,
 .hero-visual-photo video::-webkit-media-controls-start-playback-button,
 .hero-visual-photo video::-webkit-media-controls-panel,
@@ -432,6 +436,14 @@
 
   .hero-visual-photo {
     height: 200px;
+  }
+
+  .hero-visual-video {
+    display: none;
+  }
+
+  .hero-visual-gif {
+    display: block;
   }
 
 }

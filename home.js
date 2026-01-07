@@ -46,7 +46,23 @@ export function renderHome(hero) {
             <div class="hero-visual-media">
               <div class="hero-visual-frame">
                 <div class="hero-visual-photo">
-                  <img src="videos/main-page.gif" alt="Virtual consultation video">
+                  <video
+                    class="hero-visual-video"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    webkit-playsinline
+                    controlslist="nodownload noplaybackrate noremoteplayback"
+                    disablepictureinpicture
+                    disableremoteplayback
+                    preload="auto"
+                    aria-label="Virtual consultation video"
+                  >
+                    <source src="videos/main-page.mp4" type="video/mp4">
+                    <source src="videos/main-page.webm" type="video/webm">
+                  </video>
+                  <img class="hero-visual-gif" src="videos/main-page.gif" alt="Virtual consultation video">
                 </div>
               </div>
             </div>
