@@ -11,6 +11,9 @@
 }
 
 * { box-sizing: border-box; }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 
 html,
 body {
@@ -100,6 +103,16 @@ body::before {
   justify-content: center;
   text-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.btn:focus,
+.btn:focus-visible,
+button:focus,
+button:focus-visible,
+a:focus,
+a:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 .btn-primary {
