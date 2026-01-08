@@ -1,5 +1,5 @@
 // Note: Session bootstrap and Supabase readiness.
-import { setAuthState, reloadAfterAuth } from "./state.js";
+import { consumePostAuthRedirect, setAuthState, reloadAfterAuth } from "./state.js";
 
 export const initAuthSession = ({ state, openModal, closeAllModals }) => {
   const initSession = async () => {
@@ -20,6 +20,7 @@ export const initAuthSession = ({ state, openModal, closeAllModals }) => {
         setAuthState(state, null);
       } else {
         setAuthState(state, session);
+        consumePostAuthRedirect();
       }
     } else {
       setAuthState(state, null);
@@ -40,6 +41,9 @@ export const initAuthSession = ({ state, openModal, closeAllModals }) => {
     state.authInitStarted = true;
     state.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setAuthState(state, session);
+      if (session) {
+        consumePostAuthRedirect();
+      }
       if (session && document.querySelector(".modal.is-open")) {
         closeAllModals();
         reloadAfterAuth(state);

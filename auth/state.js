@@ -66,6 +66,17 @@ export const setAuthState = (state, session) => {
   syncAuthButtons(state);
 };
 
+export const consumePostAuthRedirect = () => {
+  const target = sessionStorage.getItem("postAuthRedirect");
+  if (!target) {
+    return;
+  }
+  sessionStorage.removeItem("postAuthRedirect");
+  if (target === "consult") {
+    window.location.href = "index.html?page=consult";
+  }
+};
+
 export const reloadAfterAuth = (state) => {
   if (state.isReloadingAfterAuth) {
     return;

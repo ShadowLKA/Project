@@ -1,5 +1,5 @@
 // Note: Login flow (email + OTP).
-import { setAuthState, reloadAfterAuth } from "./state.js";
+import { consumePostAuthRedirect, setAuthState, reloadAfterAuth } from "./state.js";
 import { showLoginOtpSection } from "./ui.js";
 
 export const bindLogin = ({
@@ -67,6 +67,7 @@ export const bindLogin = ({
       sessionStorage.removeItem("pendingEmailLogin");
       closeAllModals();
       reloadAfterAuth(state);
+      consumePostAuthRedirect();
     });
   });
 
@@ -140,6 +141,7 @@ export const bindLogin = ({
       sessionStorage.removeItem("pendingEmailLogin");
       closeAllModals();
       reloadAfterAuth(state);
+      consumePostAuthRedirect();
     });
   });
 };

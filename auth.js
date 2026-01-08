@@ -46,6 +46,20 @@ export function bindAuth({
   hideLoginOtpSection();
   syncAuthButtons(state);
   bindAuthTargets(state, openModal);
+  document.querySelectorAll("[data-consult-cta]").forEach((cta) => {
+    if (cta.dataset.consultBound === "true") {
+      return;
+    }
+    cta.dataset.consultBound = "true";
+    cta.addEventListener("click", (event) => {
+      if (state.currentSession) {
+        return;
+      }
+      event.preventDefault();
+      sessionStorage.setItem("postAuthRedirect", "consult");
+      openModal("loginModal");
+    });
+  });
 
   window.addEventListener("modal:closed", (event) => {
     if (event.detail?.id !== "signupModal") {

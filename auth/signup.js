@@ -1,5 +1,5 @@
 // Note: Signup flow (email OTP).
-import { normalizePhone, setAuthState, reloadAfterAuth } from "./state.js";
+import { consumePostAuthRedirect, normalizePhone, setAuthState, reloadAfterAuth } from "./state.js";
 import { resetSignupOtpUi, startSignupCooldown } from "./ui.js";
 
 const formatSupabaseError = (error) => {
@@ -212,6 +212,7 @@ export const bindSignup = ({
         resetSignupOtpUi(modal, setModalMessage);
         closeAllModals();
         reloadAfterAuth(state);
+        consumePostAuthRedirect();
         return;
       } finally {
         button.dataset.requestPending = "false";
