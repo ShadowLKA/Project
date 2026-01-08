@@ -56,7 +56,6 @@ export function renderHome(hero) {
                     poster: "images/main-page-poster.jpg",
                     ariaLabel: "Virtual consultation preview video",
                     sources: [
-                      { src: "videos/main-page.mp4", type: "video/mp4" },
                       { src: "videos/main-page.webm", type: "video/webm" }
                     ]
                   })}
@@ -88,7 +87,6 @@ export function renderHome(hero) {
     </section>
   `;
 }
-
 
 
 
