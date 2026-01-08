@@ -105,13 +105,13 @@ setupBottomBar();
 document.addEventListener(
   "click",
   (event) => {
-    const target = event.target instanceof Element ? event.target : event.target.parentElement;
-    if (!target) {
+    const targetEl = event.target instanceof Element ? event.target : event.target?.parentElement;
+    if (!targetEl) {
       return;
     }
-    const link = target.closest("a[href^=\"#\"]");
+    const link = targetEl.closest("a[href^=\"#\"]");
     if (!link) {
-      const button = target.closest("[data-scroll-target]");
+      const button = targetEl.closest("[data-scroll-target]");
       if (!button) {
         return;
       }
@@ -136,18 +136,18 @@ document.addEventListener(
     if (!targetId) {
       return;
     }
-    const target = document.querySelector(targetId);
+    const anchorTarget = document.querySelector(targetId);
     event.preventDefault();
     if (getPage() === "consult" || getPage() === "team" || getPage() === "news") {
       window.location.href = `index.html?section=${targetId.replace("#", "")}`;
       return;
     }
-    if (!target) {
+    if (!anchorTarget) {
       return;
     }
     const headerOffset = getComputedStyle(document.documentElement).getPropertyValue("--nav-height");
     const offset = parseFloat(headerOffset) || 0;
-    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    const top = anchorTarget.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: "smooth" });
     stripSectionParam();
   },
