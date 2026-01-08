@@ -1,4 +1,4 @@
-﻿// Note: Contact section renderer.
+// Note: Contact section renderer.
 export function renderContact(contact) {
   const extraCta = contact.ctaTertiary
     ? `<a class="btn btn-secondary" href="${contact.ctaTertiary.href}">${contact.ctaTertiary.label}</a>`

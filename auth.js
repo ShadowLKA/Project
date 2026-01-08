@@ -20,7 +20,9 @@ export function bindAuth({
     pendingLoginEmail: "",
     isReloadingAfterAuth: false,
     hasBoundAuthTargets: false,
-    authInitStarted: false
+    authInitStarted: false,
+    authReady: false,
+    hasPromptedSignup: false
   };
 
   bindSignup({

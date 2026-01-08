@@ -14,10 +14,10 @@
 }
 
 .team-card {
-  background: #ffffff;
+  background: var(--color-surface);
   border-radius: 24px;
   padding: 14px;
-  border: 1px solid rgba(12, 27, 42, 0.08);
+  border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
   display: grid;
   gap: 10px;
@@ -49,37 +49,37 @@
 }
 
 .team-card__meta strong {
-  font-size: 15px;
+  font-size: var(--text-small);
 }
 
 .team-card__meta span {
-  font-size: 13px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }
 
 .team-card__meta small {
-  font-size: 11px;
+  font-size: var(--text-xs);
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: var(--letter-wide);
   color: #7d1e30;
 }
 
 .team-card p {
   margin: 0;
   color: var(--ink-soft);
-  font-size: 13px;
+  font-size: var(--text-small);
 }
 
 .team-empty {
   margin-top: 20px;
-  font-size: 14px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }
 
 .team-admin {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 24px;
-  border: 1px solid rgba(12, 27, 42, 0.08);
+  border: 1px solid var(--color-border);
   padding: 20px;
   display: grid;
   gap: 16px;
@@ -101,12 +101,12 @@
   list-style: none;
   cursor: pointer;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--text-small);
   color: var(--ink);
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(12, 27, 42, 0.15);
-  background: #fff;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -122,7 +122,7 @@
 }
 
 .team-admin-shell[open] .team-admin__toggle::before {
-  content: "–";
+  content: "-";
 }
 
 .team-admin__header h3 {
@@ -132,12 +132,12 @@
 .team-admin__header p {
   margin: 0;
   color: var(--ink-soft);
-  font-size: 14px;
+  font-size: var(--text-small);
 }
 
 .team-admin__message {
   display: none;
-  font-size: 13px;
+  font-size: var(--text-small);
   padding: 10px 12px;
   border-radius: 12px;
   background: rgba(226, 62, 87, 0.12);
@@ -161,17 +161,17 @@
 .team-admin__form label {
   display: grid;
   gap: 6px;
-  font-size: 13px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }
 
 .team-admin__form input,
 .team-admin__form textarea {
   border-radius: 14px;
-  border: 1px solid rgba(12, 27, 42, 0.15);
+  border: 1px solid var(--color-border);
   padding: 10px 12px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--text-small);
 }
 
 .team-admin__actions {
@@ -190,13 +190,13 @@
   gap: 12px;
   padding: 10px 12px;
   border-radius: 14px;
-  border: 1px solid rgba(12, 27, 42, 0.1);
-  background: #fff;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
 .team-admin__item span {
   display: block;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--ink-soft);
   margin-top: 4px;
 }
@@ -208,12 +208,12 @@
 
 .team-admin__item-actions .btn {
   padding: 8px 10px;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .team-admin__empty {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }
 
@@ -234,7 +234,7 @@
 .team-confirm__dialog {
   position: relative;
   z-index: 1;
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 20px;
   padding: 20px;
   width: min(360px, 90vw);
@@ -245,13 +245,13 @@
 
 .team-confirm__dialog h4 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-small);
 }
 
 .team-confirm__dialog p {
   margin: 0;
   color: var(--ink-soft);
-  font-size: 14px;
+  font-size: var(--text-small);
 }
 
 .team-confirm__actions {
@@ -282,3 +282,4 @@
     justify-content: center;
   }
 }
+

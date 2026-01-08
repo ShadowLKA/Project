@@ -39,26 +39,53 @@ export function renderHeader(brand, nav) {
               </div>
             </div>
           </div>
-          <div class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu" aria-haspopup="dialog">
             <span></span><span></span><span></span>
-          </div>
+          </button>
         </div>
       </div>
-      <div class="mobile-menu" id="mobileMenu">
-        <ul>
-          ${navItems}
-          ${settingsItem}
-          <li class="mobile-actions">
-            <div class="nav-auth" data-auth-guest>
-              <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
-              <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
+      <div class="mobile-menu-backdrop" data-mobile-backdrop></div>
+      <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Mobile menu" tabindex="-1">
+        <div class="mobile-menu__section">
+          <button
+            class="mobile-menu__title"
+            type="button"
+            data-accordion-trigger
+            aria-expanded="false"
+            aria-controls="mobile-menu-nav"
+          >
+            Navigation
+          </button>
+          <div class="mobile-menu__panel" id="mobile-menu-nav" data-accordion-panel>
+            <ul class="mobile-menu__list">
+              ${navItems}
+              ${settingsItem}
+            </ul>
+          </div>
+        </div>
+        <div class="mobile-menu__section">
+          <button
+            class="mobile-menu__title"
+            type="button"
+            data-accordion-trigger
+            aria-expanded="false"
+            aria-controls="mobile-menu-account"
+          >
+            Account
+          </button>
+          <div class="mobile-menu__panel" id="mobile-menu-account" data-accordion-panel>
+            <div class="mobile-actions">
+              <div class="nav-auth" data-auth-guest>
+                <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
+                <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
+              </div>
+              <div class="nav-auth is-hidden" data-auth-required>
+                <button class="btn btn-ghost" type="button" data-logout>Log out</button>
+                <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
+              </div>
             </div>
-            <div class="nav-auth is-hidden" data-auth-required>
-              <button class="btn btn-ghost" type="button" data-logout>Log out</button>
-              <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
-            </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
       <div class="nav-status is-hidden" data-auth-required>
         <span class="nav-auth__label">Signed in</span>
@@ -72,10 +99,13 @@ export function bindHeader(headerEl) {
   const supabaseClient = getSupabaseClient();
   const mobileMenuBtn = headerEl.querySelector("#mobileMenuBtn");
   const mobileMenu = headerEl.querySelector("#mobileMenu");
+  const mobileBackdrop = headerEl.querySelector("[data-mobile-backdrop]");
 
   if (!mobileMenuBtn || !mobileMenu) {
     return;
   }
+  let lastFocused = null;
+  let focusables = [];
 
   const setScrollLock = (locked) => {
     document.body.classList.toggle("no-scroll", locked);
@@ -83,10 +113,70 @@ export function bindHeader(headerEl) {
     document.body.style.overflow = locked ? "hidden" : "";
   };
 
+  const getFocusable = () =>
+    Array.from(
+      mobileMenu.querySelectorAll(
+        "a[href], button:not([disabled]), [tabindex]:not([tabindex=\"-1\"])"
+      )
+    ).filter((el) => !el.hasAttribute("disabled"));
+
+  const handleMenuKeydown = (event) => {
+    if (!mobileMenu.classList.contains("active")) {
+      return;
+    }
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeMobileMenu();
+      return;
+    }
+    if (event.key !== "Tab") {
+      return;
+    }
+    focusables = getFocusable();
+    if (!focusables.length) {
+      event.preventDefault();
+      mobileMenu.focus();
+      return;
+    }
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
+  const openMobileMenu = () => {
+    if (mobileMenu.classList.contains("active")) {
+      return;
+    }
+    lastFocused = document.activeElement;
+    mobileMenu.classList.add("active");
+    headerEl.classList.add("nav-open");
+    mobileMenu.setAttribute("aria-hidden", "false");
+    mobileMenuBtn.setAttribute("aria-expanded", "true");
+    setScrollLock(true);
+    focusables = getFocusable();
+    const focusTarget = focusables[0] || mobileMenu;
+    if (focusTarget) {
+      focusTarget.focus();
+    }
+    document.addEventListener("keydown", handleMenuKeydown);
+  };
+
   const closeMobileMenu = () => {
     mobileMenu.classList.remove("active");
     headerEl.classList.remove("nav-open");
+    mobileMenu.setAttribute("aria-hidden", "true");
+    mobileMenuBtn.setAttribute("aria-expanded", "false");
     setScrollLock(false);
+    document.removeEventListener("keydown", handleMenuKeydown);
+    if (lastFocused instanceof HTMLElement) {
+      lastFocused.focus();
+    }
   };
 
   closeMobileMenu();
@@ -111,14 +201,25 @@ export function bindHeader(headerEl) {
   };
 
   mobileMenuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("active");
-    const isOpen = mobileMenu.classList.contains("active");
-    headerEl.classList.toggle("nav-open", isOpen);
-    setScrollLock(isOpen);
+    if (mobileMenu.classList.contains("active")) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
   });
 
-  mobileMenu.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMobileMenu);
+  if (mobileBackdrop) {
+    mobileBackdrop.addEventListener("click", closeMobileMenu);
+  }
+
+  mobileMenu.querySelectorAll("a, button").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const target = event.currentTarget;
+      if (target instanceof Element && target.hasAttribute("data-accordion-trigger")) {
+        return;
+      }
+      closeMobileMenu();
+    });
   });
 
   window.addEventListener("resize", () => {

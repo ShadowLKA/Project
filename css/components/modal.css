@@ -29,13 +29,13 @@
 .modal__dialog {
   position: relative;
   z-index: 1;
-  background: #ffffff;
+  background: var(--color-surface);
   padding: 22px;
   border-radius: 24px;
   max-width: 460px;
   width: calc(100% - 40px);
   box-shadow: 0 30px 80px rgba(17, 9, 44, 0.35);
-  border: 1px solid rgba(176, 179, 184, 0.6);
+  border: 1px solid var(--color-border);
   transform: translateY(12px) scale(0.98);
   opacity: 0;
   transition: transform 0.45s ease, opacity 0.45s ease;
@@ -63,8 +63,8 @@
 }
 
 .modal__tag {
-  font-size: 12px;
-  letter-spacing: 0.6px;
+  font-size: var(--text-xs);
+  letter-spacing: var(--letter-wide);
   text-transform: uppercase;
   color: #7d1e30;
   background: rgba(226, 62, 87, 0.12);
@@ -89,13 +89,13 @@
 .modal__form label {
   display: grid;
   gap: 6px;
-  font-size: 14px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }
 
 .modal__form input,
 .modal__form textarea {
-  border: 1px solid rgba(176, 179, 184, 0.6);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 10px 12px;
   font-family: inherit;
@@ -107,26 +107,26 @@
   padding: 10px;
   border-radius: 14px;
   background: #fbfbfd;
-  border: 1px solid rgba(176, 179, 184, 0.25);
+  border: 1px solid var(--color-border);
 }
 
 .modal__section-title {
   font-weight: 600;
   color: var(--ink);
-  font-size: 14px;
+  font-size: var(--text-small);
 }
 
 .modal__hint {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--ink-soft);
 }
 
 .modal__divider {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--ink-soft);
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: var(--letter-wide);
   text-align: center;
   margin: 10px 0 2px;
   position: relative;
@@ -152,9 +152,9 @@
 
 .modal__message {
   margin: 10px 0 0;
-  font-size: 13px;
-  color: #E23E57;
-  background: #ffe8ec;
+  font-size: var(--text-small);
+  color: var(--color-error);
+  background: rgba(226, 62, 87, 0.12);
   border-radius: 12px;
   padding: 10px 12px;
   display: none;
@@ -165,8 +165,8 @@
 }
 
 .modal__message.is-success {
-  color: #0f5132;
-  background: #e6f4ea;
+  color: var(--color-success);
+  background: rgba(31, 122, 67, 0.16);
 }
 
 body.is-authenticated .modal--survey .modal__dialog {

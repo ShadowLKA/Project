@@ -1,13 +1,13 @@
 /* Settings page tweaks */
 .settings-message {
   margin: 8px 0 0;
-  font-size: 14px;
-  color: #b3243b;
+  font-size: var(--text-small);
+  color: var(--color-error);
   min-height: 20px;
 }
 
 .settings-message.is-success {
-  color: #1f7a43;
+  color: var(--color-success);
 }
 
 .settings-form h3 {
@@ -19,6 +19,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }

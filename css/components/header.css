@@ -41,7 +41,7 @@ header {
 .logo {
   font-weight: 700;
   font-size: 20px;
-  letter-spacing: 0.4px;
+  letter-spacing: -0.01em;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -64,7 +64,7 @@ header {
   gap: 18px;
   padding: 0;
   margin: 0;
-  font-size: 15px;
+  font-size: var(--text-small);
   color: var(--ink-soft);
 }
 
@@ -188,14 +188,14 @@ header {
 }
 
 .nav-auth__label {
-  font-size: 11px;
+  font-size: var(--text-xs);
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: var(--letter-wide);
   color: var(--ink-soft);
 }
 
 .nav-auth__name {
-  font-size: 13px;
+  font-size: var(--text-small);
   font-weight: 600;
   color: var(--ink);
 }
@@ -216,13 +216,13 @@ header {
 
 .mobile-menu-btn {
   display: none;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 12px;
   flex-direction: column;
   align-items: center;
   justify-content: center;

@@ -16,6 +16,89 @@ import { initTheme } from "./theme.js";
 const headerEl = document.getElementById("siteHeader");
 const app = document.getElementById("app");
 const footerEl = document.getElementById("siteFooter");
+let accordionsBound = false;
+let refreshAccordions = null;
+
+function bindAccordions() {
+  if (accordionsBound) {
+    if (typeof refreshAccordions === "function") {
+      refreshAccordions();
+    }
+    return;
+  }
+  accordionsBound = true;
+
+  const isMobile = () => window.innerWidth <= 720;
+  const triggers = () => Array.from(document.querySelectorAll("[data-accordion-trigger]"));
+
+  const setState = (trigger, panel, expanded, animate = true) => {
+    if (!trigger || !panel) {
+      return;
+    }
+    trigger.setAttribute("aria-expanded", expanded ? "true" : "false");
+    panel.classList.toggle("is-open", expanded);
+    if (!isMobile()) {
+      panel.style.maxHeight = "";
+      return;
+    }
+    if (!animate) {
+      panel.style.transition = "none";
+    }
+    panel.style.maxHeight = expanded ? `${panel.scrollHeight}px` : "0px";
+    if (!animate) {
+      requestAnimationFrame(() => {
+        panel.style.transition = "";
+      });
+    }
+  };
+
+  const initTriggers = () => {
+    const mobile = isMobile();
+    triggers().forEach((trigger) => {
+      const panelId = trigger.getAttribute("aria-controls");
+      const panel = panelId ? document.getElementById(panelId) : null;
+      if (!panel) {
+        return;
+      }
+      const stored = sessionStorage.getItem(`accordion:${panelId}`);
+      const isFooterPanel = panelId.startsWith("footer-section-");
+      const isMobileMenuPanel = panelId.startsWith("mobile-menu-");
+      const hasStored = stored === "true" || stored === "false";
+      const expanded = mobile
+        ? hasStored
+          ? stored === "true"
+          : isMobileMenuPanel
+        : true;
+      setState(trigger, panel, expanded, false);
+    });
+  };
+  refreshAccordions = initTriggers;
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) {
+      return;
+    }
+    const trigger = target.closest("[data-accordion-trigger]");
+    if (!trigger) {
+      return;
+    }
+    if (!isMobile()) {
+      return;
+    }
+    const panelId = trigger.getAttribute("aria-controls");
+    const panel = panelId ? document.getElementById(panelId) : null;
+    if (!panel) {
+      return;
+    }
+    const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+    setState(trigger, panel, !isExpanded);
+    sessionStorage.setItem(`accordion:${panelId}`, (!isExpanded).toString());
+  });
+
+  window.addEventListener("resize", initTriggers);
+  initTriggers();
+}
 
 if (window.location.pathname.endsWith("/index.html")) {
   const cleanPath = window.location.pathname.replace(/index\.html$/, "");
@@ -71,6 +154,7 @@ function renderApp() {
   }
 
   bindModal();
+  bindAccordions();
   if (isTeamPage) {
     initTeamPage();
   }

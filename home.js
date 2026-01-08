@@ -1,4 +1,6 @@
 // Note: Hero section renderer.
+import { renderMediaVideo } from "./media.js";
+
 export function renderHome(hero) {
   const statMarkup = hero.stats
     .map(
@@ -49,7 +51,15 @@ export function renderHome(hero) {
             <div class="hero-visual-media">
               <div class="hero-visual-frame">
                 <div class="hero-visual-photo">
-                  <img class="hero-visual-gif" src="videos/main-page.gif" alt="Virtual consultation video">
+                  ${renderMediaVideo({
+                    className: "hero-visual-video",
+                    poster: "images/main-page-poster.jpg",
+                    ariaLabel: "Virtual consultation preview video",
+                    sources: [
+                      { src: "videos/main-page.webm", type: "video/webm" },
+                      { src: "videos/main-page.mp4", type: "video/mp4" }
+                    ]
+                  })}
                 </div>
               </div>
             </div>

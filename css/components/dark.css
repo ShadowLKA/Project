@@ -1,6 +1,16 @@
 /* Dark theme overrides */
 :root.theme-dark {
   color-scheme: dark;
+  --color-primary: #ff5a70;
+  --color-primary-hover: #ff3f5d;
+  --color-bg: #0b0d12;
+  --color-surface: #151a23;
+  --color-text: #f4f6fa;
+  --color-text-muted: rgba(244, 246, 250, 0.7);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-success: #26a05a;
+  --color-warn: #f0b65c;
+  --color-error: #ff5a70;
 }
 
 :root.theme-dark body {
@@ -19,8 +29,13 @@
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
+:root.theme-dark .mobile-menu-backdrop {
+  background: rgba(5, 7, 11, 0.65);
+}
+
 :root.theme-dark .mobile-menu .nav-item a {
   color: rgba(244, 246, 250, 0.86);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 :root.theme-dark .mobile-menu .nav-item a:hover {
@@ -62,6 +77,10 @@
   color: #f4f6fa;
 }
 
+:root.theme-dark .mobile-menu__title {
+  color: rgba(244, 246, 250, 0.55);
+}
+
 :root.theme-dark .tag,
 :root.theme-dark .hero-tag,
 :root.theme-dark .consult-badge,
@@ -88,6 +107,7 @@
 :root.theme-dark .section-title h2,
 :root.theme-dark .hero h1,
 :root.theme-dark .footer-grid strong,
+:root.theme-dark .footer-column strong,
 :root.theme-dark .footer-contact strong,
 :root.theme-dark .footer-contact__details strong {
   color: #f4f6fa;
@@ -284,6 +304,21 @@
   background: #0b0d12;
   color: rgba(244, 246, 250, 0.7);
   border-top-color: rgba(255, 255, 255, 0.04);
+}
+
+:root.theme-dark .footer-contact {
+  background: rgba(21, 26, 35, 0.9);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
+}
+
+:root.theme-dark .footer-links span {
+  color: rgba(244, 246, 250, 0.7);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+:root.theme-dark .footer-column {
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 :root.theme-dark .footer-contact__note {
