@@ -139,7 +139,7 @@ document.addEventListener(
         getPage() === "news" ||
         getPage() === "settings"
       ) {
-        window.location.href = `index.html?section=${buttonTargetId.replace("#", "")}`;
+        window.location.href = `./?section=${buttonTargetId.replace("#", "")}`;
         return;
       }
       buttonTarget.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -158,7 +158,7 @@ document.addEventListener(
       getPage() === "news" ||
       getPage() === "settings"
     ) {
-      window.location.href = `index.html?section=${targetId.replace("#", "")}`;
+      window.location.href = `./?section=${targetId.replace("#", "")}`;
       return;
     }
     if (!anchorTarget) {

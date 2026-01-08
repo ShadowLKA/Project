@@ -11,7 +11,7 @@ export function renderHome(hero) {
     .map((label, index) => {
       const isActive = index === 0 ? " is-active" : "";
       if (label === "Consult") {
-        return `<a class="hero-tab${isActive}" href="index.html?page=consult" data-consult-cta>${label}</a>`;
+        return `<a class="hero-tab${isActive}" href="./?page=consult" data-consult-cta>${label}</a>`;
       }
       return `<button class="hero-tab${isActive}" type="button">${label}</button>`;
     })
@@ -29,7 +29,7 @@ export function renderHome(hero) {
               <span class="hero-search-icon" aria-hidden="true"></span>
               <input type="text" placeholder="Search symptoms, specialty, or doctor">
             </label>
-            <a class="btn btn-primary" href="index.html?page=consult" data-consult-cta>Search</a>
+            <a class="btn btn-primary" href="./?page=consult" data-consult-cta>Search</a>
           </div>
           <div class="hero-tabs" role="tablist">
             ${tabMarkup}

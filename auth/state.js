@@ -73,7 +73,7 @@ export const consumePostAuthRedirect = () => {
   }
   sessionStorage.removeItem("postAuthRedirect");
   if (target === "consult") {
-    window.location.href = "index.html?page=consult";
+    window.location.href = "./?page=consult";
   }
 };
 

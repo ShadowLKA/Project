@@ -11,7 +11,7 @@ export function renderHeader(brand, nav) {
     .join("");
   const settingsItem = `
     <li class="nav-item nav-item--settings">
-      <a href="index.html?page=settings">Settings</a>
+      <a href="./?page=settings">Settings</a>
     </li>`;
 
   return `
@@ -31,11 +31,11 @@ export function renderHeader(brand, nav) {
             <div class="nav-auth-slot">
               <div class="nav-auth" data-auth-guest>
                 <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
-                <a class="btn btn-primary" href="index.html?page=consult" data-consult-cta>${brand.navPrimary}</a>
+                <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
               </div>
               <div class="nav-auth is-hidden" data-auth-required>
                 <button class="btn btn-ghost" type="button" data-logout>Log out</button>
-                <a class="btn btn-primary" href="index.html?page=consult" data-consult-cta>${brand.navPrimary}</a>
+                <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
               </div>
             </div>
           </div>
@@ -51,11 +51,11 @@ export function renderHeader(brand, nav) {
           <li class="mobile-actions">
             <div class="nav-auth" data-auth-guest>
               <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
-              <a class="btn btn-primary" href="index.html?page=consult" data-consult-cta>${brand.navPrimary}</a>
+              <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
             </div>
             <div class="nav-auth is-hidden" data-auth-required>
               <button class="btn btn-ghost" type="button" data-logout>Log out</button>
-              <a class="btn btn-primary" href="index.html?page=consult" data-consult-cta>${brand.navPrimary}</a>
+              <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
             </div>
           </li>
         </ul>
@@ -173,7 +173,7 @@ export function bindHeader(headerEl) {
       setTimeout(() => {
         const params = new URLSearchParams(window.location.search);
         if (params.get("page") === "consult") {
-          window.location.href = "index.html";
+          window.location.href = "./";
         } else {
           window.location.reload();
         }

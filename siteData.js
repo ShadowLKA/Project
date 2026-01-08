@@ -203,7 +203,7 @@ const siteData = {
       copy: "Our care coordinators guide you from upload to results.",
       cta: {
         label: "Read our story",
-        href: "index.html?page=news"
+        href: "./?page=news"
       },
       steps: [
         { step: "Step 01", title: "Share your records", copy: "Securely upload labs, scans, and care notes in minutes." },
@@ -226,7 +226,7 @@ const siteData = {
       copy: "Schedule a discovery call or request a free record review today.",
       ctaPrimary: { label: "Email our team", href: "mailto:care@virtualcarestudio.com" },
       ctaSecondary: { label: "Call (555) 123-4567", href: "tel:+15551234567" },
-      ctaTertiary: { label: "Meet the team", href: "index.html?page=team" }
+      ctaTertiary: { label: "Meet the team", href: "./?page=team" }
     }
   },
   footer: [
