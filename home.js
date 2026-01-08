@@ -8,10 +8,13 @@ export function renderHome(hero) {
 
   const tabs = ["Doctor", "Consult", "Pharmacy", "Diagnostics"];
   const tabMarkup = tabs
-    .map(
-      (label, index) =>
-        `<button class="hero-tab${index === 0 ? " is-active" : ""}" type="button">${label}</button>`
-    )
+    .map((label, index) => {
+      const isActive = index === 0 ? " is-active" : "";
+      if (label === "Consult") {
+        return `<a class="hero-tab${isActive}" href="index.html?page=consult" data-consult-cta>${label}</a>`;
+      }
+      return `<button class="hero-tab${isActive}" type="button">${label}</button>`;
+    })
     .join("");
 
   return `
