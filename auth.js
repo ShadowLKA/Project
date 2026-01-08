@@ -62,8 +62,12 @@ export function bindAuth({
   });
 
   window.addEventListener("modal:closed", (event) => {
-    if (event.detail?.id !== "signupModal") {
-      if (event.detail?.id === "loginModal") {
+    const closedId = event.detail?.id;
+    if ((closedId === "loginModal" || closedId === "signupModal") && !state.currentSession) {
+      sessionStorage.removeItem("postAuthRedirect");
+    }
+    if (closedId !== "signupModal") {
+      if (closedId === "loginModal") {
         state.pendingLoginEmail = "";
         resetLoginOtpUi(document.getElementById("loginModal"));
       }

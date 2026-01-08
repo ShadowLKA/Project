@@ -105,12 +105,16 @@ setupBottomBar();
 document.addEventListener(
   "click",
   (event) => {
-    const link = event.target.closest("a[href^=\"#\"]");
-  if (!link) {
-    const button = event.target.closest("[data-scroll-target]");
-    if (!button) {
+    const target = event.target instanceof Element ? event.target : event.target.parentElement;
+    if (!target) {
       return;
     }
+    const link = target.closest("a[href^=\"#\"]");
+    if (!link) {
+      const button = target.closest("[data-scroll-target]");
+      if (!button) {
+        return;
+      }
       const buttonTargetId = button.getAttribute("data-scroll-target");
       if (!buttonTargetId) {
         return;
