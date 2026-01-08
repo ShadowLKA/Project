@@ -1,7 +1,7 @@
 ﻿// Note: Central content and copy live here for easy edits.
 const siteData = {
   brand: {
-    name: "Arcline Advisory",
+    name: "MedBridge",
     navPrimary: "Start consult",
     navSecondary: "Consultations"
   },
@@ -137,9 +137,9 @@ const siteData = {
     news: {
       title: "Company news and milestones.",
       tag: "Our story",
-      copy: "Learn when we started, why we built Arcline Advisory, and the moments that shaped the company.",
+      copy: "Learn when we started, why we built MedBridge, and the moments that shaped the company.",
       storyTitle: "How we started",
-      storyCopy: "Arcline Advisory began in 2023 with a simple idea: patients deserve clarity when making serious medical decisions. We built a dedicated care team to guide families from uncertainty to action with expert-backed answers.",
+      storyCopy: "MedBridge began in 2023 with a simple idea: patients deserve clarity when making serious medical decisions. We built a dedicated care team to guide families from uncertainty to action with expert-backed answers.",
       about: [
         {
           title: "Why we exist",
@@ -284,7 +284,7 @@ const siteData = {
     email: "",
     note: ""
   },
-  license: "© 2026 Arcline Advisory. All rights reserved."
+  license: "© 2026 MedBridge. All rights reserved."
 };
 
 export default siteData;
