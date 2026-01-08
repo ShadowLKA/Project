@@ -102,7 +102,8 @@ body::before {
   font-family: inherit;
   justify-content: center;
   text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  box-shadow: none;
+  transition: transform 0.25s ease;
 }
 
 .btn:focus,
@@ -135,7 +136,8 @@ a:focus-visible {
 
 .btn:hover {
   transform: translateY(-3px) scale(1.01);
-  filter: brightness(1.02);
+  box-shadow: none;
+  filter: none;
 }
 
 .btn.is-disabled {
