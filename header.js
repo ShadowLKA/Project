@@ -46,44 +46,28 @@ export function renderHeader(brand, nav) {
       </div>
       <div class="mobile-menu-backdrop" data-mobile-backdrop></div>
       <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Mobile menu" tabindex="-1">
-        <div class="mobile-menu__section">
-          <button
-            class="mobile-menu__title"
-            type="button"
-            data-accordion-trigger
-            aria-expanded="false"
-            aria-controls="mobile-menu-nav"
-          >
-            Navigation
-          </button>
-          <div class="mobile-menu__panel" id="mobile-menu-nav" data-accordion-panel>
-            <ul class="mobile-menu__list">
-              ${navItems}
-              ${settingsItem}
-            </ul>
+        <div class="drawer-body">
+          <div class="mobile-menu__section">
+            <button class="mobile-menu__title" type="button">
+              Navigation
+            </button>
+            <div class="mobile-menu__panel" id="mobile-menu-nav">
+              <ul class="mobile-menu__list">
+                ${navItems}
+                ${settingsItem}
+              </ul>
+            </div>
           </div>
         </div>
-        <div class="mobile-menu__section">
-          <button
-            class="mobile-menu__title"
-            type="button"
-            data-accordion-trigger
-            aria-expanded="false"
-            aria-controls="mobile-menu-account"
-          >
-            Account
-          </button>
-          <div class="mobile-menu__panel" id="mobile-menu-account" data-accordion-panel>
-            <div class="mobile-actions">
-              <div class="nav-auth" data-auth-guest>
-                <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
-                <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
-              </div>
-              <div class="nav-auth is-hidden" data-auth-required>
-                <button class="btn btn-ghost" type="button" data-logout>Log out</button>
-                <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
-              </div>
-            </div>
+        <div class="drawer-actions">
+          <span class="mobile-menu__title">Account</span>
+          <div class="nav-auth" data-auth-guest>
+            <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
+            <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
+          </div>
+          <div class="nav-auth is-hidden" data-auth-required>
+            <button class="btn btn-ghost" type="button" data-logout>Log out</button>
+            <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
           </div>
         </div>
       </div>

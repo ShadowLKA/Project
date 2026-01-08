@@ -72,17 +72,18 @@
     right: 0;
     bottom: 0;
     height: 100vh;
+    height: 100dvh;
     width: min(360px, 86vw);
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(18px);
-    padding: calc(var(--nav-height) + 16px) 20px 32px;
+    padding: calc(var(--nav-height) + 16px) 20px 0;
     box-shadow: 0 18px 40px rgba(14, 19, 36, 0.18);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transform: translateX(20px);
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-    overflow-y: auto;
+    overflow: hidden;
     z-index: 60;
     border-radius: 24px 0 0 24px;
     display: flex;
@@ -112,6 +113,13 @@
   .mobile-menu__section + .mobile-menu__section {
     padding-top: 18px;
     border-top: 1px solid rgba(12, 27, 42, 0.08);
+  }
+
+  .drawer-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 6px;
   }
 
   .mobile-menu__panel {
@@ -198,10 +206,6 @@
   .mobile-menu .nav-auth {
     position: static;
     width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: 14px;
   }
 
   .mobile-menu .mobile-actions .btn {
@@ -213,12 +217,23 @@
     min-height: 46px;
   }
 
-  .mobile-menu__section:last-child {
+  .drawer-actions {
+    flex: 0 0 auto;
+    margin-top: auto;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.98);
+  }
+
+  .drawer-actions .mobile-menu__title {
+    margin-bottom: 12px;
+  }
+
+  .drawer-actions .nav-auth {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: auto;
-    padding-bottom: 0;
+    align-items: stretch;
+    justify-content: center;
+    gap: 14px;
   }
 
   .hero-search {
