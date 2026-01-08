@@ -22,6 +22,9 @@ export const syncAuthButtons = (state) => {
   document.querySelectorAll("[data-consult-cta]").forEach((element) => {
     const shouldDisable = !isLoggedIn;
     element.classList.toggle("is-disabled", shouldDisable);
+    if (element.classList.contains("hero-tab")) {
+      element.classList.toggle("is-enabled", isLoggedIn);
+    }
     if (element.tagName === "BUTTON") {
       element.disabled = shouldDisable;
       element.setAttribute("aria-disabled", shouldDisable ? "true" : "false");

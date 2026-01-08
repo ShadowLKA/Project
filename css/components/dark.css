@@ -115,6 +115,19 @@
   box-shadow: 0 20px 44px rgba(0, 0, 0, 0.25);
 }
 
+:root.theme-dark .hero-tab.is-active {
+  background: #ff5a70;
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+:root.theme-dark .hero-tab.is-enabled {
+  background: rgba(255, 90, 112, 0.2);
+  border-color: rgba(255, 90, 112, 0.45);
+  color: #ffd6dd;
+}
+
 :root.theme-dark .hero-visual-stat strong,
 :root.theme-dark .advisor-card strong,
 :root.theme-dark .doctor-card strong {
