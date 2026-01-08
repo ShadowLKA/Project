@@ -10,6 +10,8 @@ import { renderContact } from "./contact.js";
 import { renderTeamPage, initTeamPage } from "./team.js";
 import { renderNewsPage, initNewsPage } from "./news.js";
 import { renderModal, bindModal } from "./modal.js";
+import { renderSettings, initSettingsPage } from "./settings.js";
+import { initTheme } from "./theme.js";
 
 const headerEl = document.getElementById("siteHeader");
 const app = document.getElementById("app");
@@ -38,9 +40,12 @@ function renderApp() {
   bindHeader(headerEl);
   const currentPage = getPage();
   const isTeamPage = currentPage === "team";
+  const isSettingsPage = currentPage === "settings";
 
   if (currentPage === "consult") {
     app.innerHTML = renderConsultForm(siteData.pages.consultForm);
+  } else if (isSettingsPage) {
+    app.innerHTML = renderSettings(siteData.pages.settings);
   } else if (isTeamPage) {
     app.innerHTML = renderTeamPage(siteData.pages.team);
   } else if (currentPage === "news") {
@@ -64,6 +69,9 @@ function renderApp() {
   if (isTeamPage) {
     initTeamPage();
   }
+  if (isSettingsPage) {
+    initSettingsPage();
+  }
   if (currentPage === "news") {
     initNewsPage();
   }
@@ -80,6 +88,7 @@ function renderApp() {
   }
 }
 
+initTheme();
 renderApp();
 
 const setupBottomBar = () => {
@@ -124,7 +133,12 @@ document.addEventListener(
         return;
       }
       event.preventDefault();
-      if (getPage() === "consult" || getPage() === "team" || getPage() === "news") {
+      if (
+        getPage() === "consult" ||
+        getPage() === "team" ||
+        getPage() === "news" ||
+        getPage() === "settings"
+      ) {
         window.location.href = `index.html?section=${buttonTargetId.replace("#", "")}`;
         return;
       }
@@ -138,7 +152,12 @@ document.addEventListener(
     }
     const anchorTarget = document.querySelector(targetId);
     event.preventDefault();
-    if (getPage() === "consult" || getPage() === "team" || getPage() === "news") {
+    if (
+      getPage() === "consult" ||
+      getPage() === "team" ||
+      getPage() === "news" ||
+      getPage() === "settings"
+    ) {
       window.location.href = `index.html?section=${targetId.replace("#", "")}`;
       return;
     }

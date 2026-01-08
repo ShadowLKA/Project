@@ -9,6 +9,10 @@ export function renderHeader(brand, nav) {
         </li>`
     )
     .join("");
+  const settingsItem = `
+    <li class="nav-item">
+      <a href="index.html?page=settings">Settings</a>
+    </li>`;
 
   return `
     <nav id="navbar">
@@ -20,7 +24,7 @@ export function renderHeader(brand, nav) {
           </div>
         </div>
         <div class="nav-center">
-          <ul class="nav-links">${navItems}</ul>
+          <ul class="nav-links">${navItems}${settingsItem}</ul>
         </div>
         <div class="nav-right">
           <div class="nav-actions">
@@ -43,6 +47,7 @@ export function renderHeader(brand, nav) {
       <div class="mobile-menu" id="mobileMenu">
         <ul>
           ${navItems}
+          ${settingsItem}
           <li class="mobile-actions">
             <div class="nav-auth" data-auth-guest>
               <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>

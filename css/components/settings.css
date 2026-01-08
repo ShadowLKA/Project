@@ -1,0 +1,24 @@
+/* Settings page tweaks */
+.settings-message {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #b3243b;
+  min-height: 20px;
+}
+
+.settings-message.is-success {
+  color: #1f7a43;
+}
+
+.settings-form h3 {
+  margin: 0 0 12px;
+}
+
+.settings-theme {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}

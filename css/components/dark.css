@@ -1,0 +1,255 @@
+/* Dark theme overrides */
+:root.theme-dark {
+  color-scheme: dark;
+}
+
+:root.theme-dark body {
+  background: #0b0d12;
+  color: #f4f6fa;
+}
+
+:root.theme-dark body::before {
+  opacity: 0.03;
+  filter: blur(4px) brightness(0.25);
+}
+
+:root.theme-dark #siteHeader,
+:root.theme-dark .mobile-menu {
+  background: rgba(11, 13, 18, 0.96);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+:root.theme-dark .nav-status {
+  background: rgba(21, 26, 35, 0.95);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(244, 246, 250, 0.8);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+:root.theme-dark .nav-links {
+  color: rgba(244, 246, 250, 0.7);
+}
+
+:root.theme-dark .nav-links a:hover {
+  color: #f4f6fa;
+}
+
+:root.theme-dark .tag,
+:root.theme-dark .hero-tag,
+:root.theme-dark .consult-badge,
+:root.theme-dark .hero-visual-chip {
+  background: rgba(255, 90, 112, 0.18);
+  color: #ffd6dd;
+}
+
+:root.theme-dark .hero,
+:root.theme-dark .hero-blend {
+  background: #0b0d12;
+}
+
+:root.theme-dark .hero h1 {
+  color: #f4f6fa;
+}
+
+:root.theme-dark .hero p,
+:root.theme-dark .page p,
+:root.theme-dark .section-title p {
+  color: rgba(244, 246, 250, 0.7);
+}
+
+:root.theme-dark .section-title h2,
+:root.theme-dark .hero h1,
+:root.theme-dark .footer-grid strong,
+:root.theme-dark .footer-contact strong,
+:root.theme-dark .footer-contact__details strong {
+  color: #f4f6fa;
+}
+
+:root.theme-dark .hero-tab,
+:root.theme-dark .hero-meta-item,
+:root.theme-dark .hero-visual-card,
+:root.theme-dark .hero-visual-stat,
+:root.theme-dark .hero-visual-frame,
+:root.theme-dark .hero-visual-photo,
+:root.theme-dark .hero-float,
+:root.theme-dark .intake-form,
+:root.theme-dark .intake-group,
+:root.theme-dark .intake-card,
+:root.theme-dark .consult-card,
+:root.theme-dark .testimonial,
+:root.theme-dark .step,
+:root.theme-dark .process-step__content,
+:root.theme-dark .advisor-card,
+:root.theme-dark .service-card,
+:root.theme-dark .doctor-card {
+  background: #151a23;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.25);
+}
+
+:root.theme-dark .hero-visual-stat strong,
+:root.theme-dark .advisor-card strong,
+:root.theme-dark .doctor-card strong {
+  color: #f4f6fa;
+}
+
+:root.theme-dark .advisor-card ul,
+:root.theme-dark .doctor-card ul,
+:root.theme-dark .advisor-card ul li {
+  color: rgba(244, 246, 250, 0.72);
+}
+
+:root.theme-dark .advisor-card .avatar {
+  background: rgba(255, 90, 112, 0.18);
+  color: #ffd6dd;
+}
+
+:root.theme-dark .btn-secondary,
+:root.theme-dark .btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4f6fa;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+:root.theme-dark .btn-primary {
+  box-shadow: 0 10px 20px rgba(226, 62, 87, 0.3);
+}
+
+:root.theme-dark .intake-form input,
+:root.theme-dark .intake-form textarea,
+:root.theme-dark .intake-form select,
+:root.theme-dark .modal__form input,
+:root.theme-dark .modal__form textarea,
+:root.theme-dark .modal__form select {
+  background: #0f131b;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #f4f6fa;
+}
+
+:root.theme-dark .intake-form input::placeholder,
+:root.theme-dark .intake-form textarea::placeholder,
+:root.theme-dark .modal__form input::placeholder,
+:root.theme-dark .modal__form textarea::placeholder {
+  color: rgba(244, 246, 250, 0.5);
+}
+
+:root.theme-dark .intake-form label,
+:root.theme-dark .intake-card ul,
+:root.theme-dark .intake-card p,
+:root.theme-dark .settings-theme,
+:root.theme-dark .settings-message {
+  color: rgba(244, 246, 250, 0.7);
+}
+
+:root.theme-dark .modal__dialog {
+  background: #151a23;
+  color: #f4f6fa;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root.theme-dark .modal__backdrop {
+  background: rgba(5, 7, 11, 0.7);
+}
+
+:root.theme-dark .modal__close {
+  background: rgba(255, 90, 112, 0.2);
+  color: #ffd6dd;
+}
+
+:root.theme-dark .modal__section {
+  background: #0f131b;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root.theme-dark .modal__section-title,
+:root.theme-dark .modal__form label {
+  color: rgba(244, 246, 250, 0.82);
+}
+
+:root.theme-dark .modal__hint,
+:root.theme-dark .modal__divider {
+  color: rgba(244, 246, 250, 0.6);
+}
+
+:root.theme-dark .modal__divider::before,
+:root.theme-dark .modal__divider::after {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+:root.theme-dark .modal__message {
+  color: #ffd6dd;
+  background: rgba(255, 90, 112, 0.18);
+}
+
+:root.theme-dark .modal__message.is-success {
+  color: #b8f1cc;
+  background: rgba(24, 124, 70, 0.25);
+}
+
+:root.theme-dark #news::before {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(226, 62, 87, 0.25), transparent 55%),
+    radial-gradient(circle at 85% 20%, rgba(15, 19, 27, 0.55), transparent 55%),
+    radial-gradient(circle at 18% 60%, rgba(226, 62, 87, 0.18), transparent 55%),
+    radial-gradient(circle at 88% 72%, rgba(15, 19, 27, 0.6), transparent 60%),
+    linear-gradient(140deg, rgba(11, 13, 18, 0.98) 0%, rgba(15, 18, 25, 0.98) 60%, rgba(12, 14, 20, 0.98) 100%);
+}
+
+:root.theme-dark .news-card,
+:root.theme-dark .news-about,
+:root.theme-dark .news-highlight,
+:root.theme-dark .news-timeline__item,
+:root.theme-dark .news-about--note,
+:root.theme-dark .news-slot {
+  background: #151a23;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.25);
+}
+
+:root.theme-dark .news-card p,
+:root.theme-dark .news-about p,
+:root.theme-dark .news-highlight p,
+:root.theme-dark .news-timeline__item p,
+:root.theme-dark .news-slots__header p {
+  color: rgba(244, 246, 250, 0.7);
+}
+
+:root.theme-dark .news-highlight strong,
+:root.theme-dark .news-timeline__item span,
+:root.theme-dark .news-timeline__item strong,
+:root.theme-dark .news-about h4,
+:root.theme-dark .news-card h3,
+:root.theme-dark .news-timeline h3 {
+  color: #f4f6fa;
+}
+
+:root.theme-dark .news-slot__media {
+  background: #0f131b;
+}
+
+:root.theme-dark .news-slot figcaption,
+:root.theme-dark .news-slot__placeholder,
+:root.theme-dark .news-slot__admin label {
+  color: rgba(244, 246, 250, 0.6);
+}
+
+:root.theme-dark .news-slot__admin input {
+  background: #0f131b;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f4f6fa;
+}
+
+:root.theme-dark footer {
+  background: #0b0d12;
+  color: rgba(244, 246, 250, 0.7);
+  border-top-color: rgba(255, 255, 255, 0.04);
+}
+
+:root.theme-dark .footer-contact__note {
+  color: rgba(244, 246, 250, 0.55);
+}
+
+:root.theme-dark .bottom-bar {
+  background: #0b0d12;
+  color: rgba(244, 246, 250, 0.8);
+}

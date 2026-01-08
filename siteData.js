@@ -129,6 +129,11 @@ const siteData = {
       tag: "Team cards",
       copy: "Every team member is listed with a photo, title, and bio."
     },
+    settings: {
+      title: "Account settings",
+      tag: "Manage account",
+      copy: "Update your details, change your password, and set your theme."
+    },
     news: {
       title: "Company news and milestones.",
       tag: "Our story",
