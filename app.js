@@ -17,6 +17,11 @@ const headerEl = document.getElementById("siteHeader");
 const app = document.getElementById("app");
 const footerEl = document.getElementById("siteFooter");
 
+if (window.location.pathname.endsWith("/index.html")) {
+  const cleanPath = window.location.pathname.replace(/index\.html$/, "");
+  history.replaceState(null, "", `${cleanPath}${window.location.search}${window.location.hash}`);
+}
+
 const getPage = () => {
   const params = new URLSearchParams(window.location.search);
   return params.get("page");
