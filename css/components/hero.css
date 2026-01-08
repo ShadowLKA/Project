@@ -192,7 +192,7 @@
   background: #E23E57;
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 12px 22px rgba(226, 62, 87, 0.25);
+  box-shadow: none;
 }
 
 .hero-meta {
