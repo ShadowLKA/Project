@@ -269,7 +269,8 @@
 }
 
 .hero-visual-photo {
-  height: 240px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 18px;
   background: radial-gradient(circle at top, #FFFFFF 0%, #F9F9FB 55%, #EDEEF1 100%);
   position: relative;
@@ -305,6 +306,7 @@
   z-index: 1;
   pointer-events: none;
   object-fit: cover;
+  object-position: center;
 }
 
 .hero-visual-video {
@@ -430,7 +432,8 @@
   }
 
   .hero-visual-photo {
-    height: 200px;
+    height: auto;
+    aspect-ratio: 4 / 3;
   }
 
 }
@@ -491,7 +494,6 @@
     display: none;
   }
 }
-
 
 
 
