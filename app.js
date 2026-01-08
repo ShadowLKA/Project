@@ -31,8 +31,14 @@ function bindAccordions() {
   const isMobile = () => window.innerWidth <= 720;
   const triggers = () => Array.from(document.querySelectorAll("[data-accordion-trigger]"));
 
-  const setState = (trigger, panel, expanded, animate = true) => {
+  const setState = (trigger, panel, expanded, animate = true, lockOpen = false) => {
     if (!trigger || !panel) {
+      return;
+    }
+    if (lockOpen) {
+      trigger.setAttribute("aria-expanded", "true");
+      panel.classList.add("is-open");
+      panel.style.maxHeight = "";
       return;
     }
     trigger.setAttribute("aria-expanded", expanded ? "true" : "false");
@@ -64,12 +70,8 @@ function bindAccordions() {
       const isFooterPanel = panelId.startsWith("footer-section-");
       const isMobileMenuPanel = panelId.startsWith("mobile-menu-");
       const hasStored = stored === "true" || stored === "false";
-      const expanded = mobile
-        ? hasStored
-          ? stored === "true"
-          : isMobileMenuPanel
-        : true;
-      setState(trigger, panel, expanded, false);
+      const expanded = mobile ? (hasStored ? stored === "true" : !isMobileMenuPanel) : true;
+      setState(trigger, panel, expanded, false, isMobileMenuPanel);
     });
   };
   refreshAccordions = initTriggers;
@@ -89,6 +91,9 @@ function bindAccordions() {
     const panelId = trigger.getAttribute("aria-controls");
     const panel = panelId ? document.getElementById(panelId) : null;
     if (!panel) {
+      return;
+    }
+    if (panelId.startsWith("mobile-menu-")) {
       return;
     }
     const isExpanded = trigger.getAttribute("aria-expanded") === "true";
