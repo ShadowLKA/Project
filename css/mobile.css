@@ -99,9 +99,6 @@
     color: var(--ink);
     padding: 6px 10px;
     border-radius: 999px;
-  }
-
-  .mobile-menu .nav-item:nth-child(-n + 4) a {
     margin-left: 40px;
   }
 

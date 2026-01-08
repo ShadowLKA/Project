@@ -10,7 +10,7 @@ export function renderHeader(brand, nav) {
     )
     .join("");
   const settingsItem = `
-    <li class="nav-item">
+    <li class="nav-item nav-item--settings">
       <a href="index.html?page=settings">Settings</a>
     </li>`;
 
