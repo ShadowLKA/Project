@@ -22,8 +22,13 @@
 :root.theme-dark .nav-status {
   background: rgba(21, 26, 35, 0.95);
   border-color: rgba(255, 255, 255, 0.08);
-  color: rgba(244, 246, 250, 0.8);
+  color: rgba(244, 246, 250, 0.85);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+:root.theme-dark .nav-auth__label,
+:root.theme-dark .nav-auth__name {
+  color: rgba(244, 246, 250, 0.85);
 }
 
 :root.theme-dark .nav-links {
