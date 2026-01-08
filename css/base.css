@@ -118,7 +118,7 @@ a:focus-visible {
 .btn-primary {
   background: #E23E57;
   color: #fff;
-  box-shadow: 0 10px 20px rgba(226, 62, 87, 0.18);
+  box-shadow: none;
 }
 
 .btn-secondary {
