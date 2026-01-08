@@ -70,7 +70,13 @@ function bindAccordions() {
       const isFooterPanel = panelId.startsWith("footer-section-");
       const isMobileMenuPanel = panelId.startsWith("mobile-menu-");
       const hasStored = stored === "true" || stored === "false";
-      const expanded = mobile ? (hasStored ? stored === "true" : !isMobileMenuPanel) : true;
+      const expanded = mobile
+        ? hasStored
+          ? stored === "true"
+          : isMobileMenuPanel
+            ? true
+            : !isFooterPanel
+        : true;
       setState(trigger, panel, expanded, false, isMobileMenuPanel);
     });
   };
