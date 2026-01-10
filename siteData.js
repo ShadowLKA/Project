@@ -1,4 +1,4 @@
-﻿// Note: Central content and copy live here for easy edits.
+// Note: Central content and copy live here for easy edits.
 const siteData = {
   brand: {
     name: "MedBridge",
@@ -81,7 +81,7 @@ const siteData = {
       items: [
         {
           initials: "LB",
-          name: "Lauren Brooks",
+          name: "luka kandelaki",
           role: "Senior Care Navigator",
           bullets: ["Complex case coordination", "24/7 messaging support", "Insurance guidance"]
         },
