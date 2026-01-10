@@ -52,7 +52,7 @@ export const updateThemeToggleLabels = (root = document) => {
   const theme = getTheme();
   root.querySelectorAll("[data-theme-toggle]").forEach((button) => {
     const nextLabel = theme === "dark" ? "Switch to light" : "Switch to dark";
-    const nextMode = theme === "dark" ? "Light mode" : "Dark mode";
+    const nextMode = theme === "dark" ? "Dark mode" : "Light mode";
     button.dataset.themeState = theme;
     const label = button.querySelector("[data-theme-label]");
     if (label) {
