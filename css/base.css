@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --color-primary: #E23E57;
   --color-primary-hover: #C72F45;
   --color-bg: #F9F9FB;
@@ -15,14 +16,14 @@
   --surface-soft-border: rgba(14, 19, 36, 0.12);
   --surface-card: rgba(14, 19, 36, 0.02);
   --surface-divider: rgba(12, 27, 42, 0.08);
-  --ink: var(--color-text);
-  --ink-soft: var(--color-text-muted);
-  --brand: var(--color-primary);
+  --ink: var(--color-text, #0E1324);
+  --ink-soft: var(--color-text-muted, #556080);
+  --brand: var(--color-primary, #E23E57);
   --accent: #B0B3B8;
-  --mint: var(--color-bg);
-  --sun: var(--color-surface);
-  --mist: var(--color-bg);
-  --card: var(--color-surface);
+  --mint: var(--color-bg, #F9F9FB);
+  --sun: var(--color-surface, #FFFFFF);
+  --mist: var(--color-bg, #F9F9FB);
+  --card: var(--color-surface, #FFFFFF);
   --shadow: 0 24px 60px rgba(14, 19, 36, 0.14);
   --font-sans: "Space Grotesk", "Segoe UI", sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
@@ -66,7 +67,7 @@
 html,
 body {
   min-height: 100%;
-  background: var(--color-bg);
+  background: var(--color-bg, #F9F9FB);
 }
 
 html {
@@ -79,7 +80,7 @@ body {
   font-size: var(--text-body);
   line-height: var(--line-body);
   letter-spacing: 0;
-  color: var(--ink);
+  color: var(--ink, #0E1324);
   padding-top: 72px;
   position: relative;
 }
@@ -171,7 +172,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image: url("../images/newspaper.png");
-  background-color: var(--mist);
+  background-color: var(--mist, #F9F9FB);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
