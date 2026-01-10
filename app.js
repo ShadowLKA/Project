@@ -220,6 +220,22 @@ const setupBottomBar = () => {
 
 setupBottomBar();
 
+let hasSeenAuthEvent = false;
+let lastAuthUserId = null;
+
+window.addEventListener("auth:changed", (event) => {
+  const nextId = event.detail?.session?.user?.id || null;
+  if (!hasSeenAuthEvent) {
+    hasSeenAuthEvent = true;
+    lastAuthUserId = nextId;
+    return;
+  }
+  if (nextId !== lastAuthUserId) {
+    lastAuthUserId = nextId;
+    window.location.reload();
+  }
+});
+
 
 document.addEventListener(
   "click",
