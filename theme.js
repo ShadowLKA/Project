@@ -1,6 +1,5 @@
 const THEME_KEY = "siteTheme";
-const THEME_VALUES = new Set(["light", "dark", "system"]);
-const SYSTEM_QUERY = "(prefers-color-scheme: dark)";
+const THEME_VALUES = new Set(["light", "dark"]);
 
 const normalizeTheme = (theme) => (THEME_VALUES.has(theme) ? theme : null);
 
@@ -12,17 +11,9 @@ const readStoredTheme = () => {
   }
 };
 
-const getSystemTheme = () => {
-  if (typeof window === "undefined" || !window.matchMedia) {
-    return "light";
-  }
-  return window.matchMedia(SYSTEM_QUERY).matches ? "dark" : "light";
-};
+export const getTheme = () => readStoredTheme() || "light";
 
-export const getTheme = () => readStoredTheme() || "system";
-
-export const getResolvedTheme = (theme = getTheme()) =>
-  theme === "system" ? getSystemTheme() : theme;
+export const getResolvedTheme = (theme = getTheme()) => theme;
 
 export const applyTheme = (theme = getTheme()) => {
   const resolved = getResolvedTheme(theme);
@@ -45,7 +36,7 @@ const applyInitialTheme = () => {
 
 export const setTheme = (theme) => {
   const nextTheme = normalizeTheme(theme);
-  if (!nextTheme || nextTheme === "system") {
+  if (!nextTheme) {
     return;
   }
   try {
@@ -58,10 +49,10 @@ export const setTheme = (theme) => {
 };
 
 export const updateThemeToggleLabels = (root = document) => {
-  const resolvedTheme = getResolvedTheme();
+  const theme = getTheme();
   root.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-    const nextLabel = resolvedTheme === "dark" ? "Switch to light" : "Switch to dark";
-    button.dataset.themeState = resolvedTheme;
+    const nextLabel = theme === "dark" ? "Switch to light" : "Switch to dark";
+    button.dataset.themeState = theme;
     const label = button.querySelector("[data-theme-label]");
     if (label) {
       label.textContent = nextLabel;
@@ -84,7 +75,7 @@ export const bindThemeToggles = (root = document) => {
       if (button.tagName === "A") {
         event.preventDefault();
       }
-      const nextTheme = getResolvedTheme() === "dark" ? "light" : "dark";
+      const nextTheme = getTheme() === "dark" ? "light" : "dark";
       setTheme(nextTheme);
     });
   });
@@ -92,22 +83,6 @@ export const bindThemeToggles = (root = document) => {
 
 export const initTheme = () => {
   applyInitialTheme();
-  if (!window.matchMedia) {
-    return;
-  }
-  const mediaQuery = window.matchMedia(SYSTEM_QUERY);
-  const handleChange = () => {
-    if (getTheme() !== "system") {
-      return;
-    }
-    applyTheme("system");
-    updateThemeToggleLabels(document);
-  };
-  if (typeof mediaQuery.addEventListener === "function") {
-    mediaQuery.addEventListener("change", handleChange);
-  } else if (typeof mediaQuery.addListener === "function") {
-    mediaQuery.addListener(handleChange);
-  }
 };
 
 applyInitialTheme();
