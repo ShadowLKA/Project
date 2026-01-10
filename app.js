@@ -220,27 +220,6 @@ const setupBottomBar = () => {
 
 setupBottomBar();
 
-let authRefreshPending = false;
-const refreshAfterAuth = () => {
-  if (authRefreshPending) {
-    return;
-  }
-  authRefreshPending = true;
-  const scrollY = window.scrollY;
-  renderApp();
-  setupBottomBar();
-  requestAnimationFrame(() => {
-    window.scrollTo(0, scrollY);
-    authRefreshPending = false;
-  });
-};
-
-window.addEventListener("auth:changed", (event) => {
-  if (!event.detail?.session) {
-    return;
-  }
-  refreshAfterAuth();
-});
 
 document.addEventListener(
   "click",
