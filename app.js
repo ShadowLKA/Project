@@ -4,7 +4,7 @@ import { renderHeader, bindHeader } from "./header.js";
 import { renderFooter } from "./footer.js";
 import { renderHome } from "./home.js";
 import { renderConsultForm, initConsultForm } from "./consultForm.js";
-import { renderAdvisors } from "./advisors.js";
+import { renderServices } from "./services.js";
 import { renderProcess } from "./process.js";
 import { renderContact } from "./contact.js";
 import { renderTeamPage, initTeamPage } from "./team.js";
@@ -153,7 +153,7 @@ function renderApp() {
   } else {
     app.innerHTML = [
       renderHome(siteData.pages.home.hero),
-      renderAdvisors(siteData.pages.advisors),
+      renderServices(siteData.pages.services),
       renderProcess(siteData.pages.process),
       renderContact(siteData.pages.contact)
     ].join("");

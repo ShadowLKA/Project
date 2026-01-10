@@ -3,6 +3,11 @@
   color-scheme: dark;
   --color-primary: #ff5a70;
   --color-primary-hover: #ff3f5d;
+  --color-accent: #4a7fd6;
+  --color-accent-hover: #3c6fc2;
+  --color-accent-soft: rgba(74, 127, 214, 0.22);
+  --color-accent-border: rgba(74, 127, 214, 0.55);
+  --color-accent-text: #d6e6ff;
   --color-bg: #0b0d12;
   --color-surface: #151a23;
   --color-text: #f4f6fa;
@@ -45,7 +50,7 @@
 }
 
 :root.theme-dark .mobile-menu .nav-item a:hover {
-  background: rgba(255, 90, 112, 0.2);
+  background: var(--color-accent-soft);
   color: #f4f6fa;
 }
 
@@ -91,8 +96,8 @@
 :root.theme-dark .hero-tag,
 :root.theme-dark .consult-badge,
 :root.theme-dark .hero-visual-chip {
-  background: rgba(255, 90, 112, 0.18);
-  color: #ffd6dd;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
 }
 
 :root.theme-dark .hero,
@@ -142,16 +147,16 @@
 }
 
 :root.theme-dark .hero-tab.is-active {
-  background: #ff5a70;
+  background: var(--color-accent);
   color: #ffffff;
   border-color: transparent;
   box-shadow: none;
 }
 
 :root.theme-dark .hero-tab.is-enabled {
-  background: rgba(255, 90, 112, 0.2);
-  border-color: rgba(255, 90, 112, 0.45);
-  color: #ffd6dd;
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent-border);
+  color: var(--color-accent-text);
 }
 
 :root.theme-dark .hero-visual-stat strong,
@@ -167,8 +172,8 @@
 }
 
 :root.theme-dark .advisor-card .avatar {
-  background: rgba(255, 90, 112, 0.18);
-  color: #ffd6dd;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
 }
 
 :root.theme-dark .btn-secondary,
@@ -219,8 +224,8 @@
 }
 
 :root.theme-dark .modal__close {
-  background: rgba(255, 90, 112, 0.2);
-  color: #ffd6dd;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
 }
 
 :root.theme-dark .modal__section {
@@ -244,8 +249,8 @@
 }
 
 :root.theme-dark .modal__message {
-  color: #ffd6dd;
-  background: rgba(255, 90, 112, 0.18);
+  color: var(--color-accent-text);
+  background: var(--color-accent-soft);
 }
 
 :root.theme-dark .modal__message.is-success {
@@ -255,9 +260,9 @@
 
 :root.theme-dark #news::before {
   background:
-    radial-gradient(circle at 12% 10%, rgba(226, 62, 87, 0.25), transparent 55%),
+    radial-gradient(circle at 12% 10%, rgba(74, 127, 214, 0.25), transparent 55%),
     radial-gradient(circle at 85% 20%, rgba(15, 19, 27, 0.55), transparent 55%),
-    radial-gradient(circle at 18% 60%, rgba(226, 62, 87, 0.18), transparent 55%),
+    radial-gradient(circle at 18% 60%, rgba(74, 127, 214, 0.18), transparent 55%),
     radial-gradient(circle at 88% 72%, rgba(15, 19, 27, 0.6), transparent 60%),
     linear-gradient(140deg, rgba(11, 13, 18, 0.98) 0%, rgba(15, 18, 25, 0.98) 60%, rgba(12, 14, 20, 0.98) 100%);
 }

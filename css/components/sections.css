@@ -78,11 +78,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0 0;
+  padding: 0;
   justify-self: end;
+  flex-direction: column;
+  gap: 36px;
 }
 
-.process-visual img {
+.process-logo {
+  width: min(260px, 75%);
+  height: auto;
+  display: block;
+  margin: -6px 0 0;
+  filter: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.process-logo,
+.process-logo img {
+  box-shadow: none !important;
+}
+
+.process-visual img:not(.process-logo) {
   width: min(360px, 100%);
   max-height: 360px;
   object-fit: contain;
@@ -120,8 +137,8 @@
   background: linear-gradient(145deg, #24508c, #1d3e6e);
   border: 3px solid #ffffff;
   color: #ffffff;
-  font-size: var(--text-xs);
-  letter-spacing: 0.8px;
+  font-size: clamp(8px, 1vw, 10px);
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   font-weight: 700;
   display: grid;
@@ -131,6 +148,7 @@
   box-shadow: 0 10px 22px rgba(36, 75, 140, 0.3);
   position: relative;
   text-shadow: 0 1px 2px rgba(14, 19, 36, 0.25);
+  padding: 0 4px;
 }
 
 .process-step__marker::before {
@@ -350,7 +368,7 @@
     justify-self: center;
   }
 
-  .process-visual img {
+  .process-visual img:not(.process-logo) {
     transform: none;
     width: min(320px, 100%);
     max-height: 320px;

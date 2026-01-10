@@ -1,5 +1,4 @@
 // Note: Hero section renderer.
-import { renderMediaVideo } from "./media.js";
 
 export function renderHome(hero) {
   const statMarkup = hero.stats
@@ -51,14 +50,7 @@ export function renderHome(hero) {
             <div class="hero-visual-media">
               <div class="hero-visual-frame">
                 <div class="hero-visual-photo">
-                  ${renderMediaVideo({
-                    className: "hero-visual-video",
-                    poster: "images/main-page-poster.jpg",
-                    ariaLabel: "Virtual consultation preview video",
-                    sources: [
-                      { src: "videos/main-page.webm", type: "video/webm" }
-                    ]
-                  })}
+                  <img src="images/image 1.webp" alt="Consultation preview">
                 </div>
               </div>
             </div>
@@ -87,7 +79,6 @@ export function renderHome(hero) {
     </section>
   `;
 }
-
 
 
 

@@ -55,8 +55,8 @@
   right: 16px;
   top: 16px;
   border: none;
-  background: rgba(226, 62, 87, 0.12);
-  color: #7d1e30;
+  background: rgba(36, 75, 140, 0.14);
+  color: #1f3f73;
   padding: 6px 10px;
   border-radius: 999px;
   cursor: pointer;
@@ -66,8 +66,8 @@
   font-size: var(--text-xs);
   letter-spacing: var(--letter-wide);
   text-transform: uppercase;
-  color: #7d1e30;
-  background: rgba(226, 62, 87, 0.12);
+  color: #1f3f73;
+  background: rgba(36, 75, 140, 0.14);
   padding: 6px 10px;
   border-radius: 999px;
   width: fit-content;
@@ -182,12 +182,12 @@ body.is-authenticated .modal--survey .modal__dialog::before {
   inset: 0 0 auto 0;
   height: 6px;
   border-radius: 14px 14px 0 0;
-  background: #E23E57;
+  background: #24508c;
 }
 
 body.is-authenticated .modal--survey .modal__tag {
-  background: rgba(226, 62, 87, 0.12);
-  color: #7d1e30;
+  background: rgba(36, 75, 140, 0.14);
+  color: #1f3f73;
 }
 
 body.is-authenticated .modal--survey .modal__form {
@@ -215,8 +215,8 @@ body.is-authenticated .modal--survey .modal__form textarea {
 body.is-authenticated .modal--survey .modal__form input:focus,
 body.is-authenticated .modal--survey .modal__form textarea:focus {
   outline: none;
-  border-color: #E23E57;
-  box-shadow: 0 0 0 3px rgba(226, 62, 87, 0.16);
+  border-color: #24508c;
+  box-shadow: 0 0 0 3px rgba(36, 75, 140, 0.16);
 }
 
 @keyframes popIn {
@@ -234,5 +234,4 @@ body.is-authenticated .modal--survey .modal__form textarea:focus {
     font-size: 11px;
   }
 }
-
 

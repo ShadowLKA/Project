@@ -7,7 +7,7 @@ const siteData = {
   },
   nav: [
     { label: "Home", hash: "#home" },
-    { label: "Advisors", hash: "#advisors" },
+    { label: "Services", hash: "#services" },
     { label: "How it works", hash: "#process" },
     { label: "Contact", hash: "#contact" }
   ],
@@ -68,10 +68,13 @@ const siteData = {
       tag: "Signature services",
       copy: "From cardiovascular care to complex diagnostics, our team designs a personalized path to clarity with coordinated support.",
       items: [
-        { icon: "CV", title: "Cardiology", copy: "Review heart health plans with renowned cardiologists." },
-        { icon: "ON", title: "Oncology", copy: "Get precise treatment options and clinical trial insights." },
-        { icon: "OR", title: "Orthopedics", copy: "Second opinions for joint replacements and sports injuries." },
-        { icon: "NE", title: "Neurology", copy: "Clarify brain and spine diagnoses with leading experts." }
+        {
+          icon: "1",
+          title: "Expert Second Opinion",
+          copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
+        },
+        { icon: "2", title: "Multi-Specialist Review", copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patient’s condition. This structured review delivers deeper clinical insight and coordinated recommendations." },
+        { icon: "3", title: "U.S. Visit Coordination", copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery." }
       ]
     },
     advisors: {
@@ -135,23 +138,23 @@ const siteData = {
       copy: "Update your details, change your password, and set your theme."
     },
     news: {
-      title: "Company news and milestones.",
+      title: "About MedBridge Global",
       tag: "Our story",
-      copy: "Learn when we started, why we built MedBridgeGlobal, and the moments that shaped the company.",
-      storyTitle: "How we started",
-      storyCopy: "MedBridgeGlobal began in 2023 with a simple idea: patients deserve clarity when making serious medical decisions. We built a dedicated care team to guide families from uncertainty to action with expert-backed answers.",
+      copy: "MedBridge Global (MBG) exists to support patients and families at moments when medical decisions feel uncertain, complex, or overwhelming.",
+      storyTitle: "Who We Are",
+      storyCopy: "MBG is a U.S.-based care coordination and patient navigation organization that supports individuals seeking independent medical insight and clarity around complex healthcare decisions. We assist patients and families who are considering second opinions, multidisciplinary reviews, or expert consultations provided by U.S.-licensed physicians related to existing diagnoses, treatment plans, or unresolved clinical questions.",
       about: [
         {
-          title: "Why we exist",
-          copy: "We started to make specialist care feel reachable. Every process is designed around clarity, speed, and human support."
+          title: "Mission",
+          copy: "Our mission is to help individuals and families navigate complex medical decisions with clarity, confidence, and trusted expert insight. We are committed to supporting informed decision-making through thoughtful guidance, ethical coordination, and a patient-centered approach."
         },
         {
-          title: "What we believe",
-          copy: "Patients deserve a clear plan. We combine expert review with plain-language guidance so families can act with confidence."
+          title: "Vision",
+          copy: "Our vision is a world where access to medical expertise is not limited by geography, complexity, or uncertainty, where patients feel supported, informed, and empowered at every stage of their healthcare journey."
         },
         {
-          title: "How we work",
-          copy: "We blend clinical expertise with concierge-level coordination, keeping patients informed from intake through follow-up."
+          title: "We Believe",
+          copy: "Patients are best served when they have access to independent expert perspectives. Clear, compassionate communication strengthens understanding and engagement. Preparation and coordination bring greater meaning and value to medical consultations. Healthcare decisions should be informed, deliberate, and guided by each patient's values and priorities."
         }
       ],
       sideNotes: [
@@ -206,9 +209,21 @@ const siteData = {
         href: "./?page=news"
       },
       steps: [
-        { step: "Step 01", title: "Share your records", copy: "Securely upload labs, scans, and care notes in minutes." },
-        { step: "Step 02", title: "Match with a specialist", copy: "We assign the right expert based on your exact condition." },
-        { step: "Step 03", title: "Receive your plan", copy: "Get a clear summary, options, and next-step guidance." }
+        {
+          step: "Svc 01",
+          title: "Expert Second Opinion",
+          copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
+        },
+        {
+          step: "Svc 02",
+          title: "Multi-Specialist Review",
+          copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patient’s condition. This structured review delivers deeper clinical insight and coordinated recommendations."
+        },
+        {
+          step: "Svc 03",
+          title: "U.S. Visit Coordination",
+          copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery."
+        }
       ]
     },
     stories: {

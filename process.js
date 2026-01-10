@@ -30,10 +30,11 @@ export function renderProcess(process) {
       <div class="process-layout">
         <div class="process-steps">${steps}</div>
         <div class="process-visual" aria-hidden="true">
+          <img class="process-logo" src="images/logo.webp" alt="">
           <picture>
-            <source srcset="images/hands-720.webp" type="image/webp">
+            <source srcset="images/who we are.webp" type="image/webp">
             <img
-              src="images/hands-720.png"
+              src="images/who we are.webp"
               alt=""
               width="720"
               height="720"
