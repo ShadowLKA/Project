@@ -1,7 +1,7 @@
 import { renderSectionShell } from "./sectionShell.js";
 import { getSupabaseClient } from "./supabase.js";
 import { normalizePhone, syncAuthButtons } from "./auth/state.js";
-import { getTheme, setTheme } from "./theme.js";
+import { bindThemeToggles } from "./theme.js";
 
 export function renderSettings(settings) {
   return renderSectionShell({
@@ -19,11 +19,23 @@ export function renderSettings(settings) {
           </div>
         </div>
         <form class="intake-form settings-form" data-settings-form>
-          <div class="intake-group">
+          <div class="intake-group settings-theme-group">
             <h3>Theme</h3>
             <div class="settings-theme">
               <span>Current mode</span>
-              <button class="btn btn-secondary" type="button" data-theme-toggle>Switch to dark</button>
+              <button class="btn btn-secondary" type="button" data-theme-toggle aria-label="Toggle dark mode">
+                <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" role="presentation">
+                    <path d="M12 4.25a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V5a.75.75 0 0 1 .75-.75Zm5.657 2.093a.75.75 0 0 1 1.06 0l1.237 1.238a.75.75 0 1 1-1.06 1.06l-1.237-1.237a.75.75 0 0 1 0-1.061Zm-11.314 0a.75.75 0 0 1 0 1.06L5.106 8.64a.75.75 0 1 1-1.06-1.06l1.237-1.237a.75.75 0 0 1 1.06 0ZM12 8.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5Zm8.75 3a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V12a.75.75 0 0 1 .75-.75Zm-16.5 0a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V12a.75.75 0 0 1 .75-.75Zm14.204 6.409a.75.75 0 0 1 0 1.06l-1.237 1.238a.75.75 0 0 1-1.06-1.06l1.237-1.238a.75.75 0 0 1 1.06 0ZM6.583 17.66a.75.75 0 0 1 0 1.06l-1.237 1.238a.75.75 0 0 1-1.06-1.06l1.237-1.238a.75.75 0 0 1 1.06 0ZM12 18.25a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V19a.75.75 0 0 1 .75-.75Z"></path>
+                  </svg>
+                </span>
+                <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" role="presentation">
+                    <path d="M15.5 3.5a.75.75 0 0 1 .739.89 6.75 6.75 0 1 0 7.372 7.372.75.75 0 0 1 .89.739 9 9 0 1 1-9-9Z"></path>
+                  </svg>
+                </span>
+                <span class="visually-hidden" data-theme-label>Switch to dark</span>
+              </button>
             </div>
           </div>
           <div class="intake-group">
@@ -99,24 +111,7 @@ export function initSettingsPage() {
     return;
   }
 
-  const updateThemeButton = () => {
-    const button = form.querySelector("[data-theme-toggle]");
-    if (!button) {
-      return;
-    }
-    const theme = getTheme();
-    button.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
-  };
-
-  const themeButton = form.querySelector("[data-theme-toggle]");
-  if (themeButton) {
-    updateThemeButton();
-    themeButton.addEventListener("click", () => {
-      const nextTheme = getTheme() === "dark" ? "light" : "dark";
-      setTheme(nextTheme);
-      updateThemeButton();
-    });
-  }
+  bindThemeToggles(form);
 
   const syncVisibility = (isLoggedIn) => {
     if (guestCard) {

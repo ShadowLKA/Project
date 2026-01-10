@@ -11,6 +11,12 @@
   --color-success: #26a05a;
   --color-warn: #f0b65c;
   --color-error: #ff5a70;
+  --surface-glass: rgba(11, 13, 18, 0.96);
+  --surface-overlay: rgba(5, 7, 11, 0.65);
+  --surface-soft: rgba(255, 255, 255, 0.08);
+  --surface-soft-border: rgba(255, 255, 255, 0.16);
+  --surface-card: rgba(255, 255, 255, 0.04);
+  --surface-divider: rgba(255, 255, 255, 0.08);
 }
 
 :root.theme-dark body {

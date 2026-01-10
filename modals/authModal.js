@@ -9,7 +9,7 @@ export function renderAuthModal() {
         <h3 id="signupModalTitle">Sign up for a patient account</h3>
         <p>Save your records, track consults, and receive updates securely.</p>
         <p class="modal__message" data-modal-message></p>
-        <form class="modal__form" autocomplete="off">
+        <form class="modal__form" autocomplete="off" data-signup-form>
           <div class="modal__section">
             <div class="modal__section-title">About you</div>
             <label>
@@ -36,7 +36,7 @@ export function renderAuthModal() {
               <input type="text" name="signupOtp" placeholder="6-digit code" inputmode="numeric" autocomplete="one-time-code">
             </label>
           </div>
-          <button class="btn btn-primary" type="button" data-signup-otp-verify data-signup-action>Create account</button>
+          <button class="btn btn-primary" type="submit" data-signup-otp-verify data-signup-action>Create account</button>
         </form>
         <button class="btn btn-primary modal__switch" type="button" data-open-modal="loginModal">
           Log in instead
@@ -51,7 +51,7 @@ export function renderAuthModal() {
         <h3 id="loginModalTitle">Log in to your account</h3>
         <p>Access your saved consultations and updates.</p>
         <p class="modal__message" data-modal-message></p>
-        <form class="modal__form" autocomplete="off">
+        <form class="modal__form" autocomplete="off" data-login-form>
           <div class="modal__section" data-login-email>
             <div class="modal__section-title">Email & password</div>
             <label>
@@ -62,7 +62,7 @@ export function renderAuthModal() {
               Password
               <input type="password" name="loginPassword" placeholder="Enter your password" autocomplete="current-password">
             </label>
-            <button class="btn btn-primary" type="button" data-login-auth>Log in</button>
+            <button class="btn btn-primary" type="submit" data-login-auth>Log in</button>
           </div>
           <div class="modal__section is-hidden" data-login-otp>
             <div class="modal__section-title">Email verification</div>
@@ -71,7 +71,7 @@ export function renderAuthModal() {
               Verification code
               <input type="text" name="loginOtp" placeholder="6-digit code" inputmode="numeric" autocomplete="one-time-code">
             </label>
-            <button class="btn btn-primary" type="button" data-email-otp-verify>Verify code</button>
+            <button class="btn btn-primary" type="submit" data-email-otp-verify>Verify code</button>
           </div>
         </form>
       </div>

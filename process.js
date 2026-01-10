@@ -30,7 +30,19 @@ export function renderProcess(process) {
       <div class="process-layout">
         <div class="process-steps">${steps}</div>
         <div class="process-visual" aria-hidden="true">
-          <img src="images/hands.png" alt="" loading="lazy">
+          <picture>
+            <source srcset="images/hands-720.webp" type="image/webp">
+            <img
+              src="images/hands-720.png"
+              alt=""
+              width="720"
+              height="720"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              style="background-color: var(--color-bg);"
+            >
+          </picture>
         </div>
       </div>
       ${ctaMarkup}

@@ -2,6 +2,37 @@
 import { consumePostAuthRedirect, normalizePhone, setAuthState, reloadAfterAuth } from "./state.js";
 import { resetSignupOtpUi, startSignupCooldown } from "./ui.js";
 
+const withTimeout = async (promise, ms, message) => {
+  let timerId;
+  const timeout = new Promise((_resolve, reject) => {
+    timerId = setTimeout(() => reject(new Error(message)), ms);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    clearTimeout(timerId);
+  }
+};
+
+const setSubmitState = (button, isLoading, label) => {
+  if (!button) {
+    return;
+  }
+  if (isLoading) {
+    button.dataset.originalLabel = button.dataset.originalLabel || button.textContent || "";
+    button.textContent = label || button.textContent || "";
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    return;
+  }
+  if (button.dataset.cooldownActive !== "true") {
+    button.textContent = button.dataset.originalLabel || button.textContent || "";
+  }
+  delete button.dataset.originalLabel;
+  button.disabled = false;
+  button.removeAttribute("aria-busy");
+};
+
 const formatSupabaseError = (error) => {
   if (!error) {
     return "Unknown database error.";
@@ -23,7 +54,7 @@ const checkAccountExists = async (supabaseClient, email, phone) => {
     } else {
       query = query.eq("email", email);
     }
-    const { data, error } = await query;
+    const { data, error } = await withTimeout(query, 15000, "Account lookup timed out. Please try again.");
     if (error) {
       return false;
     }
@@ -39,29 +70,35 @@ export const bindSignup = ({
   clearAuthForm,
   closeAllModals
 }) => {
-  document.querySelectorAll("[data-signup-otp-verify]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      const modal = button.closest(".modal");
+  document.querySelectorAll("[data-signup-form]").forEach((form) => {
+    if (form.dataset.signupBound === "true") {
+      return;
+    }
+    form.dataset.signupBound = "true";
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const modal = form.closest(".modal");
       if (!modal) {
         return;
       }
-      if (button.dataset.requestPending === "true") {
+      const actionButton = form.querySelector("[data-signup-action]");
+      if (form.dataset.requestPending === "true") {
         return;
       }
-      button.dataset.requestPending = "true";
+      form.dataset.requestPending = "true";
       try {
         const supabaseClient = state.supabaseClient;
         if (!supabaseClient) {
           setModalMessage(modal, "Supabase failed to load. Please refresh and try again.");
           return;
         }
-        const nameInput = modal.querySelector('input[name="fullName"]');
-        const emailInput = modal.querySelector('input[name="email"]');
-        const phoneInput = modal.querySelector('input[name="phone"]');
-        const passwordInput = modal.querySelector('input[name="password"]');
-        const codeInput = modal.querySelector('input[name="signupOtp"]');
-        const otpWrapper = modal.querySelector("[data-signup-otp-wrapper]");
-        const otpSection = modal.querySelector("[data-signup-otp-section]");
+        const nameInput = form.querySelector('input[name="fullName"]');
+        const emailInput = form.querySelector('input[name="email"]');
+        const phoneInput = form.querySelector('input[name="phone"]');
+        const passwordInput = form.querySelector('input[name="password"]');
+        const codeInput = form.querySelector('input[name="signupOtp"]');
+        const otpWrapper = form.querySelector("[data-signup-otp-wrapper]");
+        const otpSection = form.querySelector("[data-signup-otp-section]");
         if (!emailInput || !phoneInput || !codeInput || !passwordInput) {
           return;
         }
@@ -92,6 +129,8 @@ export const bindSignup = ({
           !token &&
           (otpWrapper?.classList.contains("is-hidden") || otpSection?.classList.contains("is-hidden"))
         ) {
+          setSubmitState(actionButton, true, "Sending code...");
+          console.info("[auth] signup:otp:start", { email });
           const exists = await checkAccountExists(supabaseClient, email, phone);
           if (exists) {
             setModalMessage(
@@ -100,17 +139,20 @@ export const bindSignup = ({
               "success"
             );
           }
-          button.disabled = true;
-          setModalMessage(modal, "");
-          const { error } = await supabaseClient.auth.signInWithOtp({
-            email,
-            options: { shouldCreateUser: true }
-          });
-          button.disabled = false;
+          const { error } = await withTimeout(
+            supabaseClient.auth.signInWithOtp({
+              email,
+              options: { shouldCreateUser: true }
+            }),
+            15000,
+            "Verification email timed out. Please try again."
+          );
           if (error) {
+            console.error("[auth] signup:otp:error", error);
             setModalMessage(modal, error.message || "Could not send code. Try again.");
             return;
           }
+          console.info("[auth] signup:otp:sent", { email });
           state.pendingSignupEmail = email;
           if (otpSection) {
             otpSection.classList.remove("is-hidden");
@@ -126,21 +168,25 @@ export const bindSignup = ({
         }
 
         if (!token) {
-          if (button.dataset.cooldownActive === "true") {
+          if (actionButton?.dataset.cooldownActive === "true") {
             setModalMessage(modal, "Please wait before requesting another code.");
             return;
           }
-          button.disabled = true;
-          setModalMessage(modal, "");
-          const { error } = await supabaseClient.auth.signInWithOtp({
-            email: state.pendingSignupEmail || email,
-            options: { shouldCreateUser: true }
-          });
-          button.disabled = false;
+          setSubmitState(actionButton, true, "Resending...");
+          const { error } = await withTimeout(
+            supabaseClient.auth.signInWithOtp({
+              email: state.pendingSignupEmail || email,
+              options: { shouldCreateUser: true }
+            }),
+            15000,
+            "Verification email timed out. Please try again."
+          );
           if (error) {
+            console.error("[auth] signup:otp:resend:error", error);
             setModalMessage(modal, error.message || "Could not resend code. Try again.");
             return;
           }
+          console.info("[auth] signup:otp:resent", { email });
           state.pendingSignupEmail = email;
           setModalMessage(modal, "Verification code resent. Check your email.", "success");
           startSignupCooldown(modal);
@@ -161,51 +207,67 @@ export const bindSignup = ({
           setModalMessage(modal, "This account already exists. Verify the code to continue signing in.", "success");
         }
 
-        button.disabled = true;
-        setModalMessage(modal, "");
-        const { data, error } = await supabaseClient.auth.verifyOtp({
-          email: state.pendingSignupEmail || email,
-          token,
-          type: "email"
-        });
+        setSubmitState(actionButton, true, "Creating account...");
+        console.info("[auth] signup:verify:start", { email });
+        const { data, error } = await withTimeout(
+          supabaseClient.auth.verifyOtp({
+            email: state.pendingSignupEmail || email,
+            token,
+            type: "email"
+          }),
+          15000,
+          "Verification timed out. Please try again."
+        );
         if (error) {
-          button.disabled = false;
+          console.error("[auth] signup:verify:error", error);
           setModalMessage(modal, error.message || "Verification failed. Try again.");
           return;
         }
         let session = data?.session || null;
         if (!session) {
-          const { data: sessionData } = await supabaseClient.auth.getSession();
+          const { data: sessionData } = await withTimeout(
+            supabaseClient.auth.getSession(),
+            15000,
+            "Session fetch timed out. Please try again."
+          );
           session = sessionData?.session || null;
         }
-        const { error: updateError } = await supabaseClient.auth.updateUser({
-          password,
-          data: {
-            full_name: fullName,
-            phone: phone || null
-          }
-        });
+        const { error: updateError } = await withTimeout(
+          supabaseClient.auth.updateUser({
+            password,
+            data: {
+              full_name: fullName,
+              phone: phone || null
+            }
+          }),
+          15000,
+          "Profile update timed out. Please try again."
+        );
         if (updateError) {
-          button.disabled = false;
+          console.error("[auth] signup:update:error", updateError);
           await supabaseClient.auth.signOut();
           setAuthState(state, null);
           setModalMessage(modal, updateError.message || "Could not set password. Try again.");
           return;
         }
         if (!session) {
-          const { data: loginData, error: loginError } = await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-          });
+          const { data: loginData, error: loginError } = await withTimeout(
+            supabaseClient.auth.signInWithPassword({
+              email,
+              password
+            }),
+            15000,
+            "Login timed out. Please try again."
+          );
           if (loginError) {
-            button.disabled = false;
+            console.error("[auth] signup:login:error", loginError);
             setModalMessage(modal, loginError.message || "Could not log in. Try again.");
             return;
           }
           session = loginData?.session || session;
         }
         // Profile row is synced by a database trigger on auth.users.
-        button.disabled = false;
+        console.info("[auth] signup:success", { email });
         setAuthState(state, session);
         clearAuthForm(modal);
         state.pendingSignupEmail = "";
@@ -214,8 +276,12 @@ export const bindSignup = ({
         reloadAfterAuth(state);
         consumePostAuthRedirect();
         return;
+      } catch (error) {
+        console.error("[auth] signup:error", error);
+        setModalMessage(modal, error?.message || "Signup failed. Try again.");
       } finally {
-        button.dataset.requestPending = "false";
+        form.dataset.requestPending = "false";
+        setSubmitState(actionButton, false);
       }
     });
   });

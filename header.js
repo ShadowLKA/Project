@@ -1,5 +1,6 @@
 // Note: Header layout and navigation rendering.
 import { getSupabaseClient } from "./supabase.js";
+import { bindThemeToggles } from "./theme.js";
 export function renderHeader(brand, nav) {
   const navItems = nav
     .map(
@@ -12,6 +13,23 @@ export function renderHeader(brand, nav) {
   const settingsItem = `
     <li class="nav-item nav-item--settings">
       <a href="./?page=settings">Settings</a>
+    </li>`;
+  const themeToggleItem = `
+    <li class="nav-item">
+      <a href="#" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" role="presentation">
+            <path d="M12 4.25a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V5a.75.75 0 0 1 .75-.75Zm5.657 2.093a.75.75 0 0 1 1.06 0l1.237 1.238a.75.75 0 1 1-1.06 1.06l-1.237-1.237a.75.75 0 0 1 0-1.061Zm-11.314 0a.75.75 0 0 1 0 1.06L5.106 8.64a.75.75 0 1 1-1.06-1.06l1.237-1.237a.75.75 0 0 1 1.06 0ZM12 8.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5Zm8.75 3a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V12a.75.75 0 0 1 .75-.75Zm-16.5 0a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V12a.75.75 0 0 1 .75-.75Zm14.204 6.409a.75.75 0 0 1 0 1.06l-1.237 1.238a.75.75 0 0 1-1.06-1.06l1.237-1.238a.75.75 0 0 1 1.06 0ZM6.583 17.66a.75.75 0 0 1 0 1.06l-1.237 1.238a.75.75 0 0 1-1.06-1.06l1.237-1.238a.75.75 0 0 1 1.06 0ZM12 18.25a.75.75 0 0 1 .75.75v1.75a.75.75 0 0 1-1.5 0V19a.75.75 0 0 1 .75-.75Z"></path>
+          </svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" role="presentation">
+            <path d="M15.5 3.5a.75.75 0 0 1 .739.89 6.75 6.75 0 1 0 7.372 7.372.75.75 0 0 1 .89.739 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </span>
+        <span class="theme-toggle__text" aria-hidden="true">Dark mode</span>
+        <span class="visually-hidden" data-theme-label>Switch to dark</span>
+      </a>
     </li>`;
 
   return `
@@ -60,6 +78,7 @@ export function renderHeader(brand, nav) {
           </div>
         </div>
         <div class="drawer-actions">
+          ${themeToggleItem.replace("nav-item", "nav-item drawer-theme-toggle")}
           <span class="mobile-menu__title">Account</span>
           <div class="nav-auth" data-auth-guest>
             <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
@@ -214,6 +233,7 @@ export function bindHeader(headerEl) {
   });
 
   syncNavHeight();
+  bindThemeToggles(headerEl);
 
   const setHeaderAuthState = (session) => {
     const isLoggedIn = Boolean(session);
