@@ -3,7 +3,7 @@ import siteData from "./siteData.js";
 import { renderHeader, bindHeader } from "./header.js";
 import { renderFooter } from "./footer.js";
 import { renderHome } from "./home.js";
-import { renderConsultForm } from "./consultForm.js";
+import { renderConsultForm, initConsultForm } from "./consultForm.js";
 import { renderAdvisors } from "./advisors.js";
 import { renderProcess } from "./process.js";
 import { renderContact } from "./contact.js";
@@ -140,8 +140,9 @@ function renderApp() {
   const currentPage = getPage();
   const isTeamPage = currentPage === "team";
   const isSettingsPage = currentPage === "settings";
+  const isConsultPage = currentPage === "consult";
 
-  if (currentPage === "consult") {
+  if (isConsultPage) {
     app.innerHTML = renderConsultForm(siteData.pages.consultForm);
   } else if (isSettingsPage) {
     app.innerHTML = renderSettings(siteData.pages.settings);
@@ -174,6 +175,9 @@ function renderApp() {
   }
   if (currentPage === "news") {
     initNewsPage();
+  }
+  if (isConsultPage) {
+    initConsultForm();
   }
 
   const heroVideo = document.querySelector(".hero-visual-photo video");

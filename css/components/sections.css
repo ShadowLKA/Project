@@ -236,6 +236,17 @@
   background: rgba(176, 179, 184, 0.12);
 }
 
+.intake-message {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--color-error);
+  min-height: 20px;
+}
+
+.intake-message.is-success {
+  color: var(--color-success);
+}
+
 .intake-side {
   display: grid;
   gap: 16px;
@@ -380,7 +391,6 @@
     font-size: 13px;
   }
 }
-
 
 
 

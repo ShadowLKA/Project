@@ -1,5 +1,6 @@
 // Note: Consultation intake page section.
 import { renderSectionShell } from "./sectionShell.js";
+import { getSupabaseClient } from "./supabase.js";
 
 export function renderConsultForm(consultForm) {
   return renderSectionShell({
@@ -9,7 +10,7 @@ export function renderConsultForm(consultForm) {
     copy: consultForm.copy,
     content: `
       <div class="intake-grid">
-        <form class="intake-form">
+        <form class="intake-form" data-consult-form>
           <div class="intake-group">
             <label>
               Full name
@@ -53,7 +54,8 @@ export function renderConsultForm(consultForm) {
               <input type="file" name="records" multiple>
             </label>
           </div>
-          <button class="btn btn-primary" type="button">Submit request</button>
+          <button class="btn btn-primary" type="submit">Submit request</button>
+          <p class="intake-message" data-consult-message aria-live="polite"></p>
         </form>
         <div class="intake-side">
           <div class="intake-card">
@@ -71,5 +73,124 @@ export function renderConsultForm(consultForm) {
         </div>
       </div>
     `
+  });
+}
+
+const setSubmitState = (button, isLoading, label) => {
+  if (!button) {
+    return;
+  }
+  if (isLoading) {
+    button.dataset.originalLabel = button.dataset.originalLabel || button.textContent || "";
+    button.textContent = label || button.textContent || "";
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+  } else {
+    button.textContent = button.dataset.originalLabel || button.textContent || "";
+    delete button.dataset.originalLabel;
+    button.disabled = false;
+    button.removeAttribute("aria-busy");
+  }
+};
+
+export function initConsultForm() {
+  const form = document.querySelector("[data-consult-form]");
+  const messageEl = document.querySelector("[data-consult-message]");
+  if (!form) {
+    return;
+  }
+
+  const setMessage = (text, type = "error") => {
+    if (!messageEl) {
+      return;
+    }
+    messageEl.textContent = text;
+    messageEl.classList.toggle("is-visible", Boolean(text));
+    messageEl.classList.toggle("is-success", type === "success");
+  };
+
+  const supabaseClient = getSupabaseClient();
+  if (!supabaseClient) {
+    setMessage("Supabase failed to load. Please refresh and try again.");
+    return;
+  }
+
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (form.dataset.requestPending === "true") {
+      return;
+    }
+
+    const name = form.querySelector('input[name="name"]')?.value.trim() || "";
+    const email = form.querySelector('input[name="email"]')?.value.trim().toLowerCase() || "";
+    const phone = form.querySelector('input[name="phone"]')?.value.trim() || "";
+    const contact = form.querySelector('select[name="contact"]')?.value || "";
+    const specialty = form.querySelector('select[name="specialty"]')?.value || "";
+    const concern = form.querySelector('textarea[name="message"]')?.value.trim() || "";
+    const recordsInput = form.querySelector('input[name="records"]');
+    const records = Array.from(recordsInput?.files || [])
+      .map((file) => file.name)
+      .filter(Boolean);
+
+    if (!name) {
+      setMessage("Please enter your full name.");
+      return;
+    }
+    if (!contact) {
+      setMessage("Please select a preferred contact method.");
+      return;
+    }
+    if (contact === "email" && !email) {
+      setMessage("Please provide an email address.");
+      return;
+    }
+    if ((contact === "phone" || contact === "text") && !phone) {
+      setMessage("Please provide a phone number.");
+      return;
+    }
+    if (!email && !phone) {
+      setMessage("Please provide at least one way to contact you.");
+      return;
+    }
+    if (!specialty) {
+      setMessage("Please select a specialty.");
+      return;
+    }
+    if (!concern) {
+      setMessage("Please describe your concern.");
+      return;
+    }
+
+    form.dataset.requestPending = "true";
+    setMessage("");
+    setSubmitState(submitButton, true, "Submitting...");
+
+    try {
+      const payload = {
+        name,
+        email: email || null,
+        phone: phone || null,
+        contact,
+        specialty,
+        message: concern,
+        records: records.length ? records : null
+      };
+      const { error } = await supabaseClient.from("consultations").insert(payload);
+      if (error) {
+        console.error("[consult] submit:error", error);
+        setMessage(error.message || "Submission failed. Please try again.");
+        return;
+      }
+      setMessage("Request received. We'll follow up within 24 hours.", "success");
+      form.reset();
+    } catch (error) {
+      console.error("[consult] submit:error", error);
+      setMessage(error?.message || "Submission failed. Please try again.");
+    } finally {
+      form.dataset.requestPending = "false";
+      setSubmitState(submitButton, false);
+    }
   });
 }
