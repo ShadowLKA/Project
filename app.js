@@ -195,13 +195,14 @@ function renderApp() {
 initTheme();
 renderApp();
 
-const setupBottomBar = () => {
-  const bottomBar = document.getElementById("bottomBar");
-  if (!bottomBar) {
-    return;
-  }
+let bottomBarBound = false;
 
+const setupBottomBar = () => {
   const updateBottomBar = () => {
+    const bottomBar = document.getElementById("bottomBar");
+    if (!bottomBar) {
+      return;
+    }
     const doc = document.documentElement;
     const offset = 40;
     const reachedBottom = window.scrollY + window.innerHeight >= doc.scrollHeight - offset;
@@ -209,11 +210,37 @@ const setupBottomBar = () => {
   };
 
   updateBottomBar();
+  if (bottomBarBound) {
+    return;
+  }
+  bottomBarBound = true;
   window.addEventListener("scroll", updateBottomBar, { passive: true });
   window.addEventListener("resize", updateBottomBar);
 };
 
 setupBottomBar();
+
+let authRefreshPending = false;
+const refreshAfterAuth = () => {
+  if (authRefreshPending) {
+    return;
+  }
+  authRefreshPending = true;
+  const scrollY = window.scrollY;
+  renderApp();
+  setupBottomBar();
+  requestAnimationFrame(() => {
+    window.scrollTo(0, scrollY);
+    authRefreshPending = false;
+  });
+};
+
+window.addEventListener("auth:changed", (event) => {
+  if (!event.detail?.session) {
+    return;
+  }
+  refreshAfterAuth();
+});
 
 document.addEventListener(
   "click",
