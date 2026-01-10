@@ -2,11 +2,17 @@ const SUPABASE_URL = "https://heihssimnnilkowuxvfa.supabase.co";
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlaWhzc2ltbm5pbGtvd3V4dmZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2ODQxNzYsImV4cCI6MjA3OTI2MDE3Nn0.JGsfnHNVhnOIwfF_aJ_nCfRSkq8MF-QuoIyKQfzA5SY";
 
+let supabaseClient = null;
+
 export function getSupabaseClient() {
+  if (supabaseClient) {
+    return supabaseClient;
+  }
   if (!window.supabase?.createClient) {
     return null;
   }
-  return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  return supabaseClient;
 }
 
 export async function checkProfileExists(supabaseClient, email, phone) {

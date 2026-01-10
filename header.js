@@ -1,5 +1,6 @@
 // Note: Header layout and navigation rendering.
 import { getSupabaseClient } from "./supabase.js";
+import { setAuthState } from "./auth/state.js";
 import { bindThemeToggles } from "./theme.js";
 export function renderHeader(brand, nav) {
   const navItems = nav
@@ -264,25 +265,51 @@ export function bindHeader(headerEl) {
     });
   }
 
+  const forceLocalLogout = () => {
+    sessionStorage.removeItem("pendingEmailLogin");
+    setAuthState({ currentSession: null }, null);
+  };
+
   headerEl.querySelectorAll("[data-logout]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      if (!supabaseClient) {
+    if (button.dataset.logoutBound === "true") {
+      return;
+    }
+    button.dataset.logoutBound = "true";
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      if (button.dataset.logoutPending === "true") {
         return;
       }
-      await supabaseClient.auth.signOut();
-      localStorage.removeItem("accountEmail");
-      localStorage.removeItem("accountName");
-      localStorage.removeItem("accountPhone");
-      localStorage.removeItem("isLoggedIn");
-      sessionStorage.removeItem("pendingEmailLogin");
-      setTimeout(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get("page") === "consult") {
-          window.location.href = "./";
-        } else {
-          window.location.reload();
+      button.dataset.logoutPending = "true";
+      button.disabled = true;
+
+      try {
+        if (supabaseClient) {
+          const { error } = await supabaseClient.auth.signOut();
+          if (error) {
+            await supabaseClient.auth.signOut({ scope: "local" });
+          }
         }
-      }, 150);
+      } catch (_error) {
+        if (supabaseClient) {
+          try {
+            await supabaseClient.auth.signOut({ scope: "local" });
+          } catch (_ignore) {
+          }
+        }
+      } finally {
+        forceLocalLogout();
+        setTimeout(() => {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("page") === "consult") {
+            window.location.href = "./";
+          } else {
+            window.location.reload();
+          }
+        }, 150);
+        button.disabled = false;
+        button.dataset.logoutPending = "false";
+      }
     });
   });
 }
