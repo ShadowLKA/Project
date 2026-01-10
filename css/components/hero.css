@@ -39,7 +39,7 @@
   height: 620px;
   top: -280px;
   left: -220px;
-  background: radial-gradient(circle, rgba(226, 62, 87, 0.48), transparent 68%);
+  background: radial-gradient(circle, rgba(36, 75, 140, 0.35), transparent 68%);
 }
 
 .hero::after {
@@ -47,7 +47,7 @@
   height: 520px;
   bottom: -240px;
   right: -180px;
-  background: radial-gradient(circle, rgba(226, 62, 87, 0.34), transparent 68%);
+  background: radial-gradient(circle, rgba(36, 75, 140, 0.25), transparent 68%);
 }
 
 .hero-shell::before {
@@ -55,7 +55,7 @@
   height: 360px;
   right: -140px;
   top: -120px;
-  background: radial-gradient(circle, rgba(226, 62, 87, 0.28), transparent 68%);
+  background: radial-gradient(circle, rgba(36, 75, 140, 0.22), transparent 68%);
   z-index: -1;
 }
 
@@ -65,7 +65,7 @@
   left: -200px;
   bottom: -220px;
   transform: none;
-  background: radial-gradient(circle, rgba(226, 62, 87, 0.3), transparent 68%);
+  background: radial-gradient(circle, rgba(36, 75, 140, 0.24), transparent 68%);
   z-index: -1;
 }
 
@@ -88,8 +88,8 @@
   gap: 8px;
   align-items: center;
   padding: 6px 14px;
-  background: rgba(226, 62, 87, 0.12);
-  color: #7d1e30;
+  background: rgba(36, 75, 140, 0.14);
+  color: #1f3f73;
   border-radius: 999px;
   font-size: var(--text-xs);
   letter-spacing: var(--letter-wide);
@@ -251,8 +251,8 @@
   font-size: var(--text-xs);
   letter-spacing: var(--letter-wide);
   text-transform: uppercase;
-  color: #7d1e30;
-  background: rgba(226, 62, 87, 0.12);
+  color: #1f3f73;
+  background: rgba(36, 75, 140, 0.14);
   padding: 6px 10px;
   border-radius: 999px;
 }
@@ -494,7 +494,4 @@
     display: none;
   }
 }
-
-
-
 

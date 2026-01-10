@@ -78,7 +78,7 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 6px;
-  background: linear-gradient(90deg, rgba(226, 62, 87, 0.85), rgba(226, 62, 87, 0.2));
+  background: linear-gradient(90deg, rgba(36, 75, 140, 0.85), rgba(36, 75, 140, 0.2));
 }
 
 .advisor-header {
@@ -91,7 +91,7 @@
   width: 54px;
   height: 54px;
   border-radius: 16px;
-  background: rgba(226, 62, 87, 0.12);
+  background: rgba(36, 75, 140, 0.12);
   color: var(--ink);
   font-weight: 700;
 }

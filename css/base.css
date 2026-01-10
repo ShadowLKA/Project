@@ -186,8 +186,8 @@ body::before {
   gap: 8px;
   align-items: center;
   padding: 6px 14px;
-  background: rgba(226, 62, 87, 0.12);
-  color: #7d1e30;
+  background: rgba(36, 75, 140, 0.14);
+  color: #1f3f73;
   border-radius: 999px;
   font-size: var(--text-xs);
   letter-spacing: var(--letter-wide);
