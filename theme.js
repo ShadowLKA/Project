@@ -32,6 +32,17 @@ export const applyTheme = (theme = getTheme()) => {
   root.dataset.themeResolved = resolved;
 };
 
+const applyInitialTheme = () => {
+  if (typeof document === "undefined") {
+    return;
+  }
+  const root = document.documentElement;
+  if (root.dataset && root.dataset.themeResolved) {
+    return;
+  }
+  applyTheme(getTheme());
+};
+
 export const setTheme = (theme) => {
   const nextTheme = normalizeTheme(theme);
   if (!nextTheme || nextTheme === "system") {
@@ -80,7 +91,7 @@ export const bindThemeToggles = (root = document) => {
 };
 
 export const initTheme = () => {
-  applyTheme();
+  applyInitialTheme();
   if (!window.matchMedia) {
     return;
   }
@@ -98,3 +109,5 @@ export const initTheme = () => {
     mediaQuery.addListener(handleChange);
   }
 };
+
+applyInitialTheme();

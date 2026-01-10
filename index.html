@@ -5,31 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MedBridge</title>
   <meta name="description" content="Virtual doctor consultations, expert opinions, and specialist care.">
-  <script>
-    (function () {
-      var key = "siteTheme";
-      var stored = null;
-      try {
-        stored = localStorage.getItem(key);
-      } catch (error) {
-        stored = null;
-      }
-      var theme = stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
-      var resolved = theme;
-      if (theme === "system") {
-        var media = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
-        resolved = media && media.matches ? "dark" : "light";
-      }
-      var root = document.documentElement;
-      if (resolved === "dark") {
-        root.classList.add("theme-dark");
-      } else {
-        root.classList.remove("theme-dark");
-      }
-      root.dataset.theme = theme;
-      root.dataset.themeResolved = resolved;
-    })();
-  </script>
+  <script type="module" src="theme.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
