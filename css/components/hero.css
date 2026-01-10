@@ -6,7 +6,7 @@
 }
 
 .hero {
-  background: linear-gradient(180deg, #F9F9FB 0%, #FFFFFF 55%, #F9F9FB 100%);
+  background: linear-gradient(180deg, #E8F2FF 0%, #F8FBFF 55%, #E8F2FF 100%);
   min-height: 100vh;
   padding-bottom: 120px;
 }
@@ -17,7 +17,7 @@
   right: 0;
   bottom: 0;
   height: 140px;
-  background: linear-gradient(180deg, rgba(249, 249, 251, 0), #F9F9FB 80%);
+  background: linear-gradient(180deg, rgba(232, 242, 255, 0), #E8F2FF 80%);
   pointer-events: none;
   z-index: 0;
 }
@@ -494,7 +494,6 @@
     display: none;
   }
 }
-
 
 
 
