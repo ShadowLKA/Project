@@ -7,7 +7,7 @@ export function renderHome(hero) {
     )
     .join("");
 
-  const tabs = ["Doctor", "Consult", "Pharmacy", "Diagnostics"];
+  const tabs = ["Doctor", "Consult"];
   const tabMarkup = tabs
     .map((label, index) => {
       const isActive = index === 0 ? " is-active" : "";
@@ -79,7 +79,6 @@ export function renderHome(hero) {
     </section>
   `;
 }
-
 
 
 
