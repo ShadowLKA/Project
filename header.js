@@ -104,7 +104,7 @@ export function bindHeader(headerEl) {
   const mobileMenuBtn = headerEl.querySelector("#mobileMenuBtn");
   const mobileMenu = headerEl.querySelector("#mobileMenu");
   const mobileBackdrop = headerEl.querySelector("[data-mobile-backdrop]");
-  const mobileQuery = window.matchMedia("(max-width: 720px)");
+  const mobileQuery = window.matchMedia ? window.matchMedia("(max-width: 720px)") : null;
 
   if (!mobileMenuBtn || !mobileMenu) {
     return;
@@ -197,7 +197,14 @@ export function bindHeader(headerEl) {
   };
 
   const scrollThreshold = 12;
-  let lastScrollY = window.scrollY;
+  const getScrollY = () =>
+    window.scrollY ??
+    window.pageYOffset ??
+    document.documentElement.scrollTop ??
+    document.body.scrollTop ??
+    0;
+  const isMobileView = () => (mobileQuery ? mobileQuery.matches : window.innerWidth <= 720);
+  let lastScrollY = getScrollY();
   let navHidden = false;
   let scrollTicking = false;
 
@@ -210,17 +217,17 @@ export function bindHeader(headerEl) {
   };
 
   const handleScroll = () => {
-    if (!mobileQuery.matches) {
+    if (!isMobileView()) {
       setNavHidden(false);
-      lastScrollY = window.scrollY;
+      lastScrollY = getScrollY();
       return;
     }
     if (headerEl.classList.contains("nav-open")) {
       setNavHidden(false);
-      lastScrollY = window.scrollY;
+      lastScrollY = getScrollY();
       return;
     }
-    const currentY = window.scrollY;
+    const currentY = getScrollY();
     const delta = currentY - lastScrollY;
     if (Math.abs(delta) < scrollThreshold) {
       return;
@@ -281,10 +288,10 @@ export function bindHeader(headerEl) {
       closeMobileMenu();
     }
     syncNavHeight();
-    if (!mobileQuery.matches) {
+    if (!isMobileView()) {
       setNavHidden(false);
     }
-    lastScrollY = window.scrollY;
+    lastScrollY = getScrollY();
   });
 
   syncNavHeight();
@@ -308,6 +315,13 @@ export function bindHeader(headerEl) {
   });
 
   window.addEventListener("scroll", onScroll, { passive: true });
+  document.addEventListener("scroll", onScroll, { passive: true });
+  if (mobileQuery) {
+    mobileQuery.addEventListener("change", () => {
+      setNavHidden(false);
+      lastScrollY = getScrollY();
+    });
+  }
   handleScroll();
 
   if (supabaseClient) {
