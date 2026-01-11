@@ -5,6 +5,8 @@ import { getSupabaseClient } from "./supabase.js";
 const NEWS_SLOTS_TABLE = "news_slots";
 const NEWS_BUCKET = "news-images";
 const SLOT_COUNT = 3;
+const NEWS_CACHE_KEY = "news_slots_cache_v1";
+const NEWS_CACHE_TTL_MS = 10 * 60 * 1000;
 
 export function renderNewsPage(news) {
   const highlights = news.highlights
@@ -186,11 +188,46 @@ export function initNewsPage() {
 
   let slotsData = {};
 
+  const warmImageCache = (items) => {
+    (items || []).forEach((item) => {
+      if (item?.image_url) {
+        const img = new Image();
+        img.src = item.image_url;
+      }
+    });
+  };
+
   const syncSlots = () => {
     document.querySelectorAll(".news-slot").forEach((slotEl) => {
       const slotNumber = Number(slotEl.dataset.slot);
       updateSlot(slotEl, slotsData[slotNumber]);
     });
+  };
+
+  const loadCachedSlots = () => {
+    try {
+      const raw = localStorage.getItem(NEWS_CACHE_KEY);
+      if (!raw) {
+        return false;
+      }
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") {
+        return false;
+      }
+      if (Date.now() - parsed.savedAt > NEWS_CACHE_TTL_MS) {
+        return false;
+      }
+      const items = Array.isArray(parsed.items) ? parsed.items : [];
+      slotsData = items.reduce((acc, item) => {
+        acc[item.slot_number] = item;
+        return acc;
+      }, {});
+      syncSlots();
+      warmImageCache(items);
+      return true;
+    } catch (err) {
+      return false;
+    }
   };
 
   const loadSlots = async () => {
@@ -205,9 +242,18 @@ export function initNewsPage() {
       acc[item.slot_number] = item;
       return acc;
     }, {});
+    try {
+      localStorage.setItem(
+        NEWS_CACHE_KEY,
+        JSON.stringify({ savedAt: Date.now(), items: data || [] })
+      );
+    } catch (err) {
+      // Ignore storage failures (private mode, quota).
+    }
     syncSlots();
+    warmImageCache(data);
   };
 
+  loadCachedSlots();
   loadSlots();
 }
-
