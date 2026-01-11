@@ -7,6 +7,8 @@ const NEWS_BUCKET = "news-images";
 const SLOT_COUNT = 3;
 const NEWS_CACHE_KEY = "news_slots_cache_v1";
 const NEWS_CACHE_TTL_MS = 10 * 60 * 1000;
+const NEWS_IMAGE_QUALITY = 70;
+const NEWS_IMAGE_MAX_WIDTH = 1200;
 
 export function renderNewsPage(news) {
   const highlights = news.highlights
@@ -143,6 +145,29 @@ const getStoragePath = (publicUrl) => {
   return publicUrl.slice(index + marker.length);
 };
 
+const getOptimizedImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "";
+  }
+  const marker = `/storage/v1/object/public/${NEWS_BUCKET}/`;
+  if (!imageUrl.includes(marker)) {
+    return imageUrl;
+  }
+  const targetWidth = Math.min(
+    NEWS_IMAGE_MAX_WIDTH,
+    Math.round(720 * (window.devicePixelRatio || 1))
+  );
+  try {
+    const url = new URL(imageUrl);
+    url.searchParams.set("width", `${targetWidth}`);
+    url.searchParams.set("quality", `${NEWS_IMAGE_QUALITY}`);
+    return url.toString();
+  } catch (err) {
+    const joiner = imageUrl.includes("?") ? "&" : "?";
+    return `${imageUrl}${joiner}width=${targetWidth}&quality=${NEWS_IMAGE_QUALITY}`;
+  }
+};
+
 const updateSlot = (slotEl, data) => {
   const imageEl = slotEl.querySelector("[data-slot-image]");
   const captionEl = slotEl.querySelector("[data-slot-caption]");
@@ -150,7 +175,7 @@ const updateSlot = (slotEl, data) => {
 
   if (data?.image_url) {
     if (imageEl) {
-      imageEl.src = data.image_url;
+      imageEl.src = getOptimizedImageUrl(data.image_url);
       imageEl.classList.remove("is-hidden");
     }
     if (placeholder) {
@@ -192,7 +217,7 @@ export function initNewsPage() {
     (items || []).forEach((item) => {
       if (item?.image_url) {
         const img = new Image();
-        img.src = item.image_url;
+        img.src = getOptimizedImageUrl(item.image_url);
       }
     });
   };
