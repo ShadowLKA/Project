@@ -104,6 +104,7 @@ export function bindHeader(headerEl) {
   const mobileMenuBtn = headerEl.querySelector("#mobileMenuBtn");
   const mobileMenu = headerEl.querySelector("#mobileMenu");
   const mobileBackdrop = headerEl.querySelector("[data-mobile-backdrop]");
+  const mobileQuery = window.matchMedia("(max-width: 720px)");
 
   if (!mobileMenuBtn || !mobileMenu) {
     return;
@@ -195,6 +196,55 @@ export function bindHeader(headerEl) {
     }
   };
 
+  const scrollThreshold = 12;
+  let lastScrollY = window.scrollY;
+  let navHidden = false;
+  let scrollTicking = false;
+
+  const setNavHidden = (hidden) => {
+    if (navHidden === hidden) {
+      return;
+    }
+    navHidden = hidden;
+    headerEl.classList.toggle("nav-hidden", hidden);
+  };
+
+  const handleScroll = () => {
+    if (!mobileQuery.matches) {
+      setNavHidden(false);
+      lastScrollY = window.scrollY;
+      return;
+    }
+    if (headerEl.classList.contains("nav-open")) {
+      setNavHidden(false);
+      lastScrollY = window.scrollY;
+      return;
+    }
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+    if (Math.abs(delta) < scrollThreshold) {
+      return;
+    }
+    if (currentY <= scrollThreshold) {
+      setNavHidden(false);
+      lastScrollY = currentY;
+      return;
+    }
+    setNavHidden(delta > 0);
+    lastScrollY = currentY;
+  };
+
+  const onScroll = () => {
+    if (scrollTicking) {
+      return;
+    }
+    scrollTicking = true;
+    window.requestAnimationFrame(() => {
+      handleScroll();
+      scrollTicking = false;
+    });
+  };
+
   const confirmMenuState = (isLoggedIn) => {
     headerEl.querySelectorAll("[data-auth-required]").forEach((el) => {
       el.classList.toggle("is-hidden", !isLoggedIn);
@@ -231,6 +281,10 @@ export function bindHeader(headerEl) {
       closeMobileMenu();
     }
     syncNavHeight();
+    if (!mobileQuery.matches) {
+      setNavHidden(false);
+    }
+    lastScrollY = window.scrollY;
   });
 
   syncNavHeight();
@@ -252,6 +306,9 @@ export function bindHeader(headerEl) {
   window.addEventListener("auth:changed", (event) => {
     setHeaderAuthState(event.detail?.session || null);
   });
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  handleScroll();
 
   if (supabaseClient) {
     const fetchSession = async () => {
