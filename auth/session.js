@@ -13,6 +13,10 @@ export const initAuthSession = ({ state, openModal, closeAllModals }) => {
     sessionStorage.setItem("signupPrompted", "true");
     state.hasPromptedSignup = true;
     openModal("signupModal");
+    const modal = document.getElementById("signupModal");
+    if (modal) {
+      modal.dataset.lockBackdrop = "true";
+    }
   };
 
   const initSession = async () => {

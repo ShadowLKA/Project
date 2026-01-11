@@ -77,6 +77,7 @@ export function bindModal() {
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     setModalMessage(modal, "");
+    delete modal.dataset.lockBackdrop;
     document.body.classList.remove("no-scroll");
     document.body.classList.remove("modal-open");
     document.body.style.position = "";
@@ -100,7 +101,13 @@ export function bindModal() {
 
   modals.forEach((modal) => {
     modal.querySelectorAll("[data-close-modal]").forEach((button) => {
-      button.addEventListener("click", () => closeModal(modal));
+      button.addEventListener("click", () => {
+        const isBackdrop = button.classList.contains("modal__backdrop");
+        if (isBackdrop && modal.dataset.lockBackdrop === "true") {
+          return;
+        }
+        closeModal(modal);
+      });
     });
   });
 

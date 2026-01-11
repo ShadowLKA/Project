@@ -196,17 +196,25 @@ initTheme();
 renderApp();
 
 let bottomBarBound = false;
+let hasUserScrolled = false;
 
 const setupBottomBar = () => {
+  const minScroll = 40;
   const updateBottomBar = () => {
     const bottomBar = document.getElementById("bottomBar");
     if (!bottomBar) {
       return;
     }
+    if (document.body.classList.contains("modal-open")) {
+      bottomBar.classList.remove("bottom-bar--visible");
+      return;
+    }
     const doc = document.documentElement;
     const offset = 40;
-    const reachedBottom = window.scrollY + window.innerHeight >= doc.scrollHeight - offset;
-    bottomBar.classList.toggle("bottom-bar--visible", reachedBottom);
+    const scrollY = window.scrollY;
+    const reachedBottom = scrollY + window.innerHeight >= doc.scrollHeight - offset;
+    const canShow = hasUserScrolled && scrollY >= minScroll && doc.scrollHeight > window.innerHeight + minScroll;
+    bottomBar.classList.toggle("bottom-bar--visible", canShow && reachedBottom);
   };
 
   updateBottomBar();
@@ -214,7 +222,14 @@ const setupBottomBar = () => {
     return;
   }
   bottomBarBound = true;
-  window.addEventListener("scroll", updateBottomBar, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      hasUserScrolled = true;
+      updateBottomBar();
+    },
+    { passive: true }
+  );
   window.addEventListener("resize", updateBottomBar);
 };
 
