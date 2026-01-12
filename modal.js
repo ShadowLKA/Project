@@ -14,9 +14,6 @@ export function bindModal() {
   let scrollPosition = 0;
   let activeModal = null;
   let lastFocusedElement = null;
-  let previousBodyPaddingRight = "";
-  let previousHtmlPaddingRight = "";
-  let viewportBound = false;
   const focusableSelector = [
     "a[href]",
     "area[href]",
@@ -64,19 +61,12 @@ export function bindModal() {
 
   const lockScroll = () => {
     scrollPosition = window.scrollY;
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    previousBodyPaddingRight = document.body.style.paddingRight;
-    previousHtmlPaddingRight = document.documentElement.style.paddingRight;
     document.body.classList.add("no-scroll");
     document.body.classList.add("modal-open");
     document.documentElement.classList.add("no-scroll");
     document.body.style.position = "fixed";
     document.body.style.top = `-${scrollPosition}px`;
     document.body.style.width = "100%";
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-      document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
-    }
   };
 
   const unlockScroll = () => {
@@ -86,27 +76,7 @@ export function bindModal() {
     document.body.style.position = "";
     document.body.style.top = "";
     document.body.style.width = "";
-    document.body.style.paddingRight = previousBodyPaddingRight;
-    document.documentElement.style.paddingRight = previousHtmlPaddingRight;
     window.scrollTo(0, scrollPosition);
-  };
-
-  const bindViewportHeight = () => {
-    if (viewportBound) {
-      return;
-    }
-    viewportBound = true;
-    const updateVh = () => {
-      const height = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      document.documentElement.style.setProperty("--vh", `${height}px`);
-    };
-    updateVh();
-    window.addEventListener("resize", updateVh);
-    window.addEventListener("orientationchange", updateVh);
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", updateVh);
-      window.visualViewport.addEventListener("scroll", updateVh);
-    }
   };
 
   const openModal = (id) => {
@@ -173,8 +143,6 @@ export function bindModal() {
   const closeAllModals = () => {
     modals.forEach((modal) => closeModal(modal));
   };
-
-  bindViewportHeight();
 
   document.querySelectorAll("[data-open-modal]").forEach((button) => {
     button.addEventListener("click", () => openModal(button.dataset.openModal));
