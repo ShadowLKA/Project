@@ -10,7 +10,7 @@ export function renderMultiSpecialistReview(details) {
         { type: "text", title: "How the panel works", copy: "Add the collaboration details here." }
       ];
   const paddedBlocks = [...blocks];
-  while (paddedBlocks.length < 7) {
+  while (paddedBlocks.length < 8) {
     paddedBlocks.push({
       type: "text",
       title: "Additional details",

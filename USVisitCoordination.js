@@ -10,7 +10,7 @@ export function renderUSVisitCoordination(details) {
         { type: "text", title: "What we coordinate", copy: "Add the logistics coverage details." }
       ];
   const paddedBlocks = [...blocks];
-  while (paddedBlocks.length < 7) {
+  while (paddedBlocks.length < 8) {
     paddedBlocks.push({
       type: "text",
       title: "Additional details",

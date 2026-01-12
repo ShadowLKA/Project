@@ -10,7 +10,7 @@ export function renderExpertSecondOpinion(details) {
         { type: "text", title: "What you receive", copy: "Add deliverables and timelines." }
       ];
   const paddedBlocks = [...blocks];
-  while (paddedBlocks.length < 7) {
+  while (paddedBlocks.length < 8) {
     paddedBlocks.push({
       type: "text",
       title: "Additional details",
