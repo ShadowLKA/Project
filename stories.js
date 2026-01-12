@@ -5,7 +5,7 @@ export function renderStories(stories) {
   const cards = stories.items
     .map(
       (story, index) => `
-        <div class="test testimonial reveal delay-${index + 1}">
+        <div class="contacts:imonial reveal delay-${index + 1}">
           <strong>${story.name}</strong>
           <p>${story.quote}</p>
         </div>`
@@ -17,6 +17,6 @@ export function renderStories(stories) {
     tag: stories.tag,
     title: stories.title,
     copy: stories.copy,
-    content: `<div class="test testimonials">${cards}</div>`
+    content: `<div class="contacts:imonials">${cards}</div>`
   });
 }

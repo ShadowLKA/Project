@@ -357,7 +357,7 @@ const siteData = {
     }
   ],
   footerContact: {
-    heading: "test test",
+    heading: "contacts:",
     message: "",
     phone: "",
     email: "",
