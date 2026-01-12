@@ -10,14 +10,16 @@
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.35s ease;
-  padding: calc(16px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
+  padding: max(16px, env(safe-area-inset-top, 0px))
+    max(16px, env(safe-area-inset-right, 0px))
+    max(16px, env(safe-area-inset-bottom, 0px))
+    max(16px, env(safe-area-inset-left, 0px));
+  height: var(--vh, 100vh);
+  min-height: var(--vh, 100vh);
   --modal-max-width: 520px;
   --modal-mobile-width: 420px;
-  --modal-max-height: 85vh;
-  --modal-max-height-dynamic: 85dvh;
+  --modal-max-height: min(85dvh, 85vh, calc(var(--vh, 100vh) * 0.85));
+  --modal-dialog-padding: 22px;
 }
 
 .modal.is-open {
@@ -38,12 +40,11 @@
   position: relative;
   z-index: 1;
   background: var(--color-surface);
-  padding: 22px;
+  padding: var(--modal-dialog-padding);
   border-radius: 24px;
   max-width: var(--modal-max-width);
   width: min(92vw, var(--modal-mobile-width));
   max-height: var(--modal-max-height);
-  max-height: var(--modal-max-height-dynamic);
   box-shadow: 0 30px 80px rgba(17, 9, 44, 0.35);
   border: 1px solid var(--color-border);
   transform: translateY(12px) scale(0.98);
@@ -77,11 +78,19 @@
 }
 
 .modal__content {
+  display: grid;
+  gap: 12px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   min-height: 0;
   padding-bottom: max(8px, env(safe-area-inset-bottom));
+  max-height: calc(var(--modal-max-height) - (var(--modal-dialog-padding) + var(--modal-dialog-padding)));
+}
+
+.modal__content h3,
+.modal__content p {
+  margin: 0;
 }
 
 .modal__tag {
@@ -99,7 +108,7 @@
 .modal__form {
   display: grid;
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 4px;
 }
 
 .modal__form .btn,
@@ -253,6 +262,7 @@ body.is-authenticated .modal--survey .modal__form textarea:focus {
   .modal__dialog {
     padding: 18px;
     border-radius: 18px;
+    --modal-dialog-padding: 18px;
   }
 
   .modal__tag {
