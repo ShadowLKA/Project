@@ -44,7 +44,7 @@ export function renderHome(hero) {
         <div class="hero-visual">
           <div class="hero-visual-card reveal delay-2">
             <div class="hero-visual-top">
-              <span class="hero-visual-chip">24/7 Support</span>
+              <span class="hero-visual-chip">FULL SUPPORT</span>
               <span class="hero-visual-chip">HIPAA Secure</span>
             </div>
             <div class="hero-visual-media">

@@ -15,10 +15,10 @@ const siteData = {
     home: {
       hero: {
         tag: "Home",
-        title: "Free Doctor Consultation",
+        title: "U.S Doctor Consultation",
         copy: "Connect with board-certified physicians, share your records securely, and get clear next steps in days, not weeks.",
         stats: [
-          { value: "feedback within 24 hours", label: "Care team access" },
+          { value: "Feedback within 24 hours", label: "Care team access" },
           { value: "150+", label: "Specialists on call" },
           { value: "4.9/5", label: "Patient satisfaction" }
         ],
