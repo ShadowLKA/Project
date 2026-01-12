@@ -1,4 +1,4 @@
-﻿// Note: Central content and copy live here for easy edits.
+// Note: Central content and copy live here for easy edits.
 const siteData = {
   brand: {
     name: "MedBridgeGlobal",
@@ -357,7 +357,7 @@ const siteData = {
     }
   ],
   footerContact: {
-    heading: "Connect with us",
+    heading: "test",
     message: "",
     phone: "",
     email: "",
