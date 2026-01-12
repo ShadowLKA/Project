@@ -12,7 +12,7 @@ export function renderContact(contact) {
           <div class="cta-actions">
             ${extraCta}
             <a class="btn btn-ghost" href="${contact.ctaSecondary.href}">${contact.ctaSecondary.label}</a>
-            <a class="btn btn-primary" href="${contact.ctaPrimary.href}">${contact.ctaPrimary.label}</a>
+            <a class="btn btn-primary" href="${contact.ctaPrimary.href}" data-consult-cta>${contact.ctaPrimary.label}</a>
           </div>
         </div>
       </div>

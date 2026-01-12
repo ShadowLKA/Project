@@ -6,7 +6,6 @@ export function renderProcess(process) {
     .map(
       (step, index) => `
         <div class="process-step reveal delay-${index + 1}">
-          <div class="process-step__marker">${step.step}</div>
           <div class="process-step__content">
             <h3>${step.title}</h3>
             <p>${step.copy}</p>

@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+#services.page {
+  padding-top: 56px;
+}
+
 .hero {
   background: linear-gradient(180deg, #E8F2FF 0%, #F8FBFF 55%, #E8F2FF 100%);
   min-height: 100vh;
@@ -379,7 +383,7 @@
 
 .hero-float-left {
   left: -8px;
-  bottom: 98px;
+  bottom: 112px;
 }
 
 .hero-float-right {
@@ -474,6 +478,10 @@
 
   .page {
     padding: 64px 0 40px;
+  }
+
+  #services.page {
+    padding-top: 52px;
   }
 
   .hero h1 {

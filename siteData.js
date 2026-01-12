@@ -1,4 +1,4 @@
-// Note: Central content and copy live here for easy edits.
+﻿// Note: Central content and copy live here for easy edits.
 const siteData = {
   brand: {
     name: "MedBridgeGlobal",
@@ -14,11 +14,11 @@ const siteData = {
   pages: {
     home: {
       hero: {
-        tag: "Remove doubts",
+        tag: "Home",
         title: "Free Doctor Consultation",
         copy: "Connect with board-certified physicians, share your records securely, and get clear next steps in days, not weeks.",
         stats: [
-          { value: "24/7", label: "Care team access" },
+          { value: "feedback within 24 hours", label: "Care team access" },
           { value: "150+", label: "Specialists on call" },
           { value: "4.9/5", label: "Patient satisfaction" }
         ],
@@ -69,13 +69,77 @@ const siteData = {
       copy: "From cardiovascular care to complex diagnostics, our team designs a personalized path to clarity with coordinated support.",
       items: [
         {
-          icon: "1",
           title: "Expert Second Opinion",
           copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
         },
-        { icon: "2", title: "Multi-Specialist Review", copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patient’s condition. This structured review delivers deeper clinical insight and coordinated recommendations." },
-        { icon: "3", title: "U.S. Visit Coordination", copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery." }
+        { title: "Multi-Specialist Review", copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patientâ€™s condition. This structured review delivers deeper clinical insight and coordinated recommendations." },
+        { title: "U.S. Visit Coordination", copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery." }
       ]
+    },
+    serviceDetails: {
+      expertSecondOpinion: {
+        tag: "Signature service",
+        title: "Expert Second Opinion",
+        intro: "Add intro copy for the expert second opinion page.",
+        blocks: [
+          { type: "text", title: "Overview", copy: "Add overview copy for this service." },
+          { type: "text", title: "What you receive", copy: "Add deliverables and timelines." },
+          { type: "image", src: "", alt: "Expert Second Opinion", caption: "Add image caption." },
+          { type: "text", title: "Ideal for", copy: "Describe who benefits most from this service." },
+          {
+            type: "list",
+            title: "Key highlights",
+            items: [
+              "Highlight turnaround time or response expectations.",
+              "Highlight specialist access or credentialing.",
+              "Highlight the format of the final report."
+            ]
+          },
+          { type: "image", src: "", alt: "Expert Second Opinion", caption: "Add image caption." }
+        ]
+      },
+      multiSpecialistReview: {
+        tag: "Signature service",
+        title: "Multi-Specialist Review",
+        intro: "Add intro copy for the multi-specialist review page.",
+        blocks: [
+          { type: "text", title: "Overview", copy: "Add overview copy for this service." },
+          { type: "image", src: "", alt: "Multi-Specialist Review", caption: "Add image caption." },
+          { type: "text", title: "How the panel works", copy: "Add the collaboration details here." },
+          {
+            type: "list",
+            title: "Key highlights",
+            items: [
+              "Highlight cross-specialty collaboration.",
+              "Highlight deeper diagnostic insight.",
+              "Highlight clear next-step recommendations."
+            ]
+          },
+          { type: "text", title: "Timing", copy: "Set expectations for review and delivery." },
+          { type: "image", src: "", alt: "Multi-Specialist Review", caption: "Add image caption." }
+        ]
+      },
+      usVisitCoordination: {
+        tag: "Signature service",
+        title: "U.S. Visit Coordination",
+        intro: "Add intro copy for the U.S. visit coordination page.",
+        blocks: [
+          { type: "text", title: "Overview", copy: "Add overview copy for this service." },
+          { type: "text", title: "What we coordinate", copy: "Add the logistics coverage details." },
+          { type: "image", src: "", alt: "U.S. Visit Coordination", caption: "Add image caption." },
+          { type: "text", title: "Before arrival", copy: "Add pre-arrival planning details." },
+          {
+            type: "list",
+            title: "Key highlights",
+            items: [
+              "Highlight scheduling and documentation support.",
+              "Highlight travel and accommodation guidance.",
+              "Highlight translation or concierge services."
+            ]
+          },
+          { type: "image", src: "", alt: "U.S. Visit Coordination", caption: "Add image caption." }
+        ]
+      }
     },
     advisors: {
       title: "Advisors who keep the journey clear and calm.",
@@ -217,7 +281,7 @@ const siteData = {
         {
           step: "Svc 02",
           title: "Multi-Specialist Review",
-          copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patient’s condition. This structured review delivers deeper clinical insight and coordinated recommendations."
+          copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patientâ€™s condition. This structured review delivers deeper clinical insight and coordinated recommendations."
         },
         {
           step: "Svc 03",
@@ -239,7 +303,7 @@ const siteData = {
     contact: {
       title: "Ready to start your virtual doctor consultation?",
       copy: "Schedule a discovery call or request a free record review today.",
-      ctaPrimary: { label: "Email our team", href: "mailto:care@virtualcarestudio.com" },
+      ctaPrimary: { label: "Fill out form", href: "./?page=consult" },
       ctaSecondary: { label: "Call (555) 123-4567", href: "tel:+15551234567" },
       ctaTertiary: { label: "Meet the team", href: "./?page=team" }
     }
@@ -303,3 +367,5 @@ const siteData = {
 };
 
 export default siteData;
+
+

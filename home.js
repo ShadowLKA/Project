@@ -60,8 +60,8 @@ export function renderHome(hero) {
                 <span>Resolution rate</span>
               </div>
               <div class="hero-visual-stat">
-                <strong>12 min</strong>
-                <span>Average wait</span>
+                <strong>14 days</strong>
+                <span>average consultation time</span>
               </div>
             </div>
           </div>

@@ -5,6 +5,9 @@
   padding: 22px;
   border: 1px solid var(--color-border);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .service-card:hover {
@@ -22,6 +25,19 @@
   font-weight: 600;
   margin-bottom: 16px;
   color: var(--brand);
+}
+
+.service-card p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.service-card__cta {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: var(--text-small);
+  min-height: 36px;
 }
 
 .doctor-card {

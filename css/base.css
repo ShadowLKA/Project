@@ -224,7 +224,10 @@ a:focus {
   outline: none;
 }
 
-:focus-visible {
+html.user-is-tabbing :focus-visible,
+html.user-is-tabbing button:focus,
+html.user-is-tabbing .btn:focus,
+html.user-is-tabbing a:focus {
   outline: 2px solid rgba(226, 62, 87, 0.7);
   outline-offset: 3px;
   box-shadow: 0 0 0 4px rgba(226, 62, 87, 0.2);

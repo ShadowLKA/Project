@@ -11,6 +11,9 @@ import { renderTeamPage, initTeamPage } from "./team.js";
 import { renderNewsPage, initNewsPage } from "./news.js";
 import { renderModal, bindModal } from "./modal.js";
 import { renderSettings, initSettingsPage } from "./settings.js";
+import { renderExpertSecondOpinion } from "./ExpertSecondOpinion.js";
+import { renderMultiSpecialistReview } from "./MultiSpecialistReview.js";
+import { renderUSVisitCoordination } from "./USVisitCoordination.js";
 import { initTheme } from "./theme.js";
 
 const headerEl = document.getElementById("siteHeader");
@@ -141,6 +144,9 @@ function renderApp() {
   const isTeamPage = currentPage === "team";
   const isSettingsPage = currentPage === "settings";
   const isConsultPage = currentPage === "consult";
+  const isExpertService = currentPage === "service-expert-second-opinion";
+  const isMultiService = currentPage === "service-multi-specialist-review";
+  const isVisitService = currentPage === "service-us-visit-coordination";
 
   if (isConsultPage) {
     app.innerHTML = renderConsultForm(siteData.pages.consultForm);
@@ -148,6 +154,12 @@ function renderApp() {
     app.innerHTML = renderSettings(siteData.pages.settings);
   } else if (isTeamPage) {
     app.innerHTML = renderTeamPage(siteData.pages.team);
+  } else if (isExpertService) {
+    app.innerHTML = renderExpertSecondOpinion(siteData.pages.serviceDetails?.expertSecondOpinion);
+  } else if (isMultiService) {
+    app.innerHTML = renderMultiSpecialistReview(siteData.pages.serviceDetails?.multiSpecialistReview);
+  } else if (isVisitService) {
+    app.innerHTML = renderUSVisitCoordination(siteData.pages.serviceDetails?.usVisitCoordination);
   } else if (currentPage === "news") {
     app.innerHTML = renderNewsPage(siteData.pages.news);
   } else {
@@ -259,6 +271,18 @@ document.addEventListener(
     if (!targetEl) {
       return;
     }
+    const routeLink = targetEl.closest("[data-route]");
+    if (routeLink) {
+      event.preventDefault();
+      const nextRoute = routeLink.getAttribute("data-route");
+      if (nextRoute) {
+        history.pushState(null, "", nextRoute);
+        renderApp();
+        scrollToSectionIfNeeded();
+        scrollToTopIfNeeded();
+      }
+      return;
+    }
     const link = targetEl.closest("a[href^=\"#\"]");
     if (!link) {
       const button = targetEl.closest("[data-scroll-target]");
@@ -274,12 +298,8 @@ document.addEventListener(
         return;
       }
       event.preventDefault();
-      if (
-        getPage() === "consult" ||
-        getPage() === "team" ||
-        getPage() === "news" ||
-        getPage() === "settings"
-      ) {
+      const currentPage = getPage();
+      if (currentPage) {
         window.location.href = `./?section=${buttonTargetId.replace("#", "")}`;
         return;
       }
@@ -293,12 +313,8 @@ document.addEventListener(
     }
     const anchorTarget = document.querySelector(targetId);
     event.preventDefault();
-    if (
-      getPage() === "consult" ||
-      getPage() === "team" ||
-      getPage() === "news" ||
-      getPage() === "settings"
-    ) {
+    const currentPage = getPage();
+    if (currentPage) {
       window.location.href = `./?section=${targetId.replace("#", "")}`;
       return;
     }
@@ -314,14 +330,38 @@ document.addEventListener(
   true
 );
 
-const initialSection = getSection();
-if (initialSection) {
-  const initialTarget = document.getElementById(initialSection);
-  if (initialTarget) {
-    const headerOffset = getComputedStyle(document.documentElement).getPropertyValue("--nav-height");
-    const offset = parseFloat(headerOffset) || 0;
-    const top = initialTarget.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: "smooth" });
-    stripSectionParam();
+const scrollToTopIfNeeded = () => {
+  if (getSection()) {
+    return;
   }
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+};
+
+const initialSection = getSection();
+const scrollToSectionIfNeeded = () => {
+  const section = getSection();
+  if (!section) {
+    return;
+  }
+  const target = document.getElementById(section);
+  if (!target) {
+    return;
+  }
+  const headerOffset = getComputedStyle(document.documentElement).getPropertyValue("--nav-height");
+  const offset = parseFloat(headerOffset) || 0;
+  const top = target.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: "smooth" });
+  stripSectionParam();
+};
+
+if (initialSection) {
+  scrollToSectionIfNeeded();
+} else {
+  scrollToTopIfNeeded();
 }
+
+window.addEventListener("popstate", () => {
+  renderApp();
+  scrollToSectionIfNeeded();
+  scrollToTopIfNeeded();
+});

@@ -38,8 +38,7 @@ export function renderHeader(brand, nav) {
       <div class="container nav-container">
         <div class="nav-left">
           <div class="logo">
-            <span class="logo-mark"></span>
-            <span>${brand.name}</span>
+            <img class="logo-img" src="images/logo.webp" alt="${brand.name} logo">
           </div>
         </div>
         <div class="nav-center">
