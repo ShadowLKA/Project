@@ -1,11 +1,11 @@
-﻿// Note: Stories section renderer.
+// Note: Stories section renderer.
 import { renderSectionShell } from "./sectionShell.js";
 
 export function renderStories(stories) {
   const cards = stories.items
     .map(
       (story, index) => `
-        <div class="testimonial reveal delay-${index + 1}">
+        <div class="test testimonial reveal delay-${index + 1}">
           <strong>${story.name}</strong>
           <p>${story.quote}</p>
         </div>`
@@ -17,6 +17,6 @@ export function renderStories(stories) {
     tag: stories.tag,
     title: stories.title,
     copy: stories.copy,
-    content: `<div class="testimonials">${cards}</div>`
+    content: `<div class="test testimonials">${cards}</div>`
   });
 }
