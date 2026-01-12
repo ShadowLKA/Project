@@ -62,7 +62,7 @@ export function renderUSVisitCoordination(details) {
   return renderSectionShell({
     id: "service-us-visit-coordination",
     tag: details?.tag || "Signature service",
-    title: details?.title || "U.S. Visit Coordination",
+    title: details?.title || "Receive Your Recommendations",
     copy: details?.intro || "Add intro copy for this service.",
     content: `
       <div class="service-detail__grid">

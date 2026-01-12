@@ -62,7 +62,7 @@ export function renderMultiSpecialistReview(details) {
   return renderSectionShell({
     id: "service-multi-specialist-review",
     tag: details?.tag || "Signature service",
-    title: details?.title || "Multi-Specialist Review",
+    title: details?.title || "Personalized Consultation",
     copy: details?.intro || "Add intro copy for this service.",
     content: `
       <div class="service-detail__grid">

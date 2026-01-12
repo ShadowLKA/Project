@@ -15,7 +15,7 @@ const siteData = {
     home: {
       hero: {
         tag: "Home",
-        title: "U.S Doctor Consultation",
+        title: "U.S. Doctor Consultation",
         copy: "Connect with board-certified physicians, share your records securely, and get clear next steps in days, not weeks.",
         stats: [
           { value: "Feedback within 24 hours", label: "Care team access" },
@@ -69,22 +69,22 @@ const siteData = {
       copy: "From cardiovascular care to complex diagnostics, our team designs a personalized path to clarity with coordinated support.",
       items: [
         {
-          title: "Expert Second Opinion",
-          copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
+          title: "Submit Your Information",
+          copy: "Begin by providing a few simple details about your goals and clinical background. Our team uses this to tailor the next steps specifically to your needs."
         },
-        { title: "Multi-Specialist Review", copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patientâ€™s condition. This structured review delivers deeper clinical insight and coordinated recommendations." },
-        { title: "U.S. Visit Coordination", copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery." }
+        { title: "Personalized Consultation", copy: "A dedicated care coordinator will connect with you to review your submission, answer questions, and walk through the options that best align with your objectives." },
+        { title: "Receive Your Recommendations", copy: "Based on your goals and consultation insights, we deliver a clear, actionable plan — empowering you to make a confident, informed decision about next steps." }
       ]
     },
     serviceDetails: {
       expertSecondOpinion: {
         tag: "Signature service",
-        title: "Expert Second Opinion",
+        title: "Submit Your Information",
         intro: "Add intro copy for the expert second opinion page.",
         blocks: [
           { type: "text", title: "Overview", copy: "Add overview copy for this service." },
           { type: "text", title: "What you receive", copy: "Add deliverables and timelines." },
-          { type: "image", src: "", alt: "Expert Second Opinion", caption: "Add image caption." },
+          { type: "image", src: "", alt: "Submit Your Information", caption: "Add image caption." },
           { type: "text", title: "Ideal for", copy: "Describe who benefits most from this service." },
           {
             type: "list",
@@ -95,16 +95,16 @@ const siteData = {
               "Highlight the format of the final report."
             ]
           },
-          { type: "image", src: "", alt: "Expert Second Opinion", caption: "Add image caption." }
+          { type: "image", src: "", alt: "Submit Your Information", caption: "Add image caption." }
         ]
       },
       multiSpecialistReview: {
         tag: "Signature service",
-        title: "Multi-Specialist Review",
+        title: "Personalized Consultation",
         intro: "Add intro copy for the multi-specialist review page.",
         blocks: [
           { type: "text", title: "Overview", copy: "Add overview copy for this service." },
-          { type: "image", src: "", alt: "Multi-Specialist Review", caption: "Add image caption." },
+          { type: "image", src: "", alt: "Personalized Consultation", caption: "Add image caption." },
           { type: "text", title: "How the panel works", copy: "Add the collaboration details here." },
           {
             type: "list",
@@ -116,17 +116,17 @@ const siteData = {
             ]
           },
           { type: "text", title: "Timing", copy: "Set expectations for review and delivery." },
-          { type: "image", src: "", alt: "Multi-Specialist Review", caption: "Add image caption." }
+          { type: "image", src: "", alt: "Personalized Consultation", caption: "Add image caption." }
         ]
       },
       usVisitCoordination: {
         tag: "Signature service",
-        title: "U.S. Visit Coordination",
+        title: "Receive Your Recommendations",
         intro: "Add intro copy for the U.S. visit coordination page.",
         blocks: [
           { type: "text", title: "Overview", copy: "Add overview copy for this service." },
           { type: "text", title: "What we coordinate", copy: "Add the logistics coverage details." },
-          { type: "image", src: "", alt: "U.S. Visit Coordination", caption: "Add image caption." },
+          { type: "image", src: "", alt: "Receive Your Recommendations", caption: "Add image caption." },
           { type: "text", title: "Before arrival", copy: "Add pre-arrival planning details." },
           {
             type: "list",
@@ -137,7 +137,7 @@ const siteData = {
               "Highlight translation or concierge services."
             ]
           },
-          { type: "image", src: "", alt: "U.S. Visit Coordination", caption: "Add image caption." }
+          { type: "image", src: "", alt: "Receive Your Recommendations", caption: "Add image caption." }
         ]
       }
     },
@@ -265,7 +265,7 @@ const siteData = {
       ]
     },
     process: {
-      title: "Three steps to a confident decision.",
+      title: "Three ways to a confident decision.",
       tag: "Simple process",
       copy: "Our care coordinators guide you from upload to results.",
       cta: {
@@ -275,18 +275,18 @@ const siteData = {
       steps: [
         {
           step: "Svc 01",
-          title: "Expert Second Opinion",
-          copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
+          title: "Submit Your Information",
+          copy: "Begin by providing a few simple details about your goals and clinical background. Our team uses this to tailor the next steps specifically to your needs."
         },
         {
           step: "Svc 02",
-          title: "Multi-Specialist Review",
-          copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patientâ€™s condition. This structured review delivers deeper clinical insight and coordinated recommendations."
+          title: "Personalized Consultation",
+          copy: "A dedicated care coordinator will connect with you to review your submission, answer questions, and walk through the options that best align with your objectives."
         },
         {
           step: "Svc 03",
-          title: "U.S. Visit Coordination",
-          copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery."
+          title: "Receive Your Recommendations",
+          copy: "Based on your goals and consultation insights, we deliver a clear, actionable plan — empowering you to make a confident, informed decision about next steps."
         }
       ]
     },
