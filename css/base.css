@@ -163,6 +163,14 @@ body.modal-open footer {
   filter: blur(4px);
 }
 
+body.modal-open {
+  padding-right: var(--scrollbar-width, 0px);
+}
+
+body.modal-open header {
+  padding-right: var(--scrollbar-width, 0px);
+}
+
 
 
 body::before {
