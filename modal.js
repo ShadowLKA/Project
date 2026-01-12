@@ -12,6 +12,17 @@ export function bindModal() {
     return;
   }
   let scrollPosition = 0;
+  let activeModal = null;
+  let lastFocusedElement = null;
+  const focusableSelector = [
+    "a[href]",
+    "area[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])"
+  ].join(",");
 
   const setModalMessage = (modal, message, type = "error") => {
     if (!modal) {
@@ -36,6 +47,38 @@ export function bindModal() {
     });
   };
 
+  const getFocusableElements = (modal) => {
+    if (!modal) {
+      return [];
+    }
+    return Array.from(modal.querySelectorAll(focusableSelector)).filter(
+      (element) =>
+        !element.hasAttribute("disabled") &&
+        element.getAttribute("aria-hidden") !== "true" &&
+        (element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement)
+    );
+  };
+
+  const lockScroll = () => {
+    scrollPosition = window.scrollY;
+    document.body.classList.add("no-scroll");
+    document.body.classList.add("modal-open");
+    document.documentElement.classList.add("no-scroll");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
+  };
+
+  const unlockScroll = () => {
+    document.body.classList.remove("no-scroll");
+    document.body.classList.remove("modal-open");
+    document.documentElement.classList.remove("no-scroll");
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    window.scrollTo(0, scrollPosition);
+  };
+
   const openModal = (id) => {
     const modal = document.getElementById(id);
     if (!modal) {
@@ -52,38 +95,44 @@ export function bindModal() {
     const alreadyLocked = document.body.classList.contains("modal-open");
     modals.forEach((active) => {
       if (active !== modal) {
-        active.classList.remove("is-open");
-        active.setAttribute("aria-hidden", "true");
+        closeModal(active, { keepLocked: true, restoreFocus: false });
       }
     });
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
+    activeModal = modal;
+    lastFocusedElement = document.activeElement;
     window.dispatchEvent(
       new CustomEvent("modal:opened", {
         detail: { id }
       })
     );
     if (!alreadyLocked) {
-      scrollPosition = window.scrollY;
-      document.body.classList.add("no-scroll");
-      document.body.classList.add("modal-open");
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollPosition}px`;
-      document.body.style.width = "100%";
+      lockScroll();
     }
+    requestAnimationFrame(() => {
+      const focusable = getFocusableElements(modal);
+      if (focusable.length) {
+        focusable[0].focus();
+      }
+    });
   };
 
-  const closeModal = (modal) => {
+  const closeModal = (modal, { keepLocked = false, restoreFocus = true } = {}) => {
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     setModalMessage(modal, "");
     delete modal.dataset.lockBackdrop;
-    document.body.classList.remove("no-scroll");
-    document.body.classList.remove("modal-open");
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.width = "";
-    window.scrollTo(0, scrollPosition);
+    if (activeModal === modal) {
+      activeModal = null;
+    }
+    if (!keepLocked && !document.querySelector(".modal.is-open")) {
+      unlockScroll();
+    }
+    if (restoreFocus && lastFocusedElement && document.contains(lastFocusedElement)) {
+      lastFocusedElement.focus();
+      lastFocusedElement = null;
+    }
     window.dispatchEvent(
       new CustomEvent("modal:closed", {
         detail: { id: modal.id }
@@ -112,8 +161,27 @@ export function bindModal() {
   });
 
   document.addEventListener("keydown", (event) => {
+    if (!activeModal) {
+      return;
+    }
+    if (event.key === "Tab") {
+      const focusable = getFocusableElements(activeModal);
+      if (!focusable.length) {
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+      return;
+    }
     if (event.key === "Escape") {
-      closeAllModals();
+      closeModal(activeModal);
     }
   });
 
