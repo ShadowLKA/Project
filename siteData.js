@@ -357,7 +357,7 @@ const siteData = {
     }
   ],
   footerContact: {
-    heading: "Connect with us",
+    heading: "Connect with us today!",
     message: "",
     phone: "",
     email: "",
