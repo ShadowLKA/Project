@@ -363,7 +363,7 @@ const siteData = {
     email: "",
     note: ""
   },
-  license: "© 2026 MedBridgeGlobal. All rights reserved."
+  license: "� 2026 MedBridgeGlobal. All rights reserved."
 };
 
 export default siteData;
