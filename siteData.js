@@ -7,8 +7,8 @@ const siteData = {
   },
   nav: [
     { label: "Home", hash: "#home" },
-    { label: "Services", hash: "#services" },
     { label: "How it works", hash: "#process" },
+    { label: "About Us", hash: "./?page=news" },
     { label: "Contact", hash: "#contact" }
   ],
   pages: {
