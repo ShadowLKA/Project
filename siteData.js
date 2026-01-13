@@ -18,7 +18,7 @@ const siteData = {
         title: "U.S. Doctor Consultation",
         copy: "Connect with board-certified physicians, share your records securely, and get clear next steps in days, not weeks.",
         stats: [
-          { value: "feedback within 24 hours", label: "Care team access" },
+          { value: "Feedback within 24 hours", label: "Care team access" },
           { value: "150+", label: "Specialists on call" },
           { value: "4.9/5", label: "Patient satisfaction" }
         ],
@@ -265,7 +265,7 @@ const siteData = {
       ]
     },
     process: {
-      title: "Three steps to a confident decision.",
+      title: "Three ways to a confident decision.",
       tag: "Simple process",
       copy: "Our care coordinators guide you from upload to results.",
       cta: {
