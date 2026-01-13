@@ -367,5 +367,3 @@ const siteData = {
 };
 
 export default siteData;
-
-
