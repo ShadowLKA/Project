@@ -1,4 +1,4 @@
-﻿// Note: Central content and copy live here for easy edits.
+// Note: Central content and copy live here for easy edits.
 const siteData = {
   brand: {
     name: "MedBridgeGlobal",
@@ -72,7 +72,7 @@ const siteData = {
           title: "Expert Second Opinion",
           copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
         },
-        { title: "Multi-Specialist Review", copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patientâ€™s condition. This structured review delivers deeper clinical insight and coordinated recommendations." },
+        { title: "Multi-Specialist Review", copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patient’s condition. This structured review delivers deeper clinical insight and coordinated recommendations." },
         { title: "U.S. Visit Coordination", copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery." }
       ]
     },
@@ -275,18 +275,18 @@ const siteData = {
       steps: [
         {
           step: "Svc 01",
-          title: "Expert Second Opinion",
-          copy: "Second Opinion service connects patients with qualified U.S.-based physicians who review medical records and provide an independent clinical assessment. This service is ideal for patients seeking confirmation of a diagnosis, treatment plan, or surgical recommendation."
+          title: "Submit Your Information",
+          copy: "Begin by providing a few simple details about your goals and clinical background. Our team uses this to tailor the next steps specifically to your needs."
         },
         {
           step: "Svc 02",
-          title: "Multi-Specialist Review",
-          copy: "For complex, rare, or high-stakes cases, our Panel Consilium brings together multiple U.S. specialists to collaboratively evaluate the patientâ€™s condition. This structured review delivers deeper clinical insight and coordinated recommendations."
+          title: "Personalized Consultation",
+          copy: "A dedicated care coordinator will connect with you to review your submission, answer questions, and walk through the options that best align with your objectives."
         },
         {
           step: "Svc 03",
-          title: "U.S. Visit Coordination",
-          copy: "We assist patients who are traveling to the U.S. for care by coordinating appointments, documentation, scheduling, and communication with healthcare providers. This service removes logistical barriers and reduces stress during care delivery."
+          title: "Receive Your Recommendations",
+          copy: "Based on your goals and consultation insights, we deliver a clear, actionable plan — empowering you to make a confident, informed decision about next steps."
         }
       ]
     },
@@ -363,7 +363,7 @@ const siteData = {
     email: "",
     note: ""
   },
-  license: "© 2026 MedBridgeGlobal. All rights reserved."
+  license: "� 2026 MedBridgeGlobal. All rights reserved."
 };
 
 export default siteData;
