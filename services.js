@@ -5,9 +5,9 @@ export function renderServices(services) {
   const cards = services.items
     .map((item, index) => {
       const routes = {
-        "Submit Your Information": "./?page=service-expert-second-opinion",
-        "Personalized Consultation": "./?page=service-multi-specialist-review",
-        "Receive Your Recommendations": "./?page=service-us-visit-coordination"
+        "Expert Second Opinion": "./?page=service-expert-second-opinion",
+        "Multi-Specialist Review": "./?page=service-multi-specialist-review",
+        "U.S. Visit Coordination": "./?page=service-us-visit-coordination"
       };
       const route = routes[item.title] || "/?section=services";
       return `
