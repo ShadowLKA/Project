@@ -16,7 +16,7 @@ const siteData = {
       hero: {
         tag: "Home",
         title: "U.S. Doctor Consultation",
-        copy: "Connect with board-certified physicians, share your records securely, and get clear next steps in days, not weeks.",
+        copy: "Connect with board-certified physicians, share your records securely, and get clear next steps in just 14 days.",
         stats: [
           { value: "Feedback within 24 hours", label: "Care team access" },
           { value: "150+", label: "Specialists on call" },
@@ -66,7 +66,7 @@ const siteData = {
     services: {
       title: "Comprehensive virtual care tailored to your case.",
       tag: "Signature services",
-      copy: "From cardiovascular care to complex diagnostics, our team designs a personalized path to clarity with coordinated support.",
+      copy: "From routine questions to complex medical decisions, our team designs a personalized path to clarity with coordinated support.",
       items: [
         {
           title: "Expert Second Opinion",
@@ -267,7 +267,7 @@ const siteData = {
     process: {
       title: "Three ways to a confident decision.",
       tag: "Simple process",
-      copy: "Our care coordinators guide you from upload to results.",
+      copy: "Our care facilitators guide you from your record review through receipt of the doctor’s final report.",
       cta: {
         label: "Read our story",
         href: "./?page=news"
@@ -281,7 +281,7 @@ const siteData = {
         {
           step: "Svc 02",
           title: "Personalized Consultation",
-          copy: "A dedicated care coordinator will connect with you to review your submission, answer questions, and walk through the options that best align with your objectives."
+          copy: "A dedicated care facilitator will connect with you to review your submission, answer questions, and walk through the options that best align with your objectives."
         },
         {
           step: "Svc 03",
@@ -331,7 +331,7 @@ const siteData = {
         "Terms of Use",
         "Privacy Policy",
         "Sitemap",
-        "Refund Policy."
+        "Refund Policy.."
       ]
     },
     {
