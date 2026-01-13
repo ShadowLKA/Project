@@ -1,4 +1,4 @@
-﻿// Note: Services section renderer.
+// Note: Services section renderer.
 import { renderSectionShell } from "./sectionShell.js";
 
 export function renderServices(services) {

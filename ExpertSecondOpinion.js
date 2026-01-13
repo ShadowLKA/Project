@@ -62,7 +62,7 @@ export function renderExpertSecondOpinion(details) {
   return renderSectionShell({
     id: "service-expert-second-opinion",
     tag: details?.tag || "Signature service",
-    title: details?.title || "Expert Second Opinion",
+    title: details?.title || "Submit Your Information",
     copy: details?.intro || "Add intro copy for this service.",
     content: `
       <div class="service-detail__grid">
