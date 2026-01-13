@@ -331,7 +331,7 @@ const siteData = {
         "Terms of Use",
         "Privacy Policy",
         "Sitemap",
-        "Refund Policy"
+        "Refund Policy."
       ]
     },
     {
