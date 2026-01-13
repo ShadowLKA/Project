@@ -61,7 +61,7 @@ export function renderHome(hero) {
               </div>
               <div class="hero-visual-stat">
                 <strong>14 days</strong>
-                <span>average consultation time</span>
+                <span>Average consultation time</span>
               </div>
             </div>
           </div>
