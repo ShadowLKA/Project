@@ -97,6 +97,8 @@ export function initSettingsPage() {
   const side = document.querySelector(".settings-side");
   const status = document.querySelector("[data-settings-status]");
   const statusValue = document.querySelector("[data-settings-status-value]");
+  const profileTable = "profiles";
+  const profileIdField = "id";
 
   if (!form) {
     return;
@@ -152,6 +154,22 @@ export function initSettingsPage() {
     }
   };
 
+  const fetchProfile = async (userId) => {
+    if (!userId) {
+      return null;
+    }
+    const { data, error } = await supabaseClient
+      .from(profileTable)
+      .select("full_name,email,phone")
+      .eq(profileIdField, userId)
+      .maybeSingle();
+    if (error) {
+      console.error("[settings] profile:read-error", error);
+      return null;
+    }
+    return data || null;
+  };
+
   const hydrateProfile = async () => {
     const { data: sessionData } = await supabaseClient.auth.getSession();
     const session = sessionData?.session || null;
@@ -164,12 +182,13 @@ export function initSettingsPage() {
     }
     const { data: userData } = await supabaseClient.auth.getUser();
     const user = userData?.user;
-    if (!user) {
-      return;
-    }
-    const fullName = user.user_metadata?.full_name || "";
-    const phone = user.user_metadata?.phone || user.phone || "";
-    const email = user.email || "";
+    const profile = await fetchProfile(session.user.id);
+    const storedEmail = localStorage.getItem("accountEmail") || "";
+    const storedName = localStorage.getItem("accountName") || "";
+    const storedPhone = localStorage.getItem("accountPhone") || "";
+    const fullName = profile?.full_name || user?.user_metadata?.full_name || storedName;
+    const phone = profile?.phone || user?.user_metadata?.phone || user?.phone || storedPhone;
+    const email = profile?.email || user?.email || storedEmail;
     const nameInput = form.querySelector('input[name="fullName"]');
     const emailInput = form.querySelector('input[name="email"]');
     const phoneInput = form.querySelector('input[name="phone"]');
@@ -199,7 +218,11 @@ export function initSettingsPage() {
     setStatus(session, session?.user || null);
     if (!session) {
       setStatusFromStorage();
+      syncVisibility(false);
+      return;
     }
+    syncVisibility(true);
+    hydrateProfile();
   });
 
   form.addEventListener("submit", async (event) => {
@@ -255,15 +278,41 @@ export function initSettingsPage() {
     if (newPassword) {
       updates.password = newPassword;
     }
-    if (!Object.keys(updates).length) {
+
+    const profileUpdates = {
+      [profileIdField]: sessionData.session.user.id
+    };
+    if (fullName) {
+      profileUpdates.full_name = fullName;
+    }
+    if (email) {
+      profileUpdates.email = email;
+    }
+    if (phone) {
+      profileUpdates.phone = phone;
+    }
+
+    if (!Object.keys(updates).length && Object.keys(profileUpdates).length === 1) {
       setMessage("No changes to save.");
       return;
     }
 
-    const { error } = await supabaseClient.auth.updateUser(updates);
-    if (error) {
-      setMessage(error.message || "Could not update your settings.");
-      return;
+    if (Object.keys(updates).length) {
+      const { error } = await supabaseClient.auth.updateUser(updates);
+      if (error) {
+        setMessage(error.message || "Could not update your settings.");
+        return;
+      }
+    }
+
+    if (Object.keys(profileUpdates).length > 1) {
+      const { error } = await supabaseClient
+        .from(profileTable)
+        .upsert(profileUpdates, { onConflict: profileIdField });
+      if (error) {
+        setMessage(error.message || "Could not update your profile.");
+        return;
+      }
     }
 
     if (email) {
