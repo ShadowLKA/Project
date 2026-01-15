@@ -303,7 +303,18 @@ export function bindHeader(headerEl) {
     });
   };
 
-  confirmMenuState(false);
+  const setHeaderAuthStateFromStorage = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    confirmMenuState(isLoggedIn);
+    const fullName = localStorage.getItem("accountName") || "";
+    const email = localStorage.getItem("accountEmail") || "";
+    const label = fullName || email;
+    headerEl.querySelectorAll("[data-account-email]").forEach((node) => {
+      node.textContent = label ? `(${label})` : "";
+    });
+  };
+
+  setHeaderAuthStateFromStorage();
 
   window.addEventListener("auth:changed", (event) => {
     setHeaderAuthState(event.detail?.session || null);
@@ -320,14 +331,8 @@ export function bindHeader(headerEl) {
   handleScroll();
 
   if (supabaseClient) {
-    const fetchSession = async () => {
-      const { data } = await supabaseClient.auth.getSession();
+    supabaseClient.auth.getSession().then(({ data }) => {
       setHeaderAuthState(data?.session || null);
-    };
-    fetchSession();
-    setTimeout(fetchSession, 800);
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setHeaderAuthState(session);
     });
   }
 
