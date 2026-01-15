@@ -36,7 +36,7 @@ export function renderHome(hero) {
             ${tabMarkup}
           </div>
           <div class="hero-actions">
-            <button class="btn btn-secondary" data-open-modal="signupModal">Create account</button>
+            <button class="btn btn-secondary" data-open-modal="authModal">Sign in</button>
             <button class="btn btn-ghost" type="button" data-scroll-target="#consultations">Browse services</button>
           </div>
           <div class="hero-meta">${statMarkup}</div>

@@ -19,7 +19,7 @@ export const showLoginOtpSection = (modal) => {
   }
 };
 
-export const resetSignupOtpUi = (modal, setModalMessage) => {
+export const resetSignupOtpUi = (modal, setModalMessage, { clearMessage = true } = {}) => {
   if (!modal) {
     return;
   }
@@ -45,7 +45,9 @@ export const resetSignupOtpUi = (modal, setModalMessage) => {
     delete actionButton.dataset.requestPending;
     actionButton.textContent = "Create account";
     actionButton.disabled = false;
-    setModalMessage(modal, "");
+    if (clearMessage) {
+      setModalMessage(modal, "");
+    }
   }
 };
 

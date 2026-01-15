@@ -2,32 +2,9 @@
 import { consumePostAuthRedirect, setAuthState, reloadAfterAuth } from "./state.js";
 
 export const initAuthSession = ({ state, openModal, closeAllModals }) => {
-  const maybePromptSignup = () => {
-    if (state.hasPromptedSignup || state.currentSession || !state.authReady) {
-      return;
-    }
-    if (sessionStorage.getItem("signupPrompted") === "true") {
-      state.hasPromptedSignup = true;
-      return;
-    }
-    sessionStorage.setItem("signupPrompted", "true");
-    state.hasPromptedSignup = true;
-    openModal("signupModal");
-    const modal = document.getElementById("signupModal");
-    if (modal) {
-      modal.dataset.lockBackdrop = "true";
-    }
-  };
-
   const initSession = async () => {
     const supabaseClient = state.supabaseClient;
     if (!supabaseClient) {
-      return;
-    }
-    if (sessionStorage.getItem("pendingEmailLogin") === "true") {
-      await supabaseClient.auth.signOut();
-      setAuthState(state, null);
-      state.authReady = true;
       return;
     }
     const { data: sessionData } = await supabaseClient.auth.getSession();
@@ -44,7 +21,10 @@ export const initAuthSession = ({ state, openModal, closeAllModals }) => {
       setAuthState(state, null);
     }
     state.authReady = true;
-    maybePromptSignup();
+    if (!session && localStorage.getItem("authModalSeen") !== "1") {
+      localStorage.setItem("authModalSeen", "1");
+      openModal("authModal");
+    }
   };
 
   const startAuthInit = () => {

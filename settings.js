@@ -15,10 +15,14 @@ export function renderSettings(settings) {
           <div class="intake-card">
             <h3>Log in required</h3>
             <p>Sign in to manage your account details and preferences.</p>
-            <button class="btn btn-primary" type="button" data-open-modal="loginModal">Log in</button>
+            <button class="btn btn-primary" type="button" data-open-modal="authModal">Sign in</button>
           </div>
         </div>
         <form class="intake-form settings-form" data-settings-form>
+          <div class="settings-status is-hidden" data-settings-status>
+            <span class="settings-status__label">Signed in</span>
+            <span class="settings-status__value" data-settings-status-value></span>
+          </div>
           <div class="intake-group settings-theme-group">
             <h3>Theme</h3>
             <div class="settings-theme">
@@ -91,6 +95,8 @@ export function initSettingsPage() {
   const message = document.querySelector("[data-settings-message]");
   const guestCard = document.querySelector("[data-settings-guest]");
   const side = document.querySelector(".settings-side");
+  const status = document.querySelector("[data-settings-status]");
+  const statusValue = document.querySelector("[data-settings-status-value]");
 
   if (!form) {
     return;
@@ -113,6 +119,29 @@ export function initSettingsPage() {
 
   bindThemeToggles(form);
 
+  const setStatus = (session, user) => {
+    if (!status || !statusValue) {
+      return;
+    }
+    const email = user?.email || session?.user?.email || "";
+    statusValue.textContent = email || "Active session";
+    status.classList.toggle("is-hidden", !session);
+  };
+  const setStatusFromStorage = () => {
+    if (!status || !statusValue) {
+      return;
+    }
+    const storedEmail = localStorage.getItem("accountEmail") || "";
+    const storedName = localStorage.getItem("accountName") || "";
+    const label = storedEmail || storedName;
+    if (!label) {
+      status.classList.add("is-hidden");
+      return;
+    }
+    statusValue.textContent = label;
+    status.classList.remove("is-hidden");
+  };
+
   const syncVisibility = (isLoggedIn) => {
     if (guestCard) {
       guestCard.classList.toggle("is-hidden", isLoggedIn);
@@ -128,7 +157,9 @@ export function initSettingsPage() {
     const session = sessionData?.session || null;
     syncVisibility(Boolean(session));
     syncAuthButtons({ currentSession: session });
+    setStatus(session, session?.user || null);
     if (!session) {
+      setStatusFromStorage();
       return;
     }
     const { data: userData } = await supabaseClient.auth.getUser();
@@ -158,9 +189,18 @@ export function initSettingsPage() {
     const session = data?.session || null;
     window.dispatchEvent(new CustomEvent("auth:changed", { detail: { session } }));
     syncAuthButtons({ currentSession: session });
+    setStatus(session, session?.user || null);
   };
 
   hydrateProfile();
+
+  window.addEventListener("auth:changed", (event) => {
+    const session = event.detail?.session || null;
+    setStatus(session, session?.user || null);
+    if (!session) {
+      setStatusFromStorage();
+    }
+  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();

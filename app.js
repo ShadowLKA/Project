@@ -173,7 +173,7 @@ function renderApp() {
 
   footerEl.innerHTML = renderFooter(siteData.footer, siteData.license, siteData.footerContact);
 
-  if (!document.getElementById("signupModal")) {
+  if (!document.getElementById("authModal")) {
     document.body.insertAdjacentHTML("beforeend", renderModal());
   }
 
@@ -190,6 +190,16 @@ function renderApp() {
   }
   if (isConsultPage) {
     initConsultForm();
+  }
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  if ((isConsultPage || isSettingsPage) && !isLoggedIn) {
+    const target = isConsultPage ? "consult" : `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    sessionStorage.setItem("postAuthRedirect", target);
+    localStorage.setItem("postAuthRedirect", target);
+    if (localStorage.getItem("authModalSeen") !== "1") {
+      window.dispatchEvent(new CustomEvent("auth:required"));
+    }
   }
 
   const heroVideo = document.querySelector(".hero-visual-photo video");

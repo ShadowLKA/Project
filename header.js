@@ -48,7 +48,7 @@ export function renderHeader(brand, nav) {
           <div class="nav-actions">
             <div class="nav-auth-slot">
               <div class="nav-auth" data-auth-guest>
-                <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
+                <button class="btn btn-ghost" type="button" data-open-modal="authModal">Sign in</button>
                 <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
               </div>
               <div class="nav-auth is-hidden" data-auth-required>
@@ -81,7 +81,7 @@ export function renderHeader(brand, nav) {
           ${themeToggleItem.replace("nav-item", "nav-item drawer-theme-toggle")}
           <span class="mobile-menu__title">Account</span>
           <div class="nav-auth" data-auth-guest>
-            <button class="btn btn-ghost" type="button" data-open-modal="signupModal">Create account</button>
+            <button class="btn btn-ghost" type="button" data-open-modal="authModal">Sign in</button>
             <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
           </div>
           <div class="nav-auth is-hidden" data-auth-required>
@@ -89,10 +89,6 @@ export function renderHeader(brand, nav) {
             <a class="btn btn-primary" href="./?page=consult" data-consult-cta>${brand.navPrimary}</a>
           </div>
         </div>
-      </div>
-      <div class="nav-status is-hidden" data-auth-required>
-        <span class="nav-auth__label">Signed in</span>
-        <span class="nav-auth__name" data-account-email></span>
       </div>
     </nav>
   `;

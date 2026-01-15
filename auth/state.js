@@ -70,13 +70,19 @@ export const setAuthState = (state, session) => {
 };
 
 export const consumePostAuthRedirect = () => {
-  const target = sessionStorage.getItem("postAuthRedirect");
+  const target = sessionStorage.getItem("postAuthRedirect") || localStorage.getItem("postAuthRedirect");
   if (!target) {
     return;
   }
   sessionStorage.removeItem("postAuthRedirect");
+  localStorage.removeItem("postAuthRedirect");
   if (target === "consult") {
     window.location.href = "./?page=consult";
+    return;
+  }
+  if (target.startsWith("/") || target.startsWith("./")) {
+    window.location.href = target;
+    return;
   }
 };
 
@@ -103,12 +109,14 @@ export const bindAuthTargets = (state, openModal) => {
   }
   document.querySelectorAll("[data-auth-target]").forEach((button) => {
     button.addEventListener("click", () => {
-      const targetModal = button.dataset.authTarget;
       const isLoggedIn = Boolean(state.currentSession);
       if (isLoggedIn) {
-        openModal(targetModal);
+        const targetModal = button.dataset.authTarget;
+        if (targetModal) {
+          openModal(targetModal);
+        }
       } else {
-        openModal("signupModal");
+        openModal("authModal");
       }
     });
   });

@@ -1,9 +1,10 @@
 // Note: Modal rendering and base interactions.
 import { renderAuthModal } from "./modals/authModal.js";
+import { renderCreateAccountModal } from "./modals/createAccountModal.js";
 import { bindAuth } from "./auth.js";
 
 export function renderModal() {
-  return `${renderAuthModal()}`;
+  return `${renderAuthModal()}${renderCreateAccountModal()}`;
 }
 
 export function bindModal() {
@@ -14,7 +15,6 @@ export function bindModal() {
   let scrollPosition = 0;
   let activeModal = null;
   let lastFocusedElement = null;
-  let viewportBound = false;
   const focusableSelector = [
     "a[href]",
     "area[href]",
@@ -83,24 +83,6 @@ export function bindModal() {
     window.scrollTo(0, scrollPosition);
   };
 
-  const bindViewportHeight = () => {
-    if (viewportBound) {
-      return;
-    }
-    viewportBound = true;
-    const updateVh = () => {
-      const height = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      document.documentElement.style.setProperty("--vh", `${height}px`);
-    };
-    updateVh();
-    window.addEventListener("resize", updateVh);
-    window.addEventListener("orientationchange", updateVh);
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", updateVh);
-      window.visualViewport.addEventListener("scroll", updateVh);
-    }
-  };
-
   const openModal = (id) => {
     const modal = document.getElementById(id);
     if (!modal) {
@@ -109,7 +91,7 @@ export function bindModal() {
     if (modal.classList.contains("is-open")) {
       return;
     }
-    if (id === "signupModal" || id === "loginModal") {
+    if (id === "authModal" || id === "createAccountModal") {
       clearAuthForm(modal);
       setTimeout(() => clearAuthForm(modal), 50);
     }
@@ -166,8 +148,6 @@ export function bindModal() {
     modals.forEach((modal) => closeModal(modal));
   };
 
-  bindViewportHeight();
-
   document.querySelectorAll("[data-open-modal]").forEach((button) => {
     button.addEventListener("click", () => openModal(button.dataset.openModal));
   });
@@ -217,3 +197,6 @@ export function bindModal() {
     clearAuthForm
   });
 }
+
+
+

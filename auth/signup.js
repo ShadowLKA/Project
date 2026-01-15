@@ -1,6 +1,6 @@
-// Note: Signup flow (email OTP).
+// Note: Signup flow (email + password).
 import { consumePostAuthRedirect, normalizePhone, setAuthState, reloadAfterAuth } from "./state.js";
-import { resetSignupOtpUi, startSignupCooldown } from "./ui.js";
+import { resetSignupOtpUi } from "./ui.js";
 
 const withTimeout = async (promise, ms, message) => {
   let timerId;
@@ -31,16 +31,6 @@ const setSubmitState = (button, isLoading, label) => {
   delete button.dataset.originalLabel;
   button.disabled = false;
   button.removeAttribute("aria-busy");
-};
-
-const formatSupabaseError = (error) => {
-  if (!error) {
-    return "Unknown database error.";
-  }
-  const details = [error.message, error.details, error.hint, error.code]
-    .filter(Boolean)
-    .join(" | ");
-  return details || "Unknown database error.";
 };
 
 const checkAccountExists = async (supabaseClient, email, phone) => {
@@ -96,17 +86,13 @@ export const bindSignup = ({
         const emailInput = form.querySelector('input[name="email"]');
         const phoneInput = form.querySelector('input[name="phone"]');
         const passwordInput = form.querySelector('input[name="password"]');
-        const codeInput = form.querySelector('input[name="signupOtp"]');
-        const otpWrapper = form.querySelector("[data-signup-otp-wrapper]");
-        const otpSection = form.querySelector("[data-signup-otp-section]");
-        if (!emailInput || !phoneInput || !codeInput || !passwordInput) {
+        if (!emailInput || !phoneInput || !passwordInput) {
           return;
         }
         const email = emailInput.value.trim().toLowerCase();
         const rawPhone = phoneInput.value.trim();
         const phone = rawPhone ? normalizePhone(rawPhone) : "";
         const password = passwordInput.value.trim();
-        const token = codeInput.value.trim();
         const fullName = nameInput?.value.trim() || "";
         if (!fullName) {
           setModalMessage(modal, "Please enter your full name.");
@@ -125,156 +111,53 @@ export const bindSignup = ({
           return;
         }
 
-        if (
-          !token &&
-          (otpWrapper?.classList.contains("is-hidden") || otpSection?.classList.contains("is-hidden"))
-        ) {
-          setSubmitState(actionButton, true, "Sending code...");
-          console.info("[auth] signup:otp:start", { email });
-          const exists = await checkAccountExists(supabaseClient, email, phone);
-          if (exists) {
-            setModalMessage(
-              modal,
-              "This account already exists. We sent a new verification code so you can finish signing in.",
-              "success"
-            );
-          }
-          const { error } = await withTimeout(
-            supabaseClient.auth.signInWithOtp({
-              email,
-              options: { shouldCreateUser: true }
-            }),
-            15000,
-            "Verification email timed out. Please try again."
-          );
-          if (error) {
-            console.error("[auth] signup:otp:error", error);
-            setModalMessage(modal, error.message || "Could not send code. Try again.");
-            return;
-          }
-          console.info("[auth] signup:otp:sent", { email });
-          state.pendingSignupEmail = email;
-          if (otpSection) {
-            otpSection.classList.remove("is-hidden");
-          }
-          if (otpWrapper) {
-            otpWrapper.classList.remove("is-hidden");
-          }
-          if (codeInput) {
-            codeInput.value = "";
-          }
-          setModalMessage(modal, "Verification code sent. Check your email.", "success");
-          return;
-        }
-
-        if (!token) {
-          if (actionButton?.dataset.cooldownActive === "true") {
-            setModalMessage(modal, "Please wait before requesting another code.");
-            return;
-          }
-          setSubmitState(actionButton, true, "Resending...");
-          const { error } = await withTimeout(
-            supabaseClient.auth.signInWithOtp({
-              email: state.pendingSignupEmail || email,
-              options: { shouldCreateUser: true }
-            }),
-            15000,
-            "Verification email timed out. Please try again."
-          );
-          if (error) {
-            console.error("[auth] signup:otp:resend:error", error);
-            setModalMessage(modal, error.message || "Could not resend code. Try again.");
-            return;
-          }
-          console.info("[auth] signup:otp:resent", { email });
-          state.pendingSignupEmail = email;
-          setModalMessage(modal, "Verification code resent. Check your email.", "success");
-          startSignupCooldown(modal);
-          if (otpSection) {
-            otpSection.classList.remove("is-hidden");
-          }
-          if (otpWrapper) {
-            otpWrapper.classList.remove("is-hidden");
-          }
-          if (codeInput) {
-            codeInput.value = "";
-          }
-          return;
-        }
-
-        const existsNow = await checkAccountExists(supabaseClient, email, phone);
-        if (existsNow) {
-          setModalMessage(modal, "This account already exists. Verify the code to continue signing in.", "success");
-        }
-
         setSubmitState(actionButton, true, "Creating account...");
-        console.info("[auth] signup:verify:start", { email });
-        const { data, error } = await withTimeout(
-          supabaseClient.auth.verifyOtp({
-            email: state.pendingSignupEmail || email,
-            token,
-            type: "email"
-          }),
-          15000,
-          "Verification timed out. Please try again."
-        );
-        if (error) {
-          console.error("[auth] signup:verify:error", error);
-          setModalMessage(modal, error.message || "Verification failed. Try again.");
+        console.info("[auth] signup:start", { email });
+        const exists = await checkAccountExists(supabaseClient, email, phone);
+        if (exists) {
+          setModalMessage(modal, "This account already exists. Please log in instead.");
           return;
         }
-        let session = data?.session || null;
-        if (!session) {
-          const { data: sessionData } = await withTimeout(
-            supabaseClient.auth.getSession(),
-            15000,
-            "Session fetch timed out. Please try again."
-          );
-          session = sessionData?.session || null;
-        }
-        const { error: updateError } = await withTimeout(
-          supabaseClient.auth.updateUser({
+        const { data, error } = await withTimeout(
+          supabaseClient.auth.signUp({
+            email,
             password,
-            data: {
-              full_name: fullName,
-              phone: phone || null
+            options: {
+              data: {
+                full_name: fullName,
+                phone: phone || null
+              }
             }
           }),
           15000,
-          "Profile update timed out. Please try again."
+          "Signup timed out. Please try again."
         );
-        if (updateError) {
-          console.error("[auth] signup:update:error", updateError);
-          await supabaseClient.auth.signOut();
-          setAuthState(state, null);
-          setModalMessage(modal, updateError.message || "Could not set password. Try again.");
+        if (error) {
+          console.error("[auth] signup:error", error);
+          const message = error.message?.includes("User already registered")
+            ? "This account already exists. Please log in instead."
+            : error.message || "Signup failed. Try again.";
+          setModalMessage(modal, message);
           return;
         }
-        if (!session) {
-          const { data: loginData, error: loginError } = await withTimeout(
-            supabaseClient.auth.signInWithPassword({
-              email,
-              password
-            }),
-            15000,
-            "Login timed out. Please try again."
-          );
-          if (loginError) {
-            console.error("[auth] signup:login:error", loginError);
-            setModalMessage(modal, loginError.message || "Could not log in. Try again.");
-            return;
-          }
-          session = loginData?.session || session;
-        }
-        // Profile row is synced by a database trigger on auth.users.
+        const session = data?.session || null;
         console.info("[auth] signup:success", { email });
-        setAuthState(state, session);
+        if (session) {
+          setAuthState(state, session);
+          clearAuthForm(modal);
+          resetSignupOtpUi(modal, setModalMessage);
+          closeAllModals();
+          reloadAfterAuth(state);
+          consumePostAuthRedirect();
+          return;
+        }
+        setModalMessage(
+          modal,
+          "Account created. Check your email to confirm and then log in.",
+          "success"
+        );
         clearAuthForm(modal);
-        state.pendingSignupEmail = "";
-        resetSignupOtpUi(modal, setModalMessage);
-        closeAllModals();
-        reloadAfterAuth(state);
-        consumePostAuthRedirect();
+        resetSignupOtpUi(modal, setModalMessage, { clearMessage: false });
         return;
       } catch (error) {
         console.error("[auth] signup:error", error);

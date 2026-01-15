@@ -192,7 +192,8 @@
 :root.theme-dark .intake-form select,
 :root.theme-dark .modal__form input,
 :root.theme-dark .modal__form textarea,
-:root.theme-dark .modal__form select {
+:root.theme-dark .modal__form select,
+:root.theme-dark .auth-modal__form input {
   background: #0f131b;
   border-color: rgba(255, 255, 255, 0.14);
   color: #f4f6fa;
@@ -201,7 +202,8 @@
 :root.theme-dark .intake-form input::placeholder,
 :root.theme-dark .intake-form textarea::placeholder,
 :root.theme-dark .modal__form input::placeholder,
-:root.theme-dark .modal__form textarea::placeholder {
+:root.theme-dark .modal__form textarea::placeholder,
+:root.theme-dark .auth-modal__form input::placeholder {
   color: rgba(244, 246, 250, 0.5);
 }
 
@@ -256,6 +258,17 @@
 :root.theme-dark .modal__message.is-success {
   color: #b8f1cc;
   background: rgba(24, 124, 70, 0.25);
+}
+
+:root.theme-dark .settings-status {
+  background: rgba(21, 26, 35, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(244, 246, 250, 0.9);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.35);
+}
+
+:root.theme-dark .settings-status__label {
+  color: rgba(244, 246, 250, 0.65);
 }
 
 :root.theme-dark #news::before {
