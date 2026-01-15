@@ -144,6 +144,21 @@ export function initSettingsPage() {
     status.classList.remove("is-hidden");
   };
 
+  const fillProfileInputs = ({ fullName = "", email = "", phone = "" } = {}) => {
+    const nameInput = form.querySelector('input[name="fullName"]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const phoneInput = form.querySelector('input[name="phone"]');
+    if (nameInput) {
+      nameInput.value = fullName;
+    }
+    if (emailInput) {
+      emailInput.value = email;
+    }
+    if (phoneInput) {
+      phoneInput.value = phone;
+    }
+  };
+
   const syncVisibility = (isLoggedIn) => {
     if (guestCard) {
       guestCard.classList.toggle("is-hidden", isLoggedIn);
@@ -189,18 +204,7 @@ export function initSettingsPage() {
     const fullName = profile?.full_name || user?.user_metadata?.full_name || storedName;
     const phone = profile?.phone || user?.user_metadata?.phone || user?.phone || storedPhone;
     const email = profile?.email || user?.email || storedEmail;
-    const nameInput = form.querySelector('input[name="fullName"]');
-    const emailInput = form.querySelector('input[name="email"]');
-    const phoneInput = form.querySelector('input[name="phone"]');
-    if (nameInput) {
-      nameInput.value = fullName;
-    }
-    if (emailInput) {
-      emailInput.value = email;
-    }
-    if (phoneInput) {
-      phoneInput.value = phone;
-    }
+    fillProfileInputs({ fullName, email, phone });
   };
 
   const updateSessionUi = async () => {
@@ -222,6 +226,15 @@ export function initSettingsPage() {
       return;
     }
     syncVisibility(true);
+    const storedEmail = localStorage.getItem("accountEmail") || "";
+    const storedName = localStorage.getItem("accountName") || "";
+    const storedPhone = localStorage.getItem("accountPhone") || "";
+    const sessionUser = session?.user;
+    fillProfileInputs({
+      fullName: sessionUser?.user_metadata?.full_name || storedName,
+      email: sessionUser?.email || storedEmail,
+      phone: sessionUser?.user_metadata?.phone || sessionUser?.phone || storedPhone
+    });
     hydrateProfile();
   });
 
