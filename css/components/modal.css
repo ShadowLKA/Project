@@ -121,15 +121,7 @@
 .modal .btn {
   height: 48px;
   padding: 0 24px;
-  transition: background-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-  transform: none;
-}
-
-.modal .btn:hover,
-.modal .btn:focus,
-.modal .btn:active {
-  transform: none;
-  box-shadow: none;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
 
 html.user-is-tabbing .modal :focus-visible {
@@ -253,6 +245,18 @@ html.user-is-tabbing .modal :focus-visible {
   background: #ffffff;
   border: 1px solid rgba(12, 27, 42, 0.14);
   color: var(--ink);
+}
+
+.auth-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-btn__icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 
