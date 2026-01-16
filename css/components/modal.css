@@ -57,8 +57,7 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: hidden;
-  overflow-x: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
@@ -86,12 +85,12 @@
 .modal__content {
   display: grid;
   gap: 12px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: visible;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   min-height: 0;
   padding-bottom: max(8px, env(safe-area-inset-bottom));
-  overflow-x: hidden;
 }
 
 .modal__tag {
@@ -233,6 +232,7 @@ html.user-is-tabbing .modal :focus-visible {
 .auth-modal__actions {
   display: grid;
   gap: 10px;
+  padding-inline: 4px;
 }
 
 .auth-btn {
@@ -267,6 +267,7 @@ html.user-is-tabbing .modal :focus-visible {
 .auth-modal__form {
   display: grid;
   gap: 10px;
+  padding-inline: 4px;
 }
 
 .auth-modal__form label {
