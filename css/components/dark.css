@@ -260,6 +260,12 @@
   background: rgba(24, 124, 70, 0.25);
 }
 
+:root.theme-dark .auth-btn--google {
+  background: #f4f6fa;
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #0b0d12;
+}
+
 :root.theme-dark .settings-status {
   background: rgba(21, 26, 35, 0.95);
   border-color: rgba(255, 255, 255, 0.1);
